@@ -34,7 +34,7 @@ const rightButtons = (
 
 const NavBar = () => (
     <AppBar
-      title={<span style={styles.title}>IsItFull</span>}
+      title={<span style={styles.title}>BallerCaller</span>}
       onTitleTouchTap={handleTouchTap}
       iconElementRight={rightButtons}
 	  showMenuIconButton={false}

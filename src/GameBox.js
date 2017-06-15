@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import GameList from './GameList';
 import Paper from 'material-ui/Paper';
 const PropTypes = require('prop-types');
 
@@ -6,7 +7,7 @@ const style = {
     height: 420,
     width: 420,
     marginLeft: 20,
-	marginTop: 20,
+	marginTop: 10,
     textAlign: 'center',
     display: 'inline-block',
 
@@ -53,6 +54,9 @@ class GameBox extends Component {
 	};
 	this.updateMapView = this.updateMapView.bind(this);
   }
+  componentDidMount() {
+	this.updateMapView(this.state.selectedMapView);
+  }
   updateMapView(mapView) {
 	this.setState(function() {
 	  return {
@@ -63,7 +67,9 @@ class GameBox extends Component {
   render() {
 	return (
 	  <div className="game-box">
-		<GameMap />
+	  {this.state.selectedMapView === 'Map' ? 
+	  <GameMap /> :
+	  <GameList /> }
 		<SelectMapView 
 			selectedMapView = {this.state.selectedMapView}
 			onSelect = {this.updateMapView} />

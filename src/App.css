@@ -25,12 +25,14 @@
 
 .game-box {
   float: left; 
-  width: 440px;
+  width: 430px;
 }
 
 .map-views {
     display: flex; 
 	justify-content: center;
+	margin-top: 10px; 
+	margin-bottom: 10px;
 }
 
 .map-views li {
