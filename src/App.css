@@ -22,3 +22,24 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.game-box {
+  float: left; 
+  width: 440px;
+}
+
+.map-views {
+    display: flex; 
+	justify-content: center;
+}
+
+.map-views li {
+    margin: 10px; 
+	font-weight: bold; 
+	cursor: pointer;
+
+}
+
+li {
+  list-style-type: none;
+}
