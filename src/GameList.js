@@ -22,89 +22,83 @@ const iconButtonElement = (
 
 const rightIconMenu = (
     <IconMenu iconButtonElement={iconButtonElement}>
-      <MenuItem>Reply</MenuItem>
-      <MenuItem>Forward</MenuItem>
-      <MenuItem>Delete</MenuItem>
+      <MenuItem>Quick View</MenuItem>
+      <MenuItem>Quick Join</MenuItem>
+      <MenuItem>Message Creator</MenuItem>
     </IconMenu>
-
 );
 
-const ListExampleMessages = () => (
+const GameList = () => (
     <div>
         <List>
-          <Subheader>Today</Subheader>
+        <Subheader>Games Near You:</Subheader>
           <ListItem
-            leftAvatar={<Avatar src="images/ok-128.jpg" />}
+            leftAvatar={<Avatar src="images/jason_face2.png" />}
             rightIconButton={rightIconMenu}
-            primaryText="Brendan Lim"
+            primaryText="Example Address"
   secondaryText={
 	            <p>
-	              <span style={{color: darkBlack}}>Brunch this weekend?</span><br />
-	              I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
+	              <span style={{color: darkBlack}}>Format: 3v3 | Time: 10:00pm | Indoor/Outdoor </span><br />
 	            </p>
 
   }
-            secondaryTextLines={2}
+            secondaryTextLines={1}
           />
           <Divider inset={true} />
           <ListItem
-            leftAvatar={<Avatar src="images/kolage-128.jpg" />}
+            leftAvatar={<Avatar src="images/jason_face2.png" />}
             rightIconButton={rightIconMenu}
-            primaryText="me, Scott, Jennifer"
+            primaryText="Example Address"
   secondaryText={
 	            <p>
-	              <span style={{color: darkBlack}}>Summer BBQ</span><br />
-	              Wish I could come, but I&apos;m out of town this weekend.
+	              <span style={{color: darkBlack}}>Format: 3v3 | Time: 10:00pm | Indoor/Outdoor </span><br />
 	            </p>
 
   }
-            secondaryTextLines={2}
+            secondaryTextLines={1}
           />
           <Divider inset={true} />
           <ListItem
-            leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
+            leftAvatar={<Avatar src="images/jason_face2.png" />}
             rightIconButton={rightIconMenu}
-            primaryText="Grace Ng"
+            primaryText="Example Address"
   secondaryText={
 	            <p>
-	              <span style={{color: darkBlack}}>Oui oui</span><br />
-	              Do you have any Paris recs? Have you ever been?
+	              <span style={{color: darkBlack}}>Format: 3v3 | Time: 10:00pm | Indoor/Outdoor </span><br />
 	            </p>
 
   }
-            secondaryTextLines={2}
+            secondaryTextLines={1}
           />
           <Divider inset={true} />
           <ListItem
-            leftAvatar={<Avatar src="images/kerem-128.jpg" />}
+            leftAvatar={<Avatar src="images/jason_face2.png" />}
             rightIconButton={rightIconMenu}
-            primaryText="Kerem Suer"
+            primaryText="Example Address"
   secondaryText={
 	            <p>
-	              <span style={{color: darkBlack}}>Birthday gift</span><br />
-	              Do you have any ideas what we can get Heidi for her birthday? How about a pony?
+	              <span style={{color: darkBlack}}>Format: 3v3 | Time: 10:00pm | Indoor/Outdoor </span><br />
 	            </p>
 
   }
-            secondaryTextLines={2}
+            secondaryTextLines={1}
           />
           <Divider inset={true} />
           <ListItem
-            leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
+            leftAvatar={<Avatar src="images/jason_face2.png" />}
             rightIconButton={rightIconMenu}
-            primaryText="Raquel Parrado"
+            primaryText="Example Address"
   secondaryText={
 	            <p>
-	              <span style={{color: darkBlack}}>Recipe to try</span><br />
-	              We should eat this: grated squash. Corn and tomatillo tacos.
+	              <span style={{color: darkBlack}}>Format: 3v3 | Time: 10:00pm | Indoor/Outdoor </span><br />
 	            </p>
 
   }
-            secondaryTextLines={2}
+            secondaryTextLines={1}
           />
         </List>
     </div>
 
 );
 
-export default ListExampleMessages;
+export default GameList;
