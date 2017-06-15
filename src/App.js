@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './App.css';
 import NavBar from './NavBar';
+import GameBox from './GameBox';
 const ReactRouter = require('react-router-dom');
 const Router = ReactRouter.BrowserRouter; 
 const Route = ReactRouter.Route; 
@@ -15,6 +16,7 @@ class App extends Component {
 	  <Router>
 		<div className="container">
 			<NavBar />
+			<GameBox /> 
 			<Switch> 
 				<Route exact path='/' />
 			</Switch> 
