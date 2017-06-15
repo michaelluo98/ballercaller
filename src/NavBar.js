@@ -13,21 +13,33 @@ const styles = {
   title: {
 	    cursor: 'pointer',
   },
-
 };
+
+const buttonStyle = {
+      backgroundColor: 'transparent',
+      color: 'white', 
+	  paddingTop: '5px'
+    
+};
+
+const rightButtons = (
+	<NavLink activeClassName='active' to='/'>
+		<div>
+			<FlatButton label="Login" style={buttonStyle}/>
+			<FlatButton label="Signup" style={buttonStyle}/>
+		</div>
+	</NavLink>
+);
+
 
 const NavBar = () => (
     <AppBar
-      title={<span style={styles.title}>Title</span>}
+      title={<span style={styles.title}>IsItFull</span>}
       onTitleTouchTap={handleTouchTap}
-      iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-      iconElementRight={
-		<NavLink activeClassName='active' to='/'>
-			<FlatButton label="Save" secondary={true}/>
-		</NavLink>
-	  }
+      iconElementRight={rightButtons}
+	  showMenuIconButton={false}
     />
-
 );
+
 
 export default NavBar;;
