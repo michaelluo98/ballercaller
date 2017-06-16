@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 
 var searchStyle = {
-  paddingLeft: 20
+  paddingLeft: 5, 
+  width: 400, 
+
 }
 
 export default class Searcher extends Component {
@@ -28,7 +30,7 @@ export default class Searcher extends Component {
 	            dataSource={this.state.dataSource}
 	            onUpdateInput={this.handleUpdateInput}
 	            fullWidth={true}
-				textFieldStyle={searchStyle}
+				style={searchStyle}
 	          />
 	        </div>
 	);
