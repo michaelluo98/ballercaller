@@ -5,8 +5,8 @@ const PropTypes = require('prop-types');
 
 const style = {
     height: 420,
-    width: 420,
-    marginLeft: 20,
+    width: 550,
+    marginLeft: 40,
 	marginTop: 10,
     textAlign: 'center',
     display: 'inline-block',
@@ -14,7 +14,7 @@ const style = {
 };
 
 function SelectMapView(props) {
-  var mapViews = ['Map', 'List']; 
+  var mapViews = ['Map', 'List'];
   return (
 	<ul className="map-views">
 	{mapViews.map(function(mapView) {
@@ -42,7 +42,7 @@ const GameMap = () => (
 
 
 SelectMapView.propTypes = {
-	selectedMapView: PropTypes.string.isRequired,  
+	selectedMapView: PropTypes.string.isRequired,
 	onSelect: PropTypes.func.isRequired
 }
 
@@ -60,23 +60,23 @@ class GameBox extends Component {
   updateMapView(mapView) {
 	this.setState(function() {
 	  return {
-		selectedMapView: mapView 
+		selectedMapView: mapView
 	  }
 	});
   }
   render() {
 	return (
 	  <div className="game-box">
-	  {this.state.selectedMapView === 'Map' ? 
+	  {this.state.selectedMapView === 'Map' ?
 	  <GameMap /> :
 	  <GameList /> }
-		<SelectMapView 
+		<SelectMapView
 			selectedMapView = {this.state.selectedMapView}
 			onSelect = {this.updateMapView} />
 	  </div>
 	)
   }
-} 
+}
 
 
-export default GameBox; 
+export default GameBox;

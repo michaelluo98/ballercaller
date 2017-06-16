@@ -24,20 +24,25 @@
 }
 
 .game-box {
-  float: left; 
-  width: 430px;
+  float: left;
+  width: 580px;
+}
+
+.game-list {
+  margin-left: 20px;
 }
 
 .map-views {
-    display: flex; 
+  display: flex;
 	justify-content: center;
-	margin-top: 10px; 
+	margin-top: 10px;
 	margin-bottom: 10px;
+  padding-left: 60px;
 }
 
 .map-views li {
-    margin: 10px; 
-	font-weight: bold; 
+  margin: 10px;
+	font-weight: bold;
 	cursor: pointer;
 
 }

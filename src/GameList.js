@@ -29,7 +29,7 @@ const rightIconMenu = (
 );
 
 const GameList = () => (
-    <div>
+    <div className="game-list">
         <List>
         <Subheader>Games Near You:</Subheader>
           <ListItem
