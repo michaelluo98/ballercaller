@@ -4,6 +4,7 @@ import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import Searcher from './SearchBar';
 import TimeToPlay from './TimePicker';
+import LocationSearcher from './LocationSearcher';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
@@ -40,7 +41,7 @@ const radioStyles = {
 const firstRowStyles = {
   display: 'flex', 
   flexDirection: 'row',
-  justifyContent: 'space-between'
+  justifyContent: 'space-around'
 }
 
 
@@ -68,6 +69,9 @@ const SearchForm = () => (
 		<div style={firstRowStyles}>
 			<RadioButtonDefault />
 			<TimeToPlay /> 
+	    </div>
+		<div>
+			<LocationSearcher />
 	    </div>
 	  </Paper>
     </div>
