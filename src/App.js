@@ -4,6 +4,7 @@ import './App.css';
 import NavBar from './NavBar';
 import GameBox from './GameBox';
 import SearchForm from './SearchForm';
+import CalendarMessengerTab from './CalendarMessengerTab';
 const ReactRouter = require('react-router-dom');
 const Router = ReactRouter.BrowserRouter; 
 const Route = ReactRouter.Route; 
@@ -22,6 +23,7 @@ class App extends Component {
 			<Switch> 
 				<Route exact path='/' />
 			</Switch> 
+			<CalendarMessengerTab />
 			
 		</div>
 	  </Router>
