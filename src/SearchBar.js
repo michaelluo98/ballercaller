@@ -4,7 +4,6 @@ import AutoComplete from 'material-ui/AutoComplete';
 var searchStyle = {
   paddingLeft: 5, 
   width: 400, 
-
 }
 
 export default class Searcher extends Component {

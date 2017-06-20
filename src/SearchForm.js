@@ -3,9 +3,11 @@ import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import Searcher from './SearchBar';
+import TimeToPlay from './TimePicker';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+import TimePicker from 'material-ui/TimePicker';
 
 
 const style = {
@@ -35,6 +37,13 @@ const radioStyles = {
   },
 };
 
+const firstRowStyles = {
+  display: 'flex', 
+  flexDirection: 'row',
+  justifyContent: 'space-between'
+}
+
+
 const RadioButtonDefault = () => (
   <div>
     <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
@@ -56,8 +65,10 @@ const SearchForm = () => (
     <div>
       <Paper style={style} zDepth={2} rounded={false}>
 		<Searcher />
-    <RadioButtonDefault />
-
+		<div style={firstRowStyles}>
+			<RadioButtonDefault />
+			<TimeToPlay /> 
+	    </div>
 	  </Paper>
     </div>
 );
