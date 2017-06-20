@@ -8,7 +8,7 @@ import SettingMode from './SettingMode';
 import PlayerMode from './PlayerMode';
 
 const style = {
-    height: 200,
+    height: 175,
     width: 470,
     margin: 30,
 	marginLeft: 60,
