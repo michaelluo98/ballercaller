@@ -5,6 +5,7 @@ import Searcher from './SearchBar';
 import TimeToPlay from './TimePicker';
 import LocationSearcher from './LocationSearcher';
 import SettingMode from './SettingMode';
+import PlayerMode from './PlayerMode';
 
 const style = {
     height: 200,
@@ -33,6 +34,7 @@ const SearchForm = () => (
 			<TimeToPlay /> 
 	    </div>
 		<div style={firstRowStyles}>
+			<PlayerMode />
 			<LocationSearcher />
 	    </div>
 	  </Paper>
