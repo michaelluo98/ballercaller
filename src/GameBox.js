@@ -7,9 +7,9 @@ const style = {
     height: 420,
     width: 550,
     marginLeft: 40,
-	marginTop: 10,
+ 	  marginTop: 10,
     textAlign: 'center',
-    display: 'inline-block',
+    display: 'absolute',
 
 };
 

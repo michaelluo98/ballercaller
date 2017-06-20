@@ -11,7 +11,7 @@ const style = {
     height: 175,
     width: 470,
     margin: 30,
-	marginLeft: 60,
+  	marginLeft: 60,
     textAlign: 'center',
     display: 'inline-block',
 };
@@ -26,18 +26,18 @@ const firstRowStyles = {
 const SearchForm = () => (
     <div>
       <Paper style={style} zDepth={2} rounded={false}>
-		<div style={firstRowStyles}>
-			<Searcher />
-	    </div>
-		<div style={firstRowStyles}>
-			<SettingMode />
-			<TimeToPlay /> 
-	    </div>
-		<div style={firstRowStyles}>
-			<PlayerMode />
-			<LocationSearcher />
-	    </div>
-	  </Paper>
+				<div style={firstRowStyles}>
+					<Searcher />
+				</div>
+				<div style={firstRowStyles}>
+					<SettingMode />
+					<TimeToPlay /> 
+				</div>
+				<div style={firstRowStyles}>
+					<PlayerMode />
+					<LocationSearcher />
+				</div>
+			</Paper>
     </div>
 );
 
