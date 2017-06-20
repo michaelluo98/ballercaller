@@ -25,7 +25,7 @@ export default class Searcher extends Component {
 	return (
 	        <div>
 	          <AutoComplete
-	            hintText="Search for a Game By Name"
+	            hintText="Search for a Game"
 	            dataSource={this.state.dataSource}
 	            onUpdateInput={this.handleUpdateInput}
 	            fullWidth={true}

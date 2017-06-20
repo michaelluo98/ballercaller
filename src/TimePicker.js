@@ -8,7 +8,6 @@ const TimeToPlay = () => (
         autoOk={true}
       />
     </div>
-
 );
 
 export default TimeToPlay;

@@ -37,14 +37,13 @@
 	justify-content: center;
 	margin-top: 10px;
 	margin-bottom: 10px;
-  padding-left: 60px;
+	padding-left: 60px;
 }
 
 .map-views li {
   margin: 10px;
 	font-weight: bold;
 	cursor: pointer;
-
 }
 
 li {
