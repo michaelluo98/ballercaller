@@ -10,6 +10,10 @@ const Router = ReactRouter.BrowserRouter;
 const Route = ReactRouter.Route; 
 const Switch = ReactRouter.Switch;
 
+const bottomRight = {
+	marginTop: 350, 
+	paddingTop: 350
+}
 class App extends Component {
 
   render() {
@@ -19,11 +23,11 @@ class App extends Component {
 		<div className="container">
 			<NavBar />
 			<GameBox /> 
-			<SearchForm />
 			<Switch> 
 				<Route exact path='/' />
 			</Switch> 
 			<CalendarMessengerTab />
+			<SearchForm style={bottomRight}/>
 			
 		</div>
 	  </Router>

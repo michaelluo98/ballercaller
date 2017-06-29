@@ -20,7 +20,6 @@ const CalendarMessengerTab = () => (
 			<div>
 				<h1>Test</h1>
 			</div>
-
 		  </Tab>
 	    <Tab
 	      icon={<MapsPersonPin />}

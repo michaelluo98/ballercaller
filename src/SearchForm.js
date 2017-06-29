@@ -14,6 +14,7 @@ const style = {
   	marginLeft: 60,
     textAlign: 'center',
     display: 'inline-block',
+		marginTop: 330
 };
 
 
