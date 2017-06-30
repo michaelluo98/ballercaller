@@ -28,7 +28,6 @@ class App extends Component {
 export default App;
 
 
-
 // const bottomRight = {
 // 	marginTop: 350,
 // 	paddingTop: 350
