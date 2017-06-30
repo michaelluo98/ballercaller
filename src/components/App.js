@@ -1,40 +1,41 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import './App.css';
 import NavBar from './NavBar';
-import GameBox from './GameBox';
-import SearchForm from './SearchForm';
-import CalendarMessengerTab from './CalendarMessengerTab';
-const ReactRouter = require('react-router-dom');
-const Router = ReactRouter.BrowserRouter; 
-const Route = ReactRouter.Route; 
-const Switch = ReactRouter.Switch;
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-const bottomRight = {
-	marginTop: 350, 
-	paddingTop: 350
-}
+import ManageHomePage from './home/ManageHomePage';
+
 class App extends Component {
-
   render() {
     return (
-    <MuiThemeProvider>
-	  <Router>
-		<div className="container">
-			<NavBar />
-			<GameBox /> 
-			<Switch> 
-				<Route exact path='/' />
-			</Switch> 
-			<CalendarMessengerTab />
-			<SearchForm style={bottomRight}/>
-			
-		</div>
-	  </Router>
-
-    </MuiThemeProvider>
+	    <MuiThemeProvider>
+			  <BrowserRouter>
+					<div className="container">
+						<NavBar />
+						<Switch>
+							<Route exact path="/" component={ManageHomePage} />
+							<Route render={() => {
+								return <p>404 ERROR: PAGE NOT FOUND</p>
+							}} />
+						</Switch>
+					</div>
+			  </BrowserRouter>
+	    </MuiThemeProvider>
     );
   }
 }
 
 export default App;
+
+
+
+// const bottomRight = {
+// 	marginTop: 350,
+// 	paddingTop: 350
+// }
+// <GameBox />
+// <Switch>
+// 	<Route exact path='/' />
+// </Switch>
+// <CalendarMessengerTab />
+// <SearchForm style={bottomRight}/>
