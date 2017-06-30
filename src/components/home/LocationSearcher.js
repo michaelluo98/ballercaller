@@ -2,15 +2,15 @@ import React, {Component} from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 
 const cities = [
-    'Burnaby',
-    'Coquitlam',
-    'Surrey',
-    'North Burnaby',
-    'Langley',
-    'Richmond',
-    'New Westminister',
-    'North Vancouver',
-	'East Vancouver', 
+  'Burnaby',
+  'Coquitlam',
+  'Surrey',
+  'North Burnaby',
+  'Langley',
+  'Richmond',
+  'New Westminister',
+  'North Vancouver',
+	'East Vancouver',
 	'West Vancouver'
 ];
 
@@ -29,7 +29,7 @@ export default class LocationSearcher extends Component {
 	            menuProps={menuProps}
 	          />
 	        </div>
-	      
+
 	);
   }
 }
