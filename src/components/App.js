@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import ManageHomePage from './home/ManageHomePage';
+import GamePage from './game/GamePage';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
 						<NavBar />
 						<Switch>
 							<Route exact path="/" component={ManageHomePage} />
+							<Route exact path="/game" component={GamePage} />
 							<Route render={() => {
 								return <p>404 ERROR: PAGE NOT FOUND</p>
 							}} />

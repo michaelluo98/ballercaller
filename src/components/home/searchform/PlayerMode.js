@@ -9,13 +9,13 @@ const styles = {
   },
 };
 
-const lineStyle = {
-  height: 8
-}
-
-const wordStyle = {
-  height: 45
-}
+//const lineStyle = {
+//height: 8
+//}
+//
+//const wordStyle = {
+//height: 45
+//}
 
 export default class PlayerMode extends React.Component {
 

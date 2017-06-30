@@ -10,4 +10,5 @@ function ManageHomePage (props) {
     </div>
   )
 }
+
 export default ManageHomePage;
