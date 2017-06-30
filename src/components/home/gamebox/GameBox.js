@@ -8,17 +8,17 @@ function SelectMapView(props) {
   var mapViews = ['Map', 'List'];
   return (
 	<ul className="map-views">
-	{mapViews.map(function(mapView) {
-	  return (
-		<li
-  		style={mapView === props.selectedMapView ? { color: '#d0021b' } : null}
-  		onClick={props.onSelect.bind(null, mapView)}
-  		key={mapView}>
-  		{mapView}
-		</li>
-	  )
-	  }, this)
-	}
+  	{mapViews.map(function(mapView) {
+  	  return (
+    		<li
+      		style={mapView === props.selectedMapView ? { color: '#d0021b' } : null}
+      		onClick={props.onSelect.bind(null, mapView)}
+      		key={mapView}>
+      		{mapView}
+    		</li>
+  	  )
+  	  }, this)
+  	}
 	</ul>
   )
 }
@@ -36,9 +36,11 @@ class GameBox extends Component {
   	};
   	this.updateMapView = this.updateMapView.bind(this);
   }
+
   componentDidMount() {
   	this.updateMapView(this.state.selectedMapView);
   }
+
   updateMapView(mapView) {
   	this.setState(function() {
   	  return {
@@ -46,6 +48,7 @@ class GameBox extends Component {
   	  }
   	});
   }
+
   render() {
   	return (
   	  <div className="game-box">

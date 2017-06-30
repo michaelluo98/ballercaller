@@ -1,10 +1,10 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
-const NavLink = require('react-router-dom').NavLink;
+import { NavLink } from 'react-router-dom';
 
 function handleTouchTap() {
-    alert('onTouchTap triggered on the title component');
+    alert('cant touch this');
 }
 
 const styles = {
@@ -14,8 +14,8 @@ const styles = {
 };
 
 const buttonStyle = {
-      backgroundColor: 'transparent',
-      color: 'white', 
+    backgroundColor: 'transparent',
+    color: 'white', 
 	  paddingTop: '5px'
     
 };
@@ -35,9 +35,9 @@ const NavBar = () => (
       title={<span style={styles.title}>BallerCaller</span>}
       onTitleTouchTap={handleTouchTap}
       iconElementRight={rightButtons}
-	  showMenuIconButton={false}
+			showMenuIconButton={false}
     />
 );
 
 
-export default NavBar;;
+export default NavBar;

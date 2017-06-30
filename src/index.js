@@ -5,10 +5,16 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import './styles/styles.css';
 import App from './components/App';
+import {loadGames} from './actions/gameActions';
 
 injectTapEventPlugin();
 
+//const initialState = {
+//	games: []
+//}
+
 const store = configureStore();
+store.dispatch(loadGames());
 
 render (
   <Provider store={store}>
