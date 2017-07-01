@@ -12,9 +12,19 @@ const mapStyle = {
 
 };
 
-const GameMap = () => (
+function gameRow(game, index) {
+  return <div key={index}>{game.name}</div>;
+}
+
+const GameMap = ({games}) => (
     <div>
-      <Paper style={mapStyle} zDepth={2} circle={true} />
+      <Paper style={mapStyle} zDepth={2} circle={true}>
+        <div>
+          <h1>Games</h1>
+          {console.log(games)}
+          {games && games.map(gameRow)}
+        </div>
+      </Paper>
     </div>
 );
 

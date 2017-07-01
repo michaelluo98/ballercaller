@@ -10,16 +10,6 @@ export function loadGamesSuccess(games) {
 
 export function loadGames() {
 	return function(dispatch) {
-		return GameApi.getAllGames().then(games => {
-			dispatch(loadGamesSuccess(games));
-		}).catch(error => {
-			throw(error);
-		});
-	}
-}
-
-export function loadGamess() {
-	return function(dispatch) {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`
 		}) 

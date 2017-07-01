@@ -28,25 +28,18 @@ class GameBox extends Component {
   	});
   }
 
-  gameRow(game, index) {
-    return <div key={index}>{game.name}</div>;
-  }
-
   render() {
   	return (
   	  <div className="game-box">
     	  {this.state.selectedMapView === 'Map' ?
     	  <GameMap games={this.props.games}/> :
-    	  <GameList games={this.props.games}/> }
+				<GameList
+					games={this.props.games.slice(0,5)}
+					courts={this.props.courts.slice(0,5)}
+					/> }
     		<SelectMapView
     			selectedMapView = {this.state.selectedMapView}
     			onSelect = {this.updateMapView} />
-
-        <div>
-          <h1>Games</h1>
-          {console.log(this.props.games)}
-          {this.props.games && this.props.games.map(this.gameRow)}
-        </div>
 
   	  </div>
   	)
@@ -54,9 +47,12 @@ class GameBox extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  return {
-    games: state.games.games
-  };
+  const props = {};
+  if (state.games.status === 'success') {
+    props.games = state.games.games
+		props.courts = state.games.courts
+  }
+  return props;
 }
 
 function mapDispatchToProps(dispatch) {

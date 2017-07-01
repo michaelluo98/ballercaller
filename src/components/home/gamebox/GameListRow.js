@@ -26,15 +26,16 @@ const rightIconMenu = (
     </IconMenu>
 );
 
-function GameListRow(props) {
+function GameListRow({name, time, court, mode}) {
+	const intro = `${name} @ ${court}`;
   return (
     <ListItem
       leftAvatar={<Avatar src="images/jason_face2.png" />}
       rightIconButton={rightIconMenu}
-      primaryText="Example Address"
+      primaryText={intro}
       secondaryText={
         <p>
-          <span style={{color: darkBlack}}>Format: 3v3 | Time: 10:00pm | Indoor/Outdoor </span><br />
+					<span style={{color: darkBlack}}>mode: {mode} | Time: {time} </span>
         </p>
       }
       secondaryTextLines={1}
