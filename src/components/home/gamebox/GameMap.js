@@ -3,7 +3,7 @@ import Paper from 'material-ui/Paper';
 import Map from './GoogleMap';
 
 const mapStyle = {
-    height: 420,
+    height: 490,
     width: 550,
     marginLeft: 40,
  	  marginTop: 10,

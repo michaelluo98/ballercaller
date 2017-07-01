@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import { withGoogleMap, GoogleMap, Polygon, Marker } from "react-google-maps";
 import withScriptjs from "react-google-maps/lib/async/withScriptjs";
 
 // Wrap all `react-google-maps` components with `withGoogleMap` HOC
@@ -17,6 +17,7 @@ class Map extends Component {
         {markers.map((marker, index) => (
           <Marker {...marker} />
         ))}
+        <Polygon />
       </GoogleMap>
     )
   }
