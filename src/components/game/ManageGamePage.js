@@ -1,7 +1,9 @@
-import React, {PropTypes} from 'react'; 
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as gameActions from '../../actions/gameActions';
+import GameForm from './GameForm';
+
 
 class ManageGamePage extends React.Component {
 	constructor(props, context) {
@@ -10,7 +12,10 @@ class ManageGamePage extends React.Component {
 
 	render () {
 		return (
-			<h1>Manage Game</h1>
+			<div>
+				<h1>Manage Game</h1>
+				<GameForm />
+			</div>
 		);
 	}
 }
