@@ -1,20 +1,21 @@
 import React, {PropTypes} from 'react'; 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import * as gameActions from '../../actions/gameActions';
 
-class CreateGamePage extends React.Component {
+class ManageGamePage extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 	}
 
 	render () {
 		return (
-
+			<h1>Manage Game</h1>
 		);
 	}
 }
 
-CreateGamePage.propTypes = {
+ManageGamePage.propTypes = {
 
 };
 
@@ -26,8 +27,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		actions: bindActionCreators(actions, dispatch)
+		actions: bindActionCreators(gameActions, dispatch)
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateGamePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageGamePage);
