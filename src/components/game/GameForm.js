@@ -1,6 +1,9 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
 import TextInput from './TextInput';
+import ToggleButton from './ToggleButton';
+import TimeInput from './TimePicker';
+import DateInput from './DateInput';
 
 const style = {
   height: 300,
@@ -8,23 +11,30 @@ const style = {
   margin: 20,
   position: 'fixed',
   bottom: '20px',
+  formStyle: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  textStyle: {
+    padding: '8px'
+  },
+  dateTimeStyle: {
+    display: 'flex',
+    justifyContent: 'space-around'
+  }
 };
 
-const formStyle = {
-  display: 'flex',
-  justifyContent: 'center'
-}
-
-const textStyle = {
-  padding: '8px'
-}
 
 const GameForm = () => (
-  <div style={formStyle}>
+  <div style={style.formStyle}>
     <Paper style={style} zDepth={2} rounded={false}>
-      <div style={textStyle}>
+      <div style={style.textStyle}>
         <TextInput multiline="false" />
-        
+        <div style={style.dateTimeStyle}>
+          <DateInput />
+          <TimeInput />
+        </div>
+        <ToggleButton />
         <TextInput multiline="true" />
       </div>
     </Paper>
