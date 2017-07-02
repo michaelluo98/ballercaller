@@ -7,14 +7,26 @@ import DateInput from './DateInput';
 import DropDown from './DropDown';
 
 const style = {
-  height: 300,
+  height: 305 ,
   width: 250,
-  margin: 20,
+  marginBottom: 20,
+  padding: 0,
   position: 'fixed',
   bottom: '20px',
+  border: '5px solid black',
+  keyCircle: {
+    width: '240px',
+    height: '120px', /* as the half of the width */
+    borderTopLeftRadius: '100px',
+    borderTopRightRadius: '100px',
+    border: '5px solid black',
+    borderBottom: 0,
+    position: 'fixed',
+    bottom: '50%'
+  },
   formStyle: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   textStyle: {
     padding: '8px'
@@ -28,6 +40,7 @@ const style = {
 
 const GameForm = () => (
   <div style={style.formStyle}>
+  	<div style={style.keyCircle}></div>
     <Paper style={style} zDepth={2} rounded={false}>
       <div style={style.textStyle}>
         <TextInput multiline="false" />
