@@ -4,6 +4,19 @@ import {bindActionCreators} from 'redux';
 import * as gameActions from '../../actions/gameActions';
 import GameForm from './GameForm';
 
+const styles = {
+	threePointLine: {
+		width: '1000px',
+		height: '450px', /* as the half of the width */
+		borderTopLeftRadius: '450px',
+		borderTopRightRadius: '450px',
+		border: '5px solid black',
+		borderBottom: 0,
+		position: 'fixed',
+		bottom: '40px',
+		left: '75px'
+	}
+}
 
 class ManageGamePage extends React.Component {
 	constructor(props, context) {
@@ -13,8 +26,8 @@ class ManageGamePage extends React.Component {
 	render () {
 		return (
 			<div>
-				<h1>Manage Game</h1>
 				<GameForm />
+				<div style={styles.threePointLine}></div>
 			</div>
 		);
 	}
