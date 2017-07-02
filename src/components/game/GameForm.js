@@ -4,6 +4,7 @@ import TextInput from './TextInput';
 import ToggleButton from './ToggleButton';
 import TimeInput from './TimePicker';
 import DateInput from './DateInput';
+import DropDown from './DropDown';
 
 const style = {
   height: 300,
@@ -34,6 +35,7 @@ const GameForm = () => (
           <DateInput />
           <TimeInput />
         </div>
+        <DropDown />
         <ToggleButton />
         <TextInput multiline="true" />
       </div>
