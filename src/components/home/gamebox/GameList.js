@@ -6,7 +6,7 @@ import GameListRow from './GameListRow';
 const GameList = ({games, courts}) => (
     <div className="game-list">
         <List>
-        <Subheader>Games Near You:</Subheader>
+					<Subheader> Games Near You: </Subheader>
 				{games.map((game, index) => {
 					return <GameListRow 
 										key={game.id}
