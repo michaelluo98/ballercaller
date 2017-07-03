@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as gameActions from '../../actions/gameActions';
 import GameForm from './GameForm';
+import AddPlayerButtons from './AddPlayerButtons';
 
 const styles = {
 	threePointLine: {
@@ -15,6 +16,11 @@ const styles = {
 		position: 'fixed',
 		bottom: '40px',
 		left: '75px'
+	},
+	test: {
+		border: '5px solid black',
+		position: 'fixed',
+		left: '50%'
 	}
 }
 
@@ -26,8 +32,10 @@ class ManageGamePage extends React.Component {
 	render () {
 		return (
 			<div>
+				<div style={styles.test}></div>
 				<GameForm />
 				<div style={styles.threePointLine}></div>
+				<AddPlayerButtons />
 			</div>
 		);
 	}
