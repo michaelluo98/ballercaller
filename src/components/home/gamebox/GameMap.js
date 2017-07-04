@@ -13,14 +13,11 @@ const mapStyle = {
 };
 
 
-function gameRow(game, index) {
-  return <div key={index}>{game.name}</div>;
-}
+//function gameRow(game, index) {
+//return <div key={index}>{game.name}</div>;
+//}
 
 class GameMap extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (

@@ -5,7 +5,6 @@ import SelectMapView from './SelectMapView';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as gameActions from '../../../actions/gameActions';
-import PropTypes from 'prop-types';
 
 class GameBox extends Component {
   constructor(props, context) {

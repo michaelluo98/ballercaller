@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 
 function TextInput({multiline}) {
-  const field = multiline == 'false' ?
+  const field = multiline === 'false' ?
     <TextField hintText="Game Name" fullWidth={true} /> :
     <TextField
       hintText="Extra Info"

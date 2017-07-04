@@ -5,9 +5,6 @@ import * as gameActions from '../../actions/gameActions';
 import PropTypes from 'prop-types';
 
 class GamePage extends React.Component {
-	constructor(props, context) {
-		super(props, context); 
-	}
 
 	gameRow(game, index) {
 		return <div key={index}>{game.name}</div>;

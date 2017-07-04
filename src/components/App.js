@@ -4,7 +4,6 @@ import NavBar from './NavBar';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import ManageHomePage from './home/ManageHomePage';
-import GamePage from './game/GamePage';
 import ManageGamePage from './game/ManageGamePage';
 
 class App extends Component {
