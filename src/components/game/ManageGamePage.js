@@ -32,10 +32,17 @@ class ManageGamePage extends React.Component {
 		this.saveGame = this.saveGame.bind(this);
 	}
 
-	updateGameState(event) {
-		const field = event.target.name; 
+	updateGameState(event, name='', value = 0) {
 		let game = this.state.game;
-		game[field] = event.target.value; 
+		console.log('inside updateGameState', name);
+		console.log('inside updateGameState', value);
+		if (name === '' && value === 0) {
+			const field = event.target.name; 
+			game[field] = event.target.value; 
+		}
+		else {
+			game[name] = value;
+		}
 		return this.setState({game: game});
 	}
 
@@ -64,8 +71,8 @@ ManageGamePage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-	let game = {id: '', game_mod_id: '', name: '', mode: '', start_time: '', 
-							extra_info: '', status: '', court_id: ''};
+	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '', 
+							extra_info: '', court_id: '', setting: 'false'};
 	return {
 		game: game
 	};

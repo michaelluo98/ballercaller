@@ -12,10 +12,18 @@ export default class DropDown extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {value: 1};
+		this.state = {
+			value: "threes", 
+			name: 'mode'
+		};
   }
 
-  handleChange = (event, index, value) => this.setState({value});
+	handleChange = (event, index, value) => {
+		console.log('value:', value);
+		this.setState({value});
+		console.log(this.state.value);
+		this.props.onChange(event, this.state.name, value);
+	}
 
   render() {
     return (
@@ -27,9 +35,9 @@ export default class DropDown extends React.Component {
           autoWidth={false}
 					name="mode"
         >
-          <MenuItem value={1} primaryText="3 v 3" />
-          <MenuItem value={2} primaryText="4 v 4" />
-          <MenuItem value={3} primaryText="5 v 5" />
+          <MenuItem value={"threes"} primaryText="3 v 3" />
+          <MenuItem value={"fours"} primaryText="4 v 4" />
+          <MenuItem value={"fives"} primaryText="5 v 5" />
         </DropDownMenu>
       </div>
     );

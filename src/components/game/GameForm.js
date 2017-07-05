@@ -7,12 +7,15 @@ import DropDown from './DropDown';
 import styles from '../styles/gameStyles';
 
 const inputStyle = {
-	position: 'fixed', 
-	bottom: '50%', 
-	left: '48%', 
+	//position: 'fixed', 
+	//bottom: '50%', 
+	//left: '48%', 
 	borderRadius: '100px', 
 	width: '50px', 
-	height: '50px'
+	height: '50px', 
+	display: 'inline', 
+	float: 'right', 
+	marginRight: '20px'
 }
 
 const GameForm = ({onChange, onSave}) => (
@@ -29,8 +32,8 @@ const GameForm = ({onChange, onSave}) => (
         <TimeInput onChange={onChange}/>
       </div>
       <DropDown onChange={onChange}/>
-      <ToggleButton onChange={onChange}/>
       <TextInput multiline="true" onChange={onChange}/>
+      <ToggleButton onChange={onChange}/>
 			<input 
 				type="submit"
 				style={inputStyle}

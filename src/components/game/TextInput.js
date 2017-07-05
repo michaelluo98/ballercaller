@@ -19,7 +19,7 @@ function TextInput({multiline, onChange}) {
       hintText="Extra Info"
       fullWidth={true}
       multiLine={true}
-      rows={3}
+      rows={2}
       rowsMax={5}
 			inputStyle={styles}
 			hintStyle={styles}
