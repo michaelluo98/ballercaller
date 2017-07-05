@@ -7,7 +7,9 @@ const styles = {
     paddingTop: '5px'
   },
   toggle: {
-    marginBottom: 16,
+		marginBottom: 16,
+		display: 'flex', 
+		justifyContent: 'center'
   }
 };
 

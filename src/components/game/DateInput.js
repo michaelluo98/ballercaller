@@ -7,7 +7,11 @@ const style = {
 
 const DateInput = () => (
   <div style={{width: '100%'}}>
-    <DatePicker hintText="Date" mode="portrait" textFieldStyle={style} />
+		<DatePicker 
+			hintText="Date" 
+			mode="portrait" 
+			textFieldStyle={style} 
+			hintStyle={{paddingLeft: '5px'}}/>
   </div>
 );
 

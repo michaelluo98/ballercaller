@@ -12,6 +12,7 @@ const TimeInput = () => (
       autoOk={true}
       minutesStep={15}
       textFieldStyle={style}
+			hintStyle={{paddingLeft: '5px'}}
     />
   </div>
 );

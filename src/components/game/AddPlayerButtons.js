@@ -10,22 +10,22 @@ function addPlayerButtons() {
       <AddPlayerButton secondary="true"
         positionStyle={{position: 'fixed', left: '15px', bottom: '40px'}} />
       <AddPlayerButton secondary="true"
-        positionStyle={{position: 'fixed', left: '85px', bottom: '300px'}}/>
+        positionStyle={{position: 'fixed', left: '115px', bottom: '310px'}}/>
       <AddPlayerButton secondary="true"
-        positionStyle={{position: 'fixed', left: '48%', bottom: '79%'}}/>
+        positionStyle={{position: 'fixed', left: '48%', bottom: '78%'}}/>
       <AddPlayerButton secondary="true"
-        positionStyle={{position: 'fixed', right: '85px', bottom: '300px'}}/>
+        positionStyle={{position: 'fixed', right: '115px', bottom: '310px'}}/>
       <AddPlayerButton secondary="true"
         positionStyle={{position: 'fixed', right: '15px', bottom: '40px'}}/>
 
       <AddPlayerButton
         positionStyle={{position: 'fixed', left: '90px', bottom: '40px'}}/>
       <AddPlayerButton
-        positionStyle={{position: 'fixed', left: '160px', bottom: '250px'}}/>
+        positionStyle={{position: 'fixed', left: '190px', bottom: '270px'}}/>
       <AddPlayerButton
-        positionStyle={{position: 'fixed', left: '48%', bottom: '68%'}}/>
+        positionStyle={{position: 'fixed', left: '48%', bottom: '66%'}}/>
       <AddPlayerButton
-        positionStyle={{position: 'fixed', right: '160px', bottom: '250px'}}/>
+        positionStyle={{position: 'fixed', right: '190px', bottom: '270px'}}/>
       <AddPlayerButton
         positionStyle={{position: 'fixed', right: '90px', bottom: '40px'}}/>
     </div>

@@ -6,23 +6,28 @@ import TimeInput from './TimePicker';
 import DateInput from './DateInput';
 import DropDown from './DropDown';
 
-const style = {
-  height: 305 ,
-  width: 250,
-  marginBottom: 20,
-  padding: 0,
-  position: 'fixed',
-  bottom: '20px',
-  border: '5px solid black',
+const styles = {
+	mainStyle: {
+		height: 305 ,
+		width: 250,
+		padding: 0,
+		position: 'fixed',
+		bottom: '0px',
+		border: '5px solid black',
+		display: 'flex', 
+		justifyContent: 'center', 
+		left: '39%', 
+		zIndex: '100'
+	},
   keyCircle: {
-    width: '240px',
+    width: '250px',
     height: '120px', /* as the half of the width */
     borderTopLeftRadius: '100px',
     borderTopRightRadius: '100px',
     border: '5px solid black',
     borderBottom: 0,
     position: 'fixed',
-    bottom: '50%'
+    bottom: '44%'
   },
   formStyle: {
     display: 'flex',
@@ -37,22 +42,19 @@ const style = {
   }
 };
 
-
 const GameForm = () => (
-  <div style={style.formStyle}>
-  	<div style={style.keyCircle}></div>
-    <Paper style={style} zDepth={2} rounded={false}>
-      <div style={style.textStyle}>
-        <TextInput multiline="false" />
-        <div style={style.dateTimeStyle}>
-          <DateInput />
-          <TimeInput />
-        </div>
-        <DropDown />
-        <ToggleButton />
-        <TextInput multiline="true" />
+  <div style={styles.mainStyle}>
+  	<div style={styles.keyCircle}></div>
+    <div style={styles.textStyle}>
+      <TextInput multiline="false" inputStyle={{paddingLeft: '5px'}} hintStyle={{paddingLeft: '10px'}}/>
+      <div style={styles.dateTimeStyle}>
+        <DateInput />
+        <TimeInput />
       </div>
-    </Paper>
+      <DropDown />
+      <ToggleButton />
+      <TextInput multiline="true" />
+    </div>
   </div>
 );
 

@@ -9,27 +9,22 @@ import AddPlayerButtons from './AddPlayerButtons';
 const styles = {
 	threePointLine: {
 		width: '1000px',
-		height: '450px', /* as the half of the width */
+		height: '480px', /* as the half of the width */
 		borderTopLeftRadius: '450px',
 		borderTopRightRadius: '450px',
 		border: '5px solid black',
 		borderBottom: 0,
 		position: 'fixed',
-		bottom: '40px',
+		bottom: '0px',
 		left: '75px'
 	},
-	test: {
-		border: '5px solid black',
-		position: 'fixed',
-		left: '50%'
-	}
 }
+//<div style={styles.test}></div>
 
 class ManageGamePage extends React.Component {
 	render () {
 		return (
 			<div>
-				<div style={styles.test}></div>
 				<GameForm />
 				<div style={styles.threePointLine}></div>
 				<AddPlayerButtons />
