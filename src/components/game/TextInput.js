@@ -5,13 +5,15 @@ const styles = {
 	paddingLeft: '5px'
 }				
 
-function TextInput({multiline}) {
+function TextInput({multiline, onChange}) {
   const field = multiline === 'false' ?
 		<TextField
 			hintText="Game Name" 
 			fullWidth={true}
 			inputStyle={styles}
 			hintStyle={styles}
+			name="name"
+			onChange={onChange}
 			/> :
     <TextField
       hintText="Extra Info"
@@ -21,6 +23,8 @@ function TextInput({multiline}) {
       rowsMax={5}
 			inputStyle={styles}
 			hintStyle={styles}
+			name="extra_info"
+			onChange={onChange}
     />
   return (
     <div>

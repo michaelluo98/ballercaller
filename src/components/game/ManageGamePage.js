@@ -19,13 +19,39 @@ const styles = {
 		left: '75px'
 	},
 }
-//<div style={styles.test}></div>
 
 class ManageGamePage extends React.Component {
+	constructor(props, context) {
+		super(props, context); 
+
+		this.state = {
+			game: Object.assign({}, this.props.game), 
+			errors: {}
+		}
+		this.updateGameState = this.updateGameState.bind(this);
+		this.saveGame = this.saveGame.bind(this);
+	}
+
+	updateGameState(event) {
+		const field = event.target.name; 
+		let game = this.state.game;
+		game[field] = event.target.value; 
+		return this.setState({game: game});
+	}
+
+	saveGame(event) {
+		event.preventDefault(); 
+		this.props.actions.saveGame(this.state.game);
+	}
+
 	render () {
 		return (
 			<div>
-				<GameForm />
+				<GameForm 
+					game={this.state.game} 
+					errors={this.state.game}
+					onSave={this.saveGame}
+					onChange={this.updateGameState}/>
 				<div style={styles.threePointLine}></div>
 				<AddPlayerButtons />
 			</div>
@@ -38,8 +64,10 @@ ManageGamePage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
+	let game = {id: '', game_mod_id: '', name: '', mode: '', start_time: '', 
+							extra_info: '', status: '', court_id: ''};
 	return {
-		state: state
+		game: game
 	};
 }
 

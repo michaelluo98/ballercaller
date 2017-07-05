@@ -1,60 +1,42 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
 import TextInput from './TextInput';
 import ToggleButton from './ToggleButton';
 import TimeInput from './TimePicker';
 import DateInput from './DateInput';
 import DropDown from './DropDown';
+import styles from '../styles/gameStyles';
 
-const styles = {
-	mainStyle: {
-		height: 305 ,
-		width: 250,
-		padding: 0,
-		position: 'fixed',
-		bottom: '0px',
-		border: '5px solid black',
-		display: 'flex', 
-		justifyContent: 'center', 
-		left: '39%', 
-		zIndex: '100'
-	},
-  keyCircle: {
-    width: '250px',
-    height: '120px', /* as the half of the width */
-    borderTopLeftRadius: '100px',
-    borderTopRightRadius: '100px',
-    border: '5px solid black',
-    borderBottom: 0,
-    position: 'fixed',
-    bottom: '44%'
-  },
-  formStyle: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  textStyle: {
-    padding: '8px'
-  },
-  dateTimeStyle: {
-    display: 'flex',
-    justifyContent: 'space-around'
-  }
-};
+const inputStyle = {
+	position: 'fixed', 
+	bottom: '50%', 
+	left: '48%', 
+	borderRadius: '100px', 
+	width: '50px', 
+	height: '50px'
+}
 
-const GameForm = () => (
+const GameForm = ({onChange, onSave}) => (
   <div style={styles.mainStyle}>
   	<div style={styles.keyCircle}></div>
-    <div style={styles.textStyle}>
-      <TextInput multiline="false" inputStyle={{paddingLeft: '5px'}} hintStyle={{paddingLeft: '10px'}}/>
+    <form onSubmit={onSave} style={styles.textStyle}>
+			<TextInput 
+				multiline="false"
+				inputStyle={{paddingLeft: '5px'}} 
+				hintStyle={{paddingLeft: '10px'}}
+				onChange={onChange}/>
       <div style={styles.dateTimeStyle}>
-        <DateInput />
-        <TimeInput />
+        <DateInput onChange={onChange}/>
+        <TimeInput onChange={onChange}/>
       </div>
-      <DropDown />
-      <ToggleButton />
-      <TextInput multiline="true" />
-    </div>
+      <DropDown onChange={onChange}/>
+      <ToggleButton onChange={onChange}/>
+      <TextInput multiline="true" onChange={onChange}/>
+			<input 
+				type="submit"
+				style={inputStyle}
+				onClick={onSave}
+			/>
+    </form>
   </div>
 );
 

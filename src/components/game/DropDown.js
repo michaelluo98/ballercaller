@@ -25,6 +25,7 @@ export default class DropDown extends React.Component {
           onChange={this.handleChange}
           style={styles.customWidth}
           autoWidth={false}
+					name="mode"
         >
           <MenuItem value={1} primaryText="3 v 3" />
           <MenuItem value={2} primaryText="4 v 4" />

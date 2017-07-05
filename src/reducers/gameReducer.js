@@ -4,6 +4,12 @@ export default function gameReducer(state = [], action) {
 		case types.LOAD_GAMES_SUCCESS:
 			return action.games;
 
+		case types.CREATE_GAME_SUCCESS: 
+			return [
+				...state, 
+				Object.assign({}, action.game)
+			];
+
 		default: 
 			return state;
 	}
