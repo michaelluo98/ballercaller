@@ -6,7 +6,7 @@ const mapStyle = {
     height: 490,
     width: 550,
     marginLeft: 40,
- 	  marginTop: 10,
+ 	  marginTop: '10',
     textAlign: 'center',
     display: 'absolute',
 

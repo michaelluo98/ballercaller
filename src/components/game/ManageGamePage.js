@@ -22,11 +22,11 @@ const styles = {
 
 class ManageGamePage extends React.Component {
 	constructor(props, context) {
-		super(props, context); 
+		super(props, context);
 
 		this.state = {
-			game: Object.assign({}, this.props.game), 
-			errors: {}
+			game: Object.assign({}, this.props.game),
+			errors: {}, 
 		}
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
@@ -34,28 +34,40 @@ class ManageGamePage extends React.Component {
 
 	updateGameState(event, name='', value = 0) {
 		let game = this.state.game;
-		console.log('inside updateGameState', name);
-		console.log('inside updateGameState', value);
+		//console.log('inside updateGameState', event.target.name);
+		//console.log('inside updateGameState', event.target.value);
 		if (name === '' && value === 0) {
-			const field = event.target.name; 
-			game[field] = event.target.value; 
+			const field = event.target.name;
+			game[field] = event.target.value;
+		}
+		else if (name.class === undefined) {
+			const time = name.toString().slice(16,24);
+			if (time === '00:00:00') {
+				game['start_time'] = name.toString().slice(0,15);
+			}
+			else {
+				console.log(time);
+				console.log(name)
+				game['start_time'] = game['start_time'].concat(name.toString().slice(15));
+			}
 		}
 		else {
 			game[name] = value;
 		}
+		console.log(game);
 		return this.setState({game: game});
 	}
 
 	saveGame(event) {
-		event.preventDefault(); 
+		event.preventDefault();
 		this.props.actions.saveGame(this.state.game);
 	}
 
 	render () {
 		return (
 			<div>
-				<GameForm 
-					game={this.state.game} 
+				<GameForm
+					game={this.state.game}
 					errors={this.state.game}
 					onSave={this.saveGame}
 					onChange={this.updateGameState}/>
@@ -71,7 +83,7 @@ ManageGamePage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '', 
+	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '',
 							extra_info: '', court_id: '', setting: 'false'};
 	return {
 		game: game

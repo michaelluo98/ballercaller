@@ -7,14 +7,14 @@ import DropDown from './DropDown';
 import styles from '../styles/gameStyles';
 
 const inputStyle = {
-	//position: 'fixed', 
-	//bottom: '50%', 
-	//left: '48%', 
-	borderRadius: '100px', 
-	width: '50px', 
-	height: '50px', 
-	display: 'inline', 
-	float: 'right', 
+	//position: 'fixed',
+	//bottom: '50%',
+	//left: '48%',
+	borderRadius: '100px',
+	width: '50px',
+	height: '50px',
+	display: 'inline',
+	float: 'right',
 	marginRight: '20px'
 }
 
@@ -22,9 +22,9 @@ const GameForm = ({onChange, onSave}) => (
   <div style={styles.mainStyle}>
   	<div style={styles.keyCircle}></div>
     <form onSubmit={onSave} style={styles.textStyle}>
-			<TextInput 
+			<TextInput
 				multiline="false"
-				inputStyle={{paddingLeft: '5px'}} 
+				inputStyle={{paddingLeft: '5px'}}
 				hintStyle={{paddingLeft: '10px'}}
 				onChange={onChange}/>
       <div style={styles.dateTimeStyle}>
@@ -32,9 +32,10 @@ const GameForm = ({onChange, onSave}) => (
         <TimeInput onChange={onChange}/>
       </div>
       <DropDown onChange={onChange}/>
+			<DropDown onChange={onChange}/>
       <TextInput multiline="true" onChange={onChange}/>
       <ToggleButton onChange={onChange}/>
-			<input 
+			<input
 				type="submit"
 				style={inputStyle}
 				onClick={onSave}

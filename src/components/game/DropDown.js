@@ -4,8 +4,13 @@ import MenuItem from 'material-ui/MenuItem';
 
 const styles = {
   customWidth: {
-    width: '250px',
+		width: '250px',
+		height: '40px'
   },
+	height: {
+		height: '40px', 
+		lineHeight: '40px'
+	},
 };
 
 export default class DropDown extends React.Component {
@@ -32,6 +37,7 @@ export default class DropDown extends React.Component {
           value={this.state.value}
           onChange={this.handleChange}
           style={styles.customWidth}
+					labelStyle={styles.height}
           autoWidth={false}
 					name="mode"
         >

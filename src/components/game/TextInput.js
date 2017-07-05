@@ -2,7 +2,10 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 
 const styles = {
-	paddingLeft: '5px'
+	paddingLeft: '5px',
+	mainStyle: {
+		height: '40px'
+	}
 }				
 
 function TextInput({multiline, onChange}) {
@@ -14,17 +17,20 @@ function TextInput({multiline, onChange}) {
 			hintStyle={styles}
 			name="name"
 			onChange={onChange}
+			style={styles.mainStyle}
 			/> :
     <TextField
       hintText="Extra Info"
       fullWidth={true}
       multiLine={true}
       rows={2}
-      rowsMax={5}
+      rowsMax={2}
 			inputStyle={styles}
 			hintStyle={styles}
 			name="extra_info"
 			onChange={onChange}
+			textareaStyle={{marginTop: '10'}}
+			style={{height: '80%'}}
     />
   return (
     <div>

@@ -4,14 +4,14 @@ import Toggle from 'material-ui/Toggle';
 const styles = {
   block: {
     maxWidth: 250,
-		paddingTop: '5px', 
-		width: '60%', 
+		paddingTop: '5px',
+		width: '60%',
 		display: 'inline'
   },
   toggle: {
-		marginTop: 15,
-		display: 'flex', 
-		justifyContent: 'center', 
+		marginTop: '15',
+		display: 'flex',
+		justifyContent: 'center',
 		width: '60%',
 		float: 'left',
   }

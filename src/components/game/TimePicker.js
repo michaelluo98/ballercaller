@@ -3,9 +3,10 @@ import TimePicker from 'material-ui/TimePicker';
 
 const style = {
   width: '90%',
+	height: '40px'
 }
 
-const TimeInput = () => (
+const TimeInput = ({onChange}) => (
   <div style={{width: '100%'}}>
     <TimePicker
       hintText="Time"
@@ -13,6 +14,7 @@ const TimeInput = () => (
       minutesStep={15}
       textFieldStyle={style}
 			hintStyle={{paddingLeft: '5px'}}
+			onChange={onChange}
     />
   </div>
 );
