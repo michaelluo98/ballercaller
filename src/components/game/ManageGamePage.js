@@ -36,11 +36,11 @@ class ManageGamePage extends React.Component {
 		let game = this.state.game;
 		//console.log('inside updateGameState', event.target.name);
 		//console.log('inside updateGameState', event.target.value);
-		if (name === '' && value === 0) {
+		if (value === 0 && typeof(name) === 'string') {
 			const field = event.target.name;
 			game[field] = event.target.value;
 		}
-		else if (name.class === undefined) {
+		else if (typeof(name) === "object") {
 			const time = name.toString().slice(16,24);
 			if (time === '00:00:00') {
 				game['start_time'] = name.toString().slice(0,15);
