@@ -18,7 +18,7 @@ export default class LocationInput extends Component {
   constructor(props) {
     super(props);
 		this.state = {
-			value: "",
+			value: 1,
 		};
     this.renderLocations = this.renderLocations.bind(this);
   }
@@ -31,8 +31,8 @@ export default class LocationInput extends Component {
 	}
 
   renderLocations() {
-    return this.props.courts.map((court) => {
-      return <MenuItem value={court.id} primaryText={court.name}/>
+    return this.props.courts.map((court, index) => {
+      return <MenuItem key={index} value={court.id} primaryText={court.name}/>
     })
   }
 
@@ -40,18 +40,13 @@ export default class LocationInput extends Component {
     return (
       <div>
         <DropDownMenu
-          value={
-            this.props.courts[0] !== undefined ?
-            this.props.courts[0].id :
-            '0'
-          }
+          value={this.state.value}
           onChange={this.handleChange}
           style={styles.customWidth}
 					labelStyle={styles.height}
           autoWidth={false}
-					name="mode"
+					name="court_id"
         >
-        {console.log(this.props.courts[0])}
         {this.renderLocations()}
         </DropDownMenu>
       </div>
