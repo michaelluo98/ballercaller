@@ -7,10 +7,6 @@ export function loadGamesSuccess(games) {
 	return { type: types.LOAD_GAMES_SUCCESS, games };
 }
 
-export function loadGameSuccess(game) {
-	return { type: types.LOAD_GAME_SUCCESS, game };
-}
-
 export function createGameSuccess(game) {
 	return { type: types.CREATE_GAME_SUCCESS, game };
 }
@@ -32,17 +28,6 @@ export function loadGames() {
 	}
 }
 
-export function loadGame(id) {
-	return function(dispatch) {
-		const headers = new Headers({
-			'Authorization':`Apikey ${API_KEY}`
-		})
-		fetch(`${BASE_URL}/game/${id}`, {headers})
-			.then(res => res.json()).then(res => {
-				dispatch(loadGameSuccess(res));
-			});
-	}
-}
 export function saveGame(game) {
 	// console.log(game);
 	return function(dispatch) {

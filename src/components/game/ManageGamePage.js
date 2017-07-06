@@ -68,7 +68,8 @@ class ManageGamePage extends React.Component {
 	render () {
 		return (
 			<div>
-				{this.props.showGame ?
+				{console.log(this.props.showGame === {})}
+				{this.props.showGame.name ?
 						<h1>SHOW GAME</h1> :
 						<GameForm
 							game={this.state.game}
