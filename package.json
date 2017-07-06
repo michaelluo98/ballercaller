@@ -17,7 +17,9 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "react-scripts": "1.0.7"
+    "react-scripts": "1.0.7",
+    "reactotron-react-js": "^1.11.1",
+    "reactotron-redux": "^1.11.2"
   },
   "scripts": {
     "start": "PORT=3005 react-scripts start",

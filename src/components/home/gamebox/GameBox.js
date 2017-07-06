@@ -31,7 +31,7 @@ class GameBox extends Component {
   	return (
   	  <div className="game-box">
     	  {this.state.selectedMapView === 'Map' ?
-				<GameMap 
+				<GameMap
 					games={this.props.games}
 					courts={this.props.courts}
 				/> :
@@ -49,12 +49,10 @@ class GameBox extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  const props = {};
-  if (state.games.status === 'success') {
-    props.games = state.games.games
-		props.courts = state.games.courts
-  }
-  return props;
+  const {games, courts} = state.games
+  return {
+    games, courts
+  };
 }
 
 function mapDispatchToProps(dispatch) {

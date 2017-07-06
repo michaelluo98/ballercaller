@@ -15,6 +15,7 @@ const mapStyle = {
 class GameMap extends Component {
 	constructor(props) {
 		super(props);
+    this.renderMarkers = this.renderMarkers.bind(this)
 
 		this.state = {
 			courts: []
@@ -39,10 +40,8 @@ class GameMap extends Component {
 	// 	}
 	// }
 
-  render() {
-    let markers = [];
-    if (this.props.courts !== undefined) {
-      markers = this.props.courts.map((court, index) => {
+  renderMarkers() {
+    return this.props.courts.map((court, index) => {
       let location = {};
       let coordinates = {};
       coordinates.lat = court.latitude;
@@ -53,10 +52,11 @@ class GameMap extends Component {
       location.defaultAnimation = 2;
       // console.log('court', index, court.name, court.longitude, court.latitude);
       return location;
-      })
-      // console.log(markers);
-      // this.setState({courts: markers});
-    }
+    })
+  }
+
+  render() {
+
     return (
       <div>
         <Map
@@ -66,13 +66,14 @@ class GameMap extends Component {
             </div>
           }
 					center={{ lat: 49.2564956, lng: -123.105743 }}
-          markers={markers}
+          markers={this.renderMarkers()}
           containerElement={<Paper style={mapStyle} zDepth={2} circle={true} />}
-          mapElement={<div style={{ height: `100%`, borderRadius: '50%' }}></div>}
+          mapElement={<div
+                      style={{ height: `100%`, borderRadius: '50%' }}>
+                      </div>}
         />
       </div>
     )
-    {console.log(markers)}
   }
 }
 
