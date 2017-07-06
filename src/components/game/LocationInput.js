@@ -19,6 +19,7 @@ export default class LocationInput extends Component {
     super(props);
 		this.state = {
 			value: 1,
+			name: 'court_id'
 		};
     this.renderLocations = this.renderLocations.bind(this);
   }

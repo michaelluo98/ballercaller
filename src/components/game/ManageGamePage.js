@@ -34,8 +34,12 @@ class ManageGamePage extends React.Component {
 
 	updateGameState(event, name='', value = 0) {
 		let game = this.state.game;
-		//console.log('inside updateGameState', event.target.name);
-		//console.log('inside updateGameState', event.target.value);
+		/*console.log('inside updateGameState: ', event);
+		console.log('inside updateGameState: ', name);
+		console.log('inside updateGameState: ', value);
+		console.log('inside updateGameState', event.target.name);
+		console.log('inside updateGameState', event.target.value);*/
+
 		if (value === 0 && typeof(name) === 'string') {
 			const field = event.target.name;
 			game[field] = event.target.value;
