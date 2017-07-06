@@ -1,5 +1,5 @@
 import Reactotron from 'reactotron-react-js'
-import {createStore, applyMiddleware} from 'redux';
+import {applyMiddleware} from 'redux';
 import rootReducer from '../reducers';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunk from 'redux-thunk';

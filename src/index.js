@@ -6,7 +6,7 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import './styles/styles.css';
 import App from './components/App';
-import {loadGames} from './actions/gameActions';
+import {loadGames, loadCourts} from './actions/gameActions';
 
 injectTapEventPlugin();
 
@@ -16,6 +16,7 @@ injectTapEventPlugin();
 
 const store = configureStore();
 store.dispatch(loadGames());
+store.dispatch(loadCourts());
 
 render (
   <Provider store={store}>

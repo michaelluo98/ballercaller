@@ -3,6 +3,7 @@ import TextInput from './TextInput';
 import ToggleButton from './ToggleButton';
 import TimeInput from './TimePicker';
 import DateInput from './DateInput';
+import LocationInput from './LocationInput';
 import DropDown from './DropDown';
 import styles from '../styles/gameStyles';
 
@@ -18,7 +19,7 @@ const inputStyle = {
 	marginRight: '20px'
 }
 
-const GameForm = ({onChange, onSave}) => (
+const GameForm = ({onChange, onSave, courts}) => (
   <div style={styles.mainStyle}>
   	<div style={styles.keyCircle}></div>
     <form onSubmit={onSave} style={styles.textStyle}>
@@ -32,7 +33,7 @@ const GameForm = ({onChange, onSave}) => (
         <TimeInput onChange={onChange}/>
       </div>
       <DropDown onChange={onChange}/>
-			<DropDown onChange={onChange}/>
+			<LocationInput onChange={onChange} courts={courts}/>
       <TextInput multiline="true" onChange={onChange}/>
       <ToggleButton onChange={onChange}/>
 			<input

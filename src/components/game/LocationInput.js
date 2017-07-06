@@ -13,14 +13,14 @@ const styles = {
 	},
 };
 
-export default class DropDown extends Component {
+export default class LocationInput extends Component {
 
   constructor(props) {
     super(props);
 		this.state = {
-			value: "threes",
-			name: 'mode'
+			value: "",
 		};
+    this.renderLocations = this.renderLocations.bind(this);
   }
 
 	handleChange = (event, index, value) => {
@@ -30,20 +30,29 @@ export default class DropDown extends Component {
 		this.props.onChange(event, this.state.name, value);
 	}
 
+  renderLocations() {
+    return this.props.courts.map((court) => {
+      return <MenuItem value={court.id} primaryText={court.name}/>
+    })
+  }
+
   render() {
     return (
       <div>
         <DropDownMenu
-          value={this.state.value}
+          value={
+            this.props.courts[0] !== undefined ?
+            this.props.courts[0].id :
+            '0'
+          }
           onChange={this.handleChange}
           style={styles.customWidth}
 					labelStyle={styles.height}
           autoWidth={false}
 					name="mode"
         >
-          <MenuItem value={"threes"} primaryText="3 v 3" />
-          <MenuItem value={"fours"} primaryText="4 v 4" />
-          <MenuItem value={"fives"} primaryText="5 v 5" />
+        {console.log(this.props.courts[0])}
+        {this.renderLocations()}
         </DropDownMenu>
       </div>
     );
