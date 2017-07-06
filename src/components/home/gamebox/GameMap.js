@@ -22,23 +22,6 @@ class GameMap extends Component {
 		}
 	}
 
-	// componentWillReceiveProps(nextProps) {
-	// 	let markers = [];
-	// 	if (this.props.courts !== undefined) {
-	// 		markers = this.props.courts.map((court) => {
-	// 		let location = {};
-	// 		let coordinates = {};
-	// 		coordinates.lat = court.latitude;
-	// 		coordinates.lng = court.longitude;
-	// 		location.position = coordinates;
-	// 		location.key = court.name;
-	// 		location.defaultAnimation = 2;
-	// 		return location;
-	// 		})
-	// 		console.log(markers);
-	// 		this.setState({courts: markers});
-	// 	}
-	// }
 
   renderMarkers() {
     return this.props.courts.map((court, index) => {

@@ -10,8 +10,13 @@ export default function gameReducer(state = initialState, action) {
 	switch (action.type) {
 		case types.LOAD_GAMES_SUCCESS:
 			console.log('in load games success gameReducer:');
-			const {games, courts} = action.games
+			const {games, courts} = action.games;
 			return Object.assign({}, state, {games, courts});
+
+		case types.LOAD_GAME_SUCCESS: 
+			console.log('in load GAME success gameReducer:');
+			const {game} = action.game;
+			return Object.assign({}, state, {game});
 
 		case types.CREATE_GAME_SUCCESS:
 			return [
@@ -28,6 +33,7 @@ export default function gameReducer(state = initialState, action) {
 			// 	...state,
 			// 	Object.assign({}, action.games.allCourts)
 			// ];
+
 
 		default:
 			return state;

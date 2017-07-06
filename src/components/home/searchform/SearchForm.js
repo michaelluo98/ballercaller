@@ -1,6 +1,5 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
-//import TextField from 'material-ui/TextField';
 import Searcher from './SearchBar';
 import TimeToPlay from './TimePicker';
 import LocationSearcher from './LocationSearcher';
@@ -16,7 +15,6 @@ const style = {
     display: 'inline-block',
 		marginTop: 330
 };
-
 
 const firstRowStyles = {
   display: 'flex', 

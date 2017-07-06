@@ -14,9 +14,7 @@ const styles = {
 		borderTopRightRadius: '450px',
 		border: '5px solid black',
 		borderBottom: 0,
-		position: 'fixed',
-		bottom: '0px',
-		left: '75px'
+		position: 'fixed', bottom: '0px', left: '75px'
 	},
 }
 
@@ -70,13 +68,16 @@ class ManageGamePage extends React.Component {
 	render () {
 		return (
 			<div>
-				<GameForm
-					game={this.state.game}
-					errors={this.state.game}
-					onSave={this.saveGame}
-					onChange={this.updateGameState}
-					courts={this.props.allCourts}
-					/>
+				{this.props.showGame ?
+						<h1>SHOW GAME</h1> :
+						<GameForm
+							game={this.state.game}
+							errors={this.state.game}
+							onSave={this.saveGame}
+							onChange={this.updateGameState}
+							courts={this.props.allCourts}
+						/>
+				}
 					{console.log('inside manageGamePage: ', this.props.allCourts)}
 				<div style={styles.threePointLine}></div>
 				<AddPlayerButtons />
@@ -85,13 +86,30 @@ class ManageGamePage extends React.Component {
 	}
 }
 
+function getGameById(games, id) {
+	console.log('games in getGameById', games);
+	console.log('id in getGameById', id);
+	const game = games.filter(game => game.id.toString() === id);
+	console.log('game in getGamebyId: ', game);
+	if (game) return game[0];
+	return null;
+}
+
 function mapStateToProps(state, ownProps) {
+	const gameId = ownProps.match.params.id;
 	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '',
 							extra_info: '', court_id: '', setting: 'false'};
+	let showGame = {}
+	if (gameId && state.games.games.length > 0) {
+		showGame = getGameById(state.games.games, gameId);
+	}
 	console.log('inside mapStateToProps:', state);
+	console.log('state.games.length', state.games.games.length);
+	console.log('gameId', gameId);
 	return {
 		game: game,
-		allCourts: state.games.allCourts
+		allCourts: state.games.allCourts, 
+		showGame
 	};
 }
 
