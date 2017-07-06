@@ -8,11 +8,11 @@ import withScriptjs from "react-google-maps/lib/async/withScriptjs";
 class Map extends Component {
   render() {
     const markers = this.props.markers || [];
-
+    console.log(markers)
     return (
       <GoogleMap
-        defaultZoom={10}
-        defaultCenter={{ lat: 49.2564956, lng: -123.105743 }}
+        defaultZoom={11}
+        defaultCenter={this.props.center}
       >
         {markers.map((marker, index) => (
           <Marker {...marker} />
