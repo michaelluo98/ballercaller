@@ -75,9 +75,9 @@ class ManageGamePage extends React.Component {
 					errors={this.state.game}
 					onSave={this.saveGame}
 					onChange={this.updateGameState}
-					courts={this.props.courts}
+					courts={this.props.allCourts}
 					/>
-					{console.log(this.props.courts)}
+					{console.log('inside manageGamePage: ', this.props.allCourts)}
 				<div style={styles.threePointLine}></div>
 				<AddPlayerButtons />
 			</div>
@@ -88,10 +88,10 @@ class ManageGamePage extends React.Component {
 function mapStateToProps(state, ownProps) {
 	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '',
 							extra_info: '', court_id: '', setting: 'false'};
-	console.log(state);
+	console.log('inside mapStateToProps:', state);
 	return {
 		game: game,
-		courts: state.games.courts
+		allCourts: state.games.allCourts
 	};
 }
 

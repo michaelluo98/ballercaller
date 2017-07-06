@@ -15,8 +15,8 @@ injectTapEventPlugin();
 //}
 
 const store = configureStore();
-store.dispatch(loadGames());
 store.dispatch(loadCourts());
+store.dispatch(loadGames());
 
 render (
   <Provider store={store}>

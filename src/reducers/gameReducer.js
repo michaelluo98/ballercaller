@@ -9,7 +9,7 @@ const initialState = {
 export default function gameReducer(state = initialState, action) {
 	switch (action.type) {
 		case types.LOAD_GAMES_SUCCESS:
-			console.log('inhur');
+			console.log('in load games success gameReducer:');
 			const {games, courts} = action.games
 			return Object.assign({}, state, {games, courts});
 
@@ -20,8 +20,9 @@ export default function gameReducer(state = initialState, action) {
 			];
 
 		case types.LOAD_COURTS_SUCCESS:
-			console.log('inhurrr');
-			const {allCourts} = action.games;
+			console.log('in load courts success');
+			const allCourts = action.allCourts.courts;
+			console.log('allCourts:', allCourts)
 			return Object.assign({}, state, {allCourts});
 			// return [
 			// 	...state,

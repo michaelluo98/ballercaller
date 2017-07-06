@@ -12,7 +12,7 @@ export function createGameSuccess(game) {
 }
 
 export function loadCourtsSuccess(allCourts) {
-	console.log('inload:', allCourts)
+	console.log('in loadCourtsSuccess:', allCourts)
 	return { type: types.LOAD_COURTS_SUCCESS, allCourts };
 }
 
@@ -54,8 +54,8 @@ export function loadCourts() {
  		})
  		fetch(`${BASE_URL}/courts`, {headers})
  			.then(res => res.json()).then(res => {
-				console.log('inside fetch req: ', res);
- 				dispatch(loadGamesSuccess(res));
+				console.log('allcourts inside loadCourts: ', res);
+ 				dispatch(loadCourtsSuccess(res));
  			});
  	}
 }
