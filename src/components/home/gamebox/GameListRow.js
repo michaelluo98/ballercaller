@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import {ListItem} from 'material-ui/List'
 import Avatar from 'material-ui/Avatar';
 import {grey400, darkBlack} from 'material-ui/styles/colors';
@@ -35,7 +36,7 @@ function GameListRow({name, time, court, mode}) {
       primaryText={intro}
       secondaryText={
         <p>
-					<span style={{color: darkBlack}}>mode: {mode} | Time: {time} </span>
+					<span style={{color: darkBlack}}>mode: {mode} | GameTime: {moment(time).format('MMMM Do [@] h:mm a')} </span>
         </p>
       }
       secondaryTextLines={1}
