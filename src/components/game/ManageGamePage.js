@@ -64,15 +64,14 @@ class ManageGamePage extends Component {
 	saveGame(event) {
 		event.preventDefault();
 		this.props.actions.saveGame(this.state.game);
+		this.props.history.push(`/${this.state.game.id}`)
 	}
 
 	render () {
 		return (
 			<div>
-				{console.log(this.props.showGame.name)}
-				{console.log('showGame: ', this.props.showGame)}
-				{console.log('showGame name: ', this.props.showGame.name)}
-				{this.props.showGame.name ?
+				{console.log('showgame: ', this.props.showGame)}
+				{this.props.showGame && this.props.showGame.name ?
 						<ShowGame game={this.props.showGame}/> :
 						<GameForm
 							game={this.state.game}
@@ -82,7 +81,6 @@ class ManageGamePage extends Component {
 							courts={this.props.allCourts}
 						/>
 				}
-					{console.log('inside manageGamePage: ', this.props.allCourts)}
 				<div style={styles.threePointLine}></div>
 				<AddPlayerButtons />
 			</div>
@@ -91,10 +89,7 @@ class ManageGamePage extends Component {
 }
 
 function getGameById(games, id) {
-	console.log('games in getGameById', games);
-	console.log('id in getGameById', id);
 	const game = games.filter(game => game.id.toString() === id);
-	console.log('game in getGamebyId: ', game);
 	if (game) return game[0];
 	return null;
 }
@@ -103,13 +98,10 @@ function mapStateToProps(state, ownProps) {
 	const gameId = ownProps.match.params.id;
 	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '',
 							extra_info: '', court_id: '', setting: 'false'};
-	let showGame = {}
+	let showGame = {};
 	if (gameId && state.games.games.length > 0) {
 		showGame = getGameById(state.games.games, gameId);
 	}
-	console.log('inside mapStateToProps:', state);
-	console.log('state.games.length', state.games.games.length);
-	console.log('gameId', gameId);
 	return {
 		game: game,
 		allCourts: state.games.allCourts,
