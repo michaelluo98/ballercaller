@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import NavBar from './NavBar';
+import NavBar from './navbar/NavBar';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import ManageHomePage from './home/ManageHomePage';
@@ -17,7 +17,9 @@ class App extends Component {
 						<Switch>
 							<Route exact path="/" component={ManageHomePage} />
               <Route exact path="/login" component={LoginPage} />
-							<Route exact path="/game" component={ManageGamePage} />
+							<Route exact path="/game"
+                component={ManageGamePage}
+                onEnter={requireAuth} />
 							<Route exact path="/game/:id" component={ManageGamePage} />
 							<Route render={() => {
 								return <p>404 ERROR: PAGE NOT FOUND</p>
@@ -27,6 +29,15 @@ class App extends Component {
 			  </BrowserRouter>
 	    </MuiThemeProvider>
     );
+  }
+}
+
+function requireAuth(nextState, replace) {
+  if (!sessionStorage.jwt) {
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
+    })
   }
 }
 
