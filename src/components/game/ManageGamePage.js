@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 //import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as gameActions from '../../actions/gameActions';
 import GameForm from './GameForm';
+import ShowGame from './ShowGame';
 import AddPlayerButtons from './AddPlayerButtons';
 
 const styles = {
@@ -18,7 +19,7 @@ const styles = {
 	},
 }
 
-class ManageGamePage extends React.Component {
+class ManageGamePage extends Component {
 	constructor(props, context) {
 		super(props, context);
 
@@ -68,9 +69,11 @@ class ManageGamePage extends React.Component {
 	render () {
 		return (
 			<div>
-				{console.log(this.props.showGame === {})}
+				{console.log(this.props.showGame.name)}
+				{console.log('showGame: ', this.props.showGame)}
+				{console.log('showGame name: ', this.props.showGame.name)}
 				{this.props.showGame.name ?
-						<h1>SHOW GAME</h1> :
+						<ShowGame game={this.props.showGame}/> :
 						<GameForm
 							game={this.state.game}
 							errors={this.state.game}
@@ -109,7 +112,7 @@ function mapStateToProps(state, ownProps) {
 	console.log('gameId', gameId);
 	return {
 		game: game,
-		allCourts: state.games.allCourts, 
+		allCourts: state.games.allCourts,
 		showGame
 	};
 }

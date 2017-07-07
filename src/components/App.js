@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import ManageHomePage from './home/ManageHomePage';
 import ManageGamePage from './game/ManageGamePage';
+import LoginPage from './authentication/logInPage';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
 						<NavBar />
 						<Switch>
 							<Route exact path="/" component={ManageHomePage} />
+              <Route exact path="/login" component={LoginPage} />
 							<Route exact path="/game" component={ManageGamePage} />
 							<Route exact path="/game/:id" component={ManageGamePage} />
 							<Route render={() => {

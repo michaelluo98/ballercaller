@@ -1,10 +1,5 @@
 import * as types from '../actions/actionTypes';
-
-const initialState = {
-	games: [],
-	courts: [],
-	allCourts: []
-}
+import initialState from './initialState';
 
 export default function gameReducer(state = initialState, action) {
 	switch (action.type) {
