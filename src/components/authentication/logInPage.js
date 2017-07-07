@@ -6,8 +6,8 @@ import {connect} from 'react-redux';
 import * as sessionActions from '../../actions/sessionActions';
 
 class LogInPage extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {credentials: {email: '', password: ''}}
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -23,6 +23,11 @@ class LogInPage extends Component {
   onSave(event) {
     event.preventDefault();
     this.props.actions.logInUser(this.state.credentials);
+		//console.log('------------------context:', this.context);
+		//console.log('------------------context:', this.context.router);
+		//console.log('-----------------props:', this.props.history)
+		this.props.history.push('/');
+		//this.context.router.push('/');
   }
 
   render() {
@@ -34,7 +39,6 @@ class LogInPage extends Component {
             hintText="email"
             value={this.state.credentials.email}
             onChange={this.onChange}/>
-
           <TextField
             name="password"
             hintText="password"
