@@ -3,6 +3,8 @@ import {PropTypes} from 'prop-types';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
+import {bindActionCreators} from 'redux';
+import * as sessionActions from '../../actions/sessionActions';
 
 const buttonStyle = {
   backgroundColor: 'transparent',
@@ -11,13 +13,23 @@ const buttonStyle = {
 };
 
 class RightButtons extends Component {
+  constructor(props) {
+    super();
+    this.logOut = this.logOut.bind(this);
+  }
+
+  logOut(event) {
+    event.preventDefault();
+    this.props.actions.logOutUser();
+  }
+
   render() {
     if (this.props.logged_in) {
       return (
         <div>
           <NavLink activeClassName='active' to='/'>
         		<div>
-        			<FlatButton label="LogOut" style={buttonStyle}/>
+        			<FlatButton label="LogOut" onClick={this.logOut} style={buttonStyle}/>
         		</div>
         	</NavLink>
         </div>
@@ -26,14 +38,10 @@ class RightButtons extends Component {
       return (
         <div>
           <NavLink activeClassName='active' to='/login'>
-        		<div>
-        			<FlatButton label="Login" style={buttonStyle}/>
-        		</div>
+      			<FlatButton label="Login" style={buttonStyle}/>
         	</NavLink>
           <NavLink activeClassName='active' to='/'>
-            <div>
-              <FlatButton label="SignUp" style={buttonStyle}/>
-            </div>
+            <FlatButton label="SignUp" style={buttonStyle}/>
           </NavLink>
         </div>
       );
@@ -49,4 +57,11 @@ function mapStateToProps(state, ownProps) {
   return {logged_in: state.session};
 }
 
-export default connect(mapStateToProps)(RightButtons);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(sessionActions, dispatch)
+  };
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RightButtons);

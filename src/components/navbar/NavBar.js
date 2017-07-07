@@ -1,7 +1,6 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
-import { NavLink, Link} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import RightButtons from './rightButtons';
 
 // function handleTouchTap() {

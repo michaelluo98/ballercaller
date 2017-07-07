@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {PropTypes} from 'prop-types'
+// import {PropTypes} from 'prop-types'
 import TextField from 'material-ui/TextField'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
