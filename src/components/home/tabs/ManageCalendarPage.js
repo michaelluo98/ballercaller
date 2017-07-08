@@ -15,7 +15,7 @@ const MultipleDatesCalendar = withMultipleDates(Calendar);
 
 // Render the Calendar
 var today = new Date();
-var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30);
 
 const style = {
 	position: 'fixed',
@@ -51,38 +51,39 @@ class gameCalendar extends Component {
       this.getCurrentUserGames()
 			  .then(games => {
 					const dates = games.map(game => {
-						/*const gameTime = new Date(game.start_time);
+						const gameTime = new Date(game.start_time);
 						const year = gameTime.getUTCFullYear();
-						const month = gameTime.getMonth() + 1;
+						const month = gameTime.getMonth();
 						const day = gameTime.getDate();
 						const parsedDate = new Date(year, month, day);
-						[>console.log(game.start_time);
+						/*console.log(game.start_time);
 						console.log(gameTime);
 						console.log(gameTime.getDate());
 						console.log(gameTime.getMonth());
-						console.log(gameTime.getUTCFullYear());<]
-						return parsedDate;*/
-						return game.start_time;
+						console.log(gameTime.getUTCFullYear());*/
+						return parsedDate;
 					})
 					this.setState({userGames: dates})
 					console.log(this.state.userGames)
 				})
 		}
 		// {this.props.currentUser && console.log(this.getCurrentUserGames())}
-					/*component={withMultipleDates(Calendar)}
-					interpolateSelection={defaultMultipleDateInterpolation}*/
+		//component={withMultipleDates(Calendar)}
+		//			interpolateSelection={defaultMultipleDateInterpolation}
+		//[new Date(2017, 6, 13), new Date(2017, 6, 14)]
     return (
 			<Paper style={style} zDepth={1} rounded={false}>
 				{console.log('currentUser: ', this.props.currentUser)}
 				<InfiniteCalendar
+					Component={MultipleDatesCalendar}
 					width={470}
 					height={230}
-					minDate={lastWeek}
+					min={lastWeek}
 					displayOptions={{
-						layout: 'landscape',
 						showHeader: false
 					}}
-					selected={null}
+					selected={this.state.userGames}
+					interpolateSelection={defaultMultipleDateInterpolation}
 				/>
 			</Paper>
     )
