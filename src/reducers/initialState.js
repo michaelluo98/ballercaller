@@ -1,9 +1,11 @@
-const initialState = {
+export const gameInitialState = {
 	games: [],
 	courts: [],
-	allCourts: [],
-  session: !!sessionStorage.jwt,
+	allCourts: []
+}
+
+export const sessionInitialState = {
+	session: !!sessionStorage.jwt, 
 	currentUser: {}
 }
 
-export default initialState;

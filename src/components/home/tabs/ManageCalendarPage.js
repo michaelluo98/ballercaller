@@ -47,7 +47,12 @@ class gameCalendar extends Component {
 	}
 
   render() {
-		if (this.props.currentUser && this.state.userGames.length === 0) {
+		console.log('currentUser in ManageCalendarPage render: ', !!this.props.currentUser);
+		//Object.keys(this.props.currentUser).length
+		if (this.props.currentUser && 
+			Object.keys(this.props.currentUser).length !== 0 && 
+			this.state.userGames.length === 0) {
+
       this.getCurrentUserGames()
 			  .then(games => {
 					const dates = games.map(game => {
@@ -64,7 +69,6 @@ class gameCalendar extends Component {
 						return parsedDate;
 					})
 					this.setState({userGames: dates})
-					console.log(this.state.userGames)
 				})
 		}
 		// {this.props.currentUser && console.log(this.getCurrentUserGames())}
@@ -73,7 +77,6 @@ class gameCalendar extends Component {
 		//[new Date(2017, 6, 13), new Date(2017, 6, 14)]
     return (
 			<Paper style={style} zDepth={1} rounded={false}>
-				{console.log('currentUser: ', this.props.currentUser)}
 				<InfiniteCalendar
 					Component={MultipleDatesCalendar}
 					width={470}
@@ -90,19 +93,8 @@ class gameCalendar extends Component {
   }
 }
 
-
-/*<InfiniteCalendar
-  Component={withMultipleDates(Calendar)}
-	selected={[
-		    new Date(2017, 6, 29),
-		    new Date(),
-		    new Date(2017, 7, 16)
-
-	]}
-  interpolateSelection={defaultMultipleDateInterpolation}
-/>*/
 function mapStateToProps(state, ownProps) {
-	console.log('currentState: ', state);
+	console.log('currentState mapStateToProps in Calendar: ', state);
 	const {currentUser} = state.session;
 	return {
 		currentUser,

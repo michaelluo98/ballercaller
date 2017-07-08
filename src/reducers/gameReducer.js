@@ -1,11 +1,15 @@
 import * as types from '../actions/actionTypes';
-import initialState from './initialState';
+import {gameInitialState} from './initialState';
 
-export default function gameReducer(state = initialState, action) {
+export default function gameReducer(state = gameInitialState, action) {
 	switch (action.type) {
 		case types.LOAD_GAMES_SUCCESS:
 			const {games, courts} = action.games;
-			return Object.assign({}, state, {games, courts});
+			console.log('prevstate in gameReducer load games: ', state);
+
+			const gameState = Object.assign({}, state, {games, courts});
+			console.log('newState in gameReducer: ', gameState);
+			return gameState;
 
 		case types.CREATE_GAME_SUCCESS:
 			return [
@@ -15,7 +19,12 @@ export default function gameReducer(state = initialState, action) {
 
 		case types.LOAD_COURTS_SUCCESS:
 			const allCourts = action.allCourts.courts;
-			return Object.assign({}, state, {allCourts});
+			console.log('prevstate in gameReducer load courts:', state);
+			console.log('allCourts: ', allCourts);
+
+			const courtState = Object.assign({}, state, {allCourts});
+			console.log('newState in gameReducer laod courts: ', courtState);
+			return courtState;
 			// return [
 			// 	...state,
 			// 	Object.assign({}, action.games.allCourts)

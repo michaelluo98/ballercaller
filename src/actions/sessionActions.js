@@ -5,7 +5,7 @@ import {PropTypes} from 'prop-types';
 import { push } from 'react-router-redux';
 
 export function loginSuccess(currentUser) {
-  console.log(currentUser);
+	//console.log(currentUser);
   return {type: types.LOG_IN_SUCCESS, currentUser}
 }
 
@@ -19,13 +19,13 @@ function addCurrentUser(dispatch, credentials) {
 export function logInUser(credentials) {
   return function(dispatch) {
     return sessionApi.login(credentials).then(response => {
-      console.log('response jwt', response.jwt);
+			//console.log('response jwt', response.jwt);
       if (response.jwt === undefined) {
         // history.push('/');
         // dispatch(push('/game'));
       }
       else {
-        console.log('setting jwt token');
+				//console.log('setting jwt token');
         sessionStorage.setItem('jwt', response.jwt);
         // dispatch(push('/'));
         addCurrentUser(dispatch, credentials);
