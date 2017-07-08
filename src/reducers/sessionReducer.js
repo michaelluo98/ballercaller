@@ -1,21 +1,25 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
-// import {browserHistory} from 'react-router';
-// import createHistory from 'history/createBrowserHistory'
 import history from '../components/history';
+import {push} from 'react-router-redux';
 
-export default function sessionReducer(state = initialState.session, action) {
+// const store = configureStore();
+
+export default function sessionReducer(state = initialState.session, action, dispatch) {
 
   switch(action.type) {
 
     case types.LOG_IN_SUCCESS:
-      //createHistory.push('/')
-			history.push('/');
+			// history.push('/');
+      // store.dispatch(push('/'))
+      // dispatch(push('/'))
       return !!sessionStorage.jwt
 
     case types.LOG_OUT:
       // browserHistory.push('/')
-			history.push('/');
+			// history.push('/');
+      // dispatch(push('/'))
+      // store.dispatch(push('/'))
       return !!sessionStorage.jwt
 
     default:

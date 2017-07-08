@@ -8,7 +8,6 @@ import withScriptjs from "react-google-maps/lib/async/withScriptjs";
 class Map extends Component {
   render() {
     const markers = this.props.markers || [];
-    console.log(markers)
     return (
       <GoogleMap
         defaultZoom={11}

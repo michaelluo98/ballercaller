@@ -12,50 +12,7 @@ class GameApi {
 			resolve(allGames);
 		});
 	}
-	
+
 }
 
 export default GameApi;
-
-// 
-// function deleteQuestion (id) {
-//   const headers = new Headers({
-//     'Authorization':`Apikey ${API_KEY}`
-//   });
-// 	return fetch(`${BASE_URL}/questions/${id}`, {
-// 		method: 'Delete',
-// 		headers
-// 	})
-// 	.then(res => res.json());
-// }
-//
-// function postQuestion (questionFormData) {
-//   const headers = new Headers({
-//     'Authorization':`Apikey ${API_KEY}`
-//   });
-//   return fetch(`${BASE_URL}/questions`, {
-//     method: 'POST',
-//     body: questionFormData,
-//     headers
-//   })
-//     .then(res => res.json());
-// }
-//
-// function getQuestions () {
-//   const headers = new Headers({
-//     'Authorization':`Apikey ${API_KEY}`
-//   });
-//   return fetch(`${BASE_URL}/questions`, {headers})
-//     .then(res => res.json());
-// }
-//
-// function getQuestion (id) {
-//   const headers = new Headers({
-//     'Authorization':`Apikey ${API_KEY}`
-//   });
-//   return fetch(`${BASE_URL}/questions/${id}`, {headers})
-//   // A better practice when handling response from fetch
-//   // is to check its status if it was successful (Status: 200 OK)
-//   // before parsing as json with (res.json()).
-//     .then(res => res.json());
-// }

@@ -15,8 +15,7 @@ class App extends Component {
 	}
 
   requireAuth = function(nextState, replace) {
-		if (!sessionStorage.jwt) {
-			console.log('------------------Props:', nextState)
+		if (sessionStorage.jwt === 'undefined' || !sessionStorage.jwt) {
 			history.push('/login');
 		}
 	}
@@ -24,7 +23,7 @@ class App extends Component {
   render() {
     return (
 	    <MuiThemeProvider>
-			  <BrowserRouter>
+			  <BrowserRouter history={history}>
 					<div className="container">
 						<NavBar />
 						<Switch>

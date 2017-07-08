@@ -1,3 +1,5 @@
+const BASE_URL = "http://localhost:3000/api/v1";
+
 class SessionApi {
   static login(credentials) {
     const request = new Request('http://localhost:3000/api/v1/login', {
@@ -15,6 +17,15 @@ class SessionApi {
       return error;
     });
   }
+
+  static getCurrentUser(credentials) {
+    console.log('getCurrentUser credentials:', credentials);
+    fetch(`${BASE_URL}/users/${credentials.email}`)
+      .then(res => {
+        return res.json();
+      })
+  }
+
 }
 
 export default SessionApi;
