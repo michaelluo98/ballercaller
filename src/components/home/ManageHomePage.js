@@ -5,17 +5,29 @@ import * as gameActions from '../../actions/gameActions';
 import SearchForm from './searchform/SearchForm';
 import GameBox from './gamebox/GameBox';
 import Calendar from './tabs/ManageCalendarPage';
+import GameList from './gamebox/GameList'; 
+import Paper from 'material-ui/Paper';
 
+const findGameStyle = {
+    height: 175,
+    width: 470,
+    margin: 30,
+  	marginLeft: 60,
+    textAlign: 'center',
+    display: 'inline-block',
+		marginTop: 330
+};
 
 class ManageHomePage extends Component {
 	constructor(props, context) {
 		super(props, context);
 
 		this.state = {
-			game: Object.assign({}, this.props.game)
+			game: Object.assign({}, this.props.game), 
 		}
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
+		this.findGame = this.findGame.bind(this);
 	}
 
 	updateGameState(event, name='', value = 0) {
@@ -49,14 +61,30 @@ class ManageHomePage extends Component {
 		this.props.actions.findGames(this.state.game)
 	}
 
+	findGame() {
+		if (this.props.foundGames.length === 0) {
+			return <SearchForm
+							onChange={this.updateGameState}
+							onSave={this.saveGame}
+							courts={this.props.allCourts}
+						 />
+		}
+		else {
+			return <Paper style={findGameStyle} zDepth={2} rounded={false}>
+								<GameList 
+									games={this.props.foundGames.slice(0,2)}
+									courts={this.props.foundCourts.slice(0,2)}
+									listGame={false}
+								/>
+							</Paper>
+		}
+	}
+
 	render() {
 		return (
 			<div>
 				<GameBox />
-				<SearchForm
-					onChange={this.updateGameState}
-					onSave={this.saveGame}
-					courts={this.props.allCourts}/>
+				{this.findGame()}
 				<Calendar />
 			</div>
 		)
@@ -66,10 +94,12 @@ class ManageHomePage extends Component {
 function mapStateToProps(state, ownProps) {
 	let game = {name: '', mode: 'threes', start_time: '',
 							court_id: '', setting: 'false'};
-	const {allCourts} = state.games
+	const {allCourts, foundGames, foundCourts} = state.games
 	return {
 		game: game,
-		allCourts
+		allCourts, 
+		foundGames, 
+		foundCourts
 	}
 }
 

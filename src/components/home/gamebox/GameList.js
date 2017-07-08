@@ -3,10 +3,13 @@ import {List} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import GameListRow from './GameListRow';
 
-const GameList = ({games, courts}) => (
+const GameList = ({games, courts, listGame}) => (
     <div className="game-list">
         <List>
-					<Subheader> Games Near You: </Subheader>
+					{listGame ? 
+							<Subheader> Games Near You: </Subheader> :
+							<div></div>
+					}
 				{games.map((game, index) => {
 					return <GameListRow 
 										key={game.id}

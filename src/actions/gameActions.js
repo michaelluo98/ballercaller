@@ -15,8 +15,8 @@ export function loadCourtsSuccess(allCourts) {
 	return { type: types.LOAD_COURTS_SUCCESS, allCourts };
 }
 
-export function findGamesSuccess(games) {
-	return { type: types.FIND_GAMES_SUCCESS, games }
+export function findGamesSuccess(games, courts) {
+	return { type: types.FIND_GAMES_SUCCESS, games, courts }
 }
 
 export function loadGames() {
@@ -74,7 +74,7 @@ export function findGames(game) {
 			body: JSON.stringify({game: game})
 		})
 		.then(res => res.json()).then(res => {
-				return dispatch(findGamesSuccess(res.games))	
+				return dispatch(findGamesSuccess(res.games, res.courts))	
 			})
 	}
 }
