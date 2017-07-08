@@ -15,6 +15,10 @@ export function loadCourtsSuccess(allCourts) {
 	return { type: types.LOAD_COURTS_SUCCESS, allCourts };
 }
 
+export function findGamesSuccess(games) {
+	return { type: types.FIND_GAMES_SUCCESS, games }
+}
+
 export function loadGames() {
 	return function(dispatch) {
 		const headers = new Headers({
@@ -55,4 +59,22 @@ export function loadCourts() {
  				dispatch(loadCourtsSuccess(res));
  			});
  	}
+}
+
+export function findGames(game) {
+	return function(dispatch) {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`,
+			'Accept':'application/json',
+			'Content-Type':'application/json'
+		})
+		fetch(`${BASE_URL}/games/find`, {
+			headers, 
+			method: 'POST',
+			body: JSON.stringify({game: game})
+		})
+		.then(res => res.json()).then(res => {
+				return dispatch(findGamesSuccess(res.games))	
+			})
+	}
 }

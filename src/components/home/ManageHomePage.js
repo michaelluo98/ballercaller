@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-// import {bindActionCreators} from 'redux';
-// import * as gameActions from ''
+import {bindActionCreators} from 'redux';
+import * as gameActions from '../../actions/gameActions';
 import SearchForm from './searchform/SearchForm';
 import GameBox from './gamebox/GameBox';
 import Calendar from './tabs/ManageCalendarPage';
@@ -16,7 +16,6 @@ class ManageHomePage extends Component {
 		}
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
-
 	}
 
 	updateGameState(event, name='', value = 0) {
@@ -47,8 +46,7 @@ class ManageHomePage extends Component {
 
 	saveGame(event) {
 		event.preventDefault();
-		this.props.actions.saveGame(this.state.game);
-		this.props.history.push(`/${this.state.game.id}`)
+		this.props.actions.findGames(this.state.game)
 	}
 
 	render() {
@@ -75,7 +73,10 @@ function mapStateToProps(state, ownProps) {
 	}
 }
 
-//function mapDispatchToProps(dispatch) {
-//}
+function mapDispatchToProps(dispatch) {
+	return {
+		actions: bindActionCreators(gameActions, dispatch)
+	}
+}
 
-export default connect(mapStateToProps)(ManageHomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageHomePage);

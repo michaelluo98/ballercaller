@@ -30,6 +30,10 @@ export default function gameReducer(state = gameInitialState, action) {
 			// 	Object.assign({}, action.games.allCourts)
 			// ];
 
+		case types.FIND_GAMES_SUCCESS: 
+			const foundGames = action.games;
+			console.log('foundGames in reducer: ', foundGames);
+			return Object.assign({}, state, {foundGames});
 
 		default:
 			return state;

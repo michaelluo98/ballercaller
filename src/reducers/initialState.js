@@ -1,7 +1,8 @@
 export const gameInitialState = {
 	games: [],
 	courts: [],
-	allCourts: []
+	allCourts: [], 
+	foundGames: []
 }
 
 export const sessionInitialState = {
