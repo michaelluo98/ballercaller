@@ -1,10 +1,12 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import Searcher from './SearchBar';
-import TimeToPlay from './TimePicker';
+import FlatButton from 'material-ui/FlatButton';
+import GameName from './SearchBar';
+import TimePicker from './TimePicker';
 import LocationSearcher from './LocationSearcher';
 import SettingMode from './SettingMode';
 import PlayerMode from './PlayerMode';
+import DatePicker from './DatePicker';
 
 const style = {
     height: 175,
@@ -17,25 +19,35 @@ const style = {
 };
 
 const firstRowStyles = {
-  display: 'flex', 
+  display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-around', 
+  justifyContent: 'space-around',
 }
 
-const SearchForm = () => (
+const SearchForm = ({onChange, onSave, courts}) => (
     <div>
       <Paper style={style} zDepth={2} rounded={false}>
-				<div style={firstRowStyles}>
-					<Searcher />
-				</div>
-				<div style={firstRowStyles}>
-					<SettingMode />
-					<TimeToPlay /> 
-				</div>
-				<div style={firstRowStyles}>
-					<PlayerMode />
-					<LocationSearcher />
-				</div>
+				<form onSubmit={onSave} >
+					<div style={firstRowStyles}>
+						<GameName onChange={onChange}/>
+            <PlayerMode onChange={onChange}/>
+					</div>
+					<div style={firstRowStyles}>
+            <DatePicker onChange={onChange} />
+						<LocationSearcher onChange={onChange} courts={courts}/>
+					</div>
+					<div style={firstRowStyles}>
+            <TimePicker onChange={onChange}/>
+            <div style={Object.assign({}, firstRowStyles, {width: '50%'})}>
+              <SettingMode onChange={onChange}/>
+              <FlatButton label="search" primary={true}
+                onTouchTap={onSave}
+                labelPosition='before'
+                labelStyle={{top: '5px'}}
+                style={{marginTop: '10px', marginRight: '10px'}}/>
+            </div>
+					</div>
+				</form>
 			</Paper>
     </div>
 );

@@ -5,7 +5,6 @@ import {PropTypes} from 'prop-types';
 import { push } from 'react-router-redux';
 
 export function loginSuccess(currentUser) {
-	//console.log(currentUser);
   return {type: types.LOG_IN_SUCCESS, currentUser}
 }
 
@@ -37,10 +36,6 @@ export function logInUser(credentials) {
   };
 }
 
-
-// export function logInFailure() {
-//   return function(dispatch)
-// }
 
 export function logOutUser() {
   sessionStorage.removeItem('jwt');

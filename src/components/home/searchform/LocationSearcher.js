@@ -1,35 +1,56 @@
-import React, {Component} from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
+import React, { Component } from 'react';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
-const cities = [
-  'Burnaby',
-  'Coquitlam',
-  'Surrey',
-  'North Burnaby',
-  'Langley',
-  'Richmond',
-  'New Westminister',
-  'North Vancouver',
-	'East Vancouver',
-	'West Vancouver'
-];
-
-const menuProps = {
-    desktop: true,
-    disableAutoFocus: true,
+const styles = {
+  customWidth: {
+		width: '250px',
+		height: '40px'
+  },
+	height: {
+		height: '40px',
+		lineHeight: '40px'
+	},
 };
 
-export default class LocationSearcher extends Component {
-  render() {
-	return (
-	        <div>
-	          <AutoComplete
-	            hintText="Where you want to ball?"
-	            dataSource={cities}
-	            menuProps={menuProps}
-	          />
-	        </div>
+export default class LocationInput extends Component {
 
-	);
+  constructor(props) {
+    super(props);
+		this.state = {
+			value: 1,
+			name: 'court_id'
+		};
+    this.renderLocations = this.renderLocations.bind(this);
+  }
+
+	handleChange = (event, index, value) => {
+		console.log('value:', value);
+		this.setState({value});
+		console.log(this.state.value);
+		this.props.onChange(event, this.state.name, value);
+	}
+
+  renderLocations() {
+    return this.props.courts.map((court, index) => {
+      return <MenuItem key={index} value={court.id} primaryText={court.name}/>
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <DropDownMenu
+          value={this.state.value}
+          onChange={this.handleChange}
+          style={styles.customWidth}
+					labelStyle={styles.height}
+          autoWidth={false}
+					name="court_id"
+        >
+        {this.renderLocations()}
+        </DropDownMenu>
+      </div>
+    );
   }
 }

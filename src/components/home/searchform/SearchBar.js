@@ -1,37 +1,26 @@
-import React, {Component} from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
+import React from 'react';
+import TextField from 'material-ui/TextField';
 
-var searchStyle = {
-  paddingLeft: 5, 
-  width: 400, 
+const styles = {
+	paddingLeft: '10px',
+	mainStyle: {
+		height: '48px'
+	}
 }
 
-export default class Searcher extends Component {
-  state = {
-	    dataSource: [],
-	  
-  };
-  handleUpdateInput = (value) => {
-	this.setState({
-	  dataSource: [
-		        value,
-		        value + value,
-		        value + value + value,
-	  ],
-	});
-  };
-
-  render() {
-	return (
-	        <div>
-	          <AutoComplete
-	            hintText="Search for a Game"
-	            dataSource={this.state.dataSource}
-	            onUpdateInput={this.handleUpdateInput}
-	            fullWidth={true}
-				style={searchStyle}
-	          />
-	        </div>
-	);
-  }
+function TextInput({multiline, onChange}) {
+  return (
+    <div style={{paddingLeft: '15px'}}>
+			<TextField
+				hintText="Game Name"
+				fullWidth={true}
+				inputStyle={styles}
+				hintStyle={styles}
+				name="name"
+				onChange={onChange}
+				style={styles.mainStyle}
+				/>
+    </div>
+  )
 }
+export default TextInput;

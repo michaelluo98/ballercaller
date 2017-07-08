@@ -14,9 +14,9 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			// history.push('/');
       // store.dispatch(push('/'))
       // dispatch(push('/'))
-			console.log('state in sessionReducer: ', state);
+			//console.log('state in sessionReducer: ', state);
 			const currentUser = action.currentUser;
-			console.log('currentUser in sessionReducer', currentUser);	
+			//console.log('currentUser in sessionReducer', currentUser);	
 			//const newState = Object.assign({}, state, {session: !!sessionStorage.jwt, currentUser})
 			return Object.assign({}, state, {session: !!sessionStorage.jwt, currentUser});
 

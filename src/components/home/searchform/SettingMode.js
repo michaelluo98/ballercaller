@@ -1,30 +1,55 @@
-import React from 'react';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import React, { Component } from 'react';
+import Toggle from 'material-ui/Toggle';
 
 const styles = {
   block: {
-	    maxWidth: 250,
+    maxWidth: 250,
+		paddingTop: '5px',
+		width: '60%',
+		display: 'inline'
   },
-  radioButton: {
-		textAlign: 'left'
-  },
+  toggle: {
+		marginTop: '15',
+		display: 'flex',
+		justifyContent: 'center',
+		width: '60%',
+		float: 'left',
+  }
 };
 
-const GameMode = () => (
-    <div>
-      <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
-        <RadioButton
-          value="light"
-          label="Indoor"
-          style={styles.radioButton}
-        />
-        <RadioButton
-          value="not_light"
-          label="Outdoor"
-          style={styles.radioButton}
-        />
-     </RadioButtonGroup>
-    </div>
-);
+class ToggleButton extends Component {
+	constructor(props) {
+		super(props);
 
-export default GameMode;
+		this.state = {
+			toggle: 'true'// otherwise doesn't update fast enough
+		}
+		this.handleChange = this.handleChange.bind(this);
+	}
+	handleChange(event) {
+		if (this.state.toggle === 'true') {
+			this.setState({toggle: 'false'})
+		}
+		else {
+			this.setState({toggle: 'true'})
+		}
+		console.log(this.state.toggle);
+		this.props.onChange(event, event.target.name, this.state.toggle);
+	}
+
+	render() {
+		return (
+			<div style={styles.block}>
+				<Toggle
+					label="Indoor"
+					labelPosition="right"
+					style={styles.toggle}
+					name="setting"
+					onToggle={this.handleChange}
+				/>
+			</div>
+		)
+	}
+}
+
+export default ToggleButton;
