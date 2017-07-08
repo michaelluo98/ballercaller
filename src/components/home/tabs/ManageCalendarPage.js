@@ -4,8 +4,14 @@ import {bindActionCreators} from 'redux';
 import sessionApi from '../../../api/sessionApi';
 import * as gameActions from '../../../actions/gameActions';
 import Paper from 'material-ui/Paper';
-import InfiniteCalendar from 'react-infinite-calendar';
+import InfiniteCalendar, {
+	Calendar,
+	defaultMultipleDateInterpolation,
+	withMultipleDates,
+} from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css'; // only needs to be imported once
+
+const MultipleDatesCalendar = withMultipleDates(Calendar);
 
 // Render the Calendar
 var today = new Date();
@@ -17,7 +23,7 @@ const style = {
 	right: '45px'
 }
 
-class Calendar extends Component {
+class gameCalendar extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -37,35 +43,46 @@ class Calendar extends Component {
 	getCurrentUserGames() {
 		if (this.props.currentUser) {
 			return this.getUserGames(this.props.currentUser.id)
-			  // .then(r => r);
-				// .then(res => this.setState({userGames: res}))
 		}
 	}
 
   render() {
-		//if this.props.currentUser && this.getUserGames(this.props.currentUser.id)
-		// {this.props.currentUser && console.log(this.getCurrentUserGames())}
 		if (this.props.currentUser && this.state.userGames.length === 0) {
       this.getCurrentUserGames()
-			  .then(r => {
-					console.log(r)
-					this.setState({userGames: r})
-					console.log(this.state)
+			  .then(games => {
+					const dates = games.map(game => {
+						/*const gameTime = new Date(game.start_time);
+						const year = gameTime.getUTCFullYear();
+						const month = gameTime.getMonth() + 1;
+						const day = gameTime.getDate();
+						const parsedDate = new Date(year, month, day);
+						[>console.log(game.start_time);
+						console.log(gameTime);
+						console.log(gameTime.getDate());
+						console.log(gameTime.getMonth());
+						console.log(gameTime.getUTCFullYear());<]
+						return parsedDate;*/
+						return game.start_time;
+					})
+					this.setState({userGames: dates})
+					console.log(this.state.userGames)
 				})
 		}
 		// {this.props.currentUser && console.log(this.getCurrentUserGames())}
+					/*component={withMultipleDates(Calendar)}
+					interpolateSelection={defaultMultipleDateInterpolation}*/
     return (
 			<Paper style={style} zDepth={1} rounded={false}>
 				{console.log('currentUser: ', this.props.currentUser)}
 				<InfiniteCalendar
 					width={470}
 					height={230}
-					selected={null}
 					minDate={lastWeek}
 					displayOptions={{
 						layout: 'landscape',
 						showHeader: false
 					}}
+					selected={null}
 				/>
 			</Paper>
     )
@@ -97,4 +114,4 @@ function mapDispatchToProps(dispatch) {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
+export default connect(mapStateToProps, mapDispatchToProps)(gameCalendar);
