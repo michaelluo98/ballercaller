@@ -21,10 +21,20 @@ class SessionApi {
   static getCurrentUser(credentials) {
     console.log('getCurrentUser credentials:', credentials);
     fetch(`${BASE_URL}/users/${credentials.email}`)
-      .then(res => {
-        return res.json();
-      })
+      .then(res => res.json())
   }
+
+	static getUserGames(userId) {
+		return fetch(`http://localhost:3000/api/v1/users/${userId}/history`)
+			.then(res => {
+				/*console.log(res.json());*/
+				return res.json();
+			})
+			/*.then(res => {
+				console.log(res);
+				return res;
+			})*/
+	}
 
 }
 

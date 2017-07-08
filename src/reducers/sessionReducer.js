@@ -5,7 +5,8 @@ import {push} from 'react-router-redux';
 
 // const store = configureStore();
 
-export default function sessionReducer(state = initialState.session, action, dispatch) {
+let newInitialState = Object.assign({}, initialState.session, initialState.currentUser);
+export default function sessionReducer(state = newInitialState, action, dispatch) {
 
   switch(action.type) {
 
@@ -13,7 +14,15 @@ export default function sessionReducer(state = initialState.session, action, dis
 			// history.push('/');
       // store.dispatch(push('/'))
       // dispatch(push('/'))
-      return !!sessionStorage.jwt
+			console.log('newinitialstate: ', newInitialState);
+			const currentUser = action.currentUser;
+			console.log('currentUser in sessionReducer', currentUser);	
+			const newState = Object.assign({}, state, {session: !!sessionStorage.jwt, currentUser})
+			console.log('newState:', newState);
+			//return newState;
+			return {session: !!sessionStorage.jwt, currentUser};
+
+			//return Object.assign({}, state, {session: !!sessionStorage.jwt, currentUser: {currentUser}});
 
     case types.LOG_OUT:
       // browserHistory.push('/')
