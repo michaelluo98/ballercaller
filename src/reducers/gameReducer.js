@@ -5,11 +5,8 @@ export default function gameReducer(state = gameInitialState, action) {
 	switch (action.type) {
 		case types.LOAD_GAMES_SUCCESS:
 			const {games, courts} = action.games;
-			console.log('prevstate in gameReducer load games: ', state);
 
-			const gameState = Object.assign({}, state, {games, courts});
-			console.log('newState in gameReducer: ', gameState);
-			return gameState;
+			return Object.assign({}, state, {games, courts});
 
 		case types.CREATE_GAME_SUCCESS:
 			return [
@@ -19,21 +16,20 @@ export default function gameReducer(state = gameInitialState, action) {
 
 		case types.LOAD_COURTS_SUCCESS:
 			const allCourts = action.allCourts.courts;
-			console.log('prevstate in gameReducer load courts:', state);
-			console.log('allCourts: ', allCourts);
 
-			const courtState = Object.assign({}, state, {allCourts});
-			console.log('newState in gameReducer laod courts: ', courtState);
-			return courtState;
-			// return [
-			// 	...state,
-			// 	Object.assign({}, action.games.allCourts)
-			// ];
+			return Object.assign({}, state, {allCourts});
 
 		case types.FIND_GAMES_SUCCESS: 
 			const foundGames = action.games;
 			const foundCourts = action.courts;
-			return Object.assign({}, state, {foundGames, foundCourts});
+			if (foundGames.length === 0) {
+				const errors = {foundGames: ['error'], 
+												foundCourts: ['error']}
+				return Object.assign({}, state, errors);
+			}
+			else {
+				return Object.assign({}, state, {foundGames, foundCourts});
+			}
 
 		default:
 			return state;

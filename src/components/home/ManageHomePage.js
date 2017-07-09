@@ -7,16 +7,29 @@ import GameBox from './gamebox/GameBox';
 import Calendar from './tabs/ManageCalendarPage';
 import GameList from './gamebox/GameList'; 
 import Paper from 'material-ui/Paper';
+import {NavLink} from 'react-router-dom';
+import FlatButton from 'material-ui/FlatButton';
 
-const findGameStyle = {
+const styles = {
+	findGameStyle: {
     height: 175,
     width: 470,
     margin: 30,
   	marginLeft: 60,
     textAlign: 'center',
-    display: 'inline-block',
-		marginTop: 330
-};
+		marginTop: 330, 
+		display: 'inline-block', 
+	},
+	buttonsStyle: {
+		display: 'flex', 
+		alignItems: 'center', 
+		justifyContent: 'center', 
+		width: '100%', 
+		height: '100%'
+	}
+
+}
+
 
 class ManageHomePage extends Component {
 	constructor(props, context) {
@@ -24,7 +37,9 @@ class ManageHomePage extends Component {
 
 		this.state = {
 			game: Object.assign({}, this.props.game), 
+			foundToggle: false
 		}
+
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
 		this.findGame = this.findGame.bind(this);
@@ -43,34 +58,49 @@ class ManageHomePage extends Component {
 				game['start_time'] = name.toString().slice(0,15);
 			}
 			else {
-				console.log(time);
-				console.log(name)
 				game['start_time'] = game['start_time'].concat(name.toString().slice(15));
 			}
 		}
 		else {
 			game[name] = value;
 		}
-
-		console.log(game);
 		return this.setState({game: game});
 	}
 
 	saveGame(event) {
 		event.preventDefault();
+		this.setState({foundToggle: false})
 		this.props.actions.findGames(this.state.game)
 	}
 
 	findGame() {
-		if (this.props.foundGames.length === 0) {
+		console.log('state in findGame: ', this.state); 
+		if (this.props.foundGames.length === 0 || this.state.foundToggle) {
 			return <SearchForm
 							onChange={this.updateGameState}
 							onSave={this.saveGame}
 							courts={this.props.allCourts}
 						 />
 		}
+		else if (this.props.foundGames.length === 1 &&
+							this.props.foundGames[0] === 'error') {
+			return <Paper style={styles.findGameStyle} zDepth={2} rounded={false}>
+							 <div style={styles.buttonsStyle}>
+								 <div>
+									<NavLink to="/game" style={{display: 'block'}}>
+										<FlatButton label="Create Your Own Game" primary={true} />
+									</NavLink>
+									<FlatButton 
+										label="Look For Another Game" 
+										secondary={true}
+										style={{display: 'block'}}
+										onTouchTap={() => this.setState({foundToggle: true})}/>
+								</div>
+							 </div>
+						 </Paper>
+		}
 		else {
-			return <Paper style={findGameStyle} zDepth={2} rounded={false}>
+			return <Paper style={styles.findGameStyle} zDepth={2} rounded={false}>
 								<GameList 
 									games={this.props.foundGames.slice(0,2)}
 									courts={this.props.foundCourts.slice(0,2)}
