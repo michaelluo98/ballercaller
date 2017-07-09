@@ -8,15 +8,15 @@ export function loadGamesSuccess(games) {
 }
 
 export function createGameSuccess(game) {
-	return { type: types.CREATE_GAME_SUCCESS, game };
+	return { type: types.CREATE_GAME_SUCCESS, game};
 }
 
 export function loadCourtsSuccess(allCourts) {
 	return { type: types.LOAD_COURTS_SUCCESS, allCourts };
 }
 
-export function findGamesSuccess(games, courts) {
-	return { type: types.FIND_GAMES_SUCCESS, games, courts }
+export function findGamesSuccess(foundGames, foundCourts) {
+	return { type: types.FIND_GAMES_SUCCESS, foundGames, foundCourts }
 }
 
 export function loadLastGameSuccess(lastGameId) {

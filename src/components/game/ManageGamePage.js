@@ -44,15 +44,12 @@ class ManageGamePage extends Component {
 				game['start_time'] = name.toString().slice(0,15);
 			}
 			else {
-				console.log(time);
-				console.log(name)
 				game['start_time'] = game['start_time'].concat(name.toString().slice(15));
 			}
 		}
 		else {
 			game[name] = value;
 		}
-		console.log(game);
 		return this.setState({game: game});
 	}
 
@@ -68,6 +65,8 @@ class ManageGamePage extends Component {
 	render () {
 		return (
 			<div>
+				{this.props.showGame === undefined && this.props.actions.loadGames()}
+				
 				{this.props.showGame && this.props.showGame.name ?
 						<ShowGame game={this.props.showGame}/> :
 						<GameForm
@@ -92,14 +91,12 @@ function getGameById(games, id) {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log('state in mapStateToProps: ', state.games);
 	const gameId = ownProps.match.params.id;
 	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '',
 							extra_info: '', court_id: '', setting: 'false'};
 	let showGame = {};
 	const {currentUser} = state.session;
 	const {lastGameId} = state.games;
-	console.log('lastGameId Type: ', typeof(lastGameId))
 	if (gameId && state.games.games.length > 0) {
 		showGame = getGameById(state.games.games, gameId);
 	}
@@ -108,7 +105,7 @@ function mapStateToProps(state, ownProps) {
 		allCourts: state.games.allCourts,
 		showGame, 
 		currentUser, 
-		lastGameId
+		lastGameId, 
 	};
 }
 
