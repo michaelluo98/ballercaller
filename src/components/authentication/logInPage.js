@@ -1,9 +1,28 @@
 import React, { Component } from 'react';
 // import {PropTypes} from 'prop-types'
-import TextField from 'material-ui/TextField'
+import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as sessionActions from '../../actions/sessionActions';
+
+const styles = {
+	paperStyle: {
+		height: '400px', 
+		width: '300px', 
+		display: 'flex', 
+		alignItems: 'center', 
+		justifyContent: 'center'
+	},
+	mainDivStyle: {
+		height: '100%', 
+		width: '100%',
+		display: 'flex',
+		alignItems: 'center', 
+		justifyContent: 'center'
+	}
+}
 
 class LogInPage extends Component {
   constructor(props, context) {
@@ -32,25 +51,29 @@ class LogInPage extends Component {
 
   render() {
     return (
-      <div>
-        <form>
-          <TextField
-            name="email"
-            hintText="email"
-            value={this.state.credentials.email}
-            onChange={this.onChange}/>
-          <TextField
-            name="password"
-            hintText="password"
-            type="password"
-            value={this.state.credentials.password}
-            onChange={this.onChange}/>
-
-          <input
-            type="submit"
-            className="btn btn-primary"
-            onClick={this.onSave}/>
-        </form>
+      <div style={styles.mainDivStyle}>
+				<Paper style={styles.paperStyle} zDepth={3} rounded={false}>
+					<form>
+						<TextField
+							name="email"
+							hintText="email"
+							value={this.state.credentials.email}
+							onChange={this.onChange}
+							style={{textAlign: 'center', paddingLeft: '15px'}}/>
+						<TextField
+							name="password"
+							hintText="password"
+							type="password"
+							value={this.state.credentials.password}
+							onChange={this.onChange}
+							style={{textAlign: 'center', paddingLeft: '15px'}}/>
+						<input
+							type="submit"
+							className="btn btn-primary"
+							onClick={this.onSave}
+							style={{textAlign: 'center', marginLeft: '130px'}}/>
+					</form>
+				</Paper>
       </div>
     );
   }

@@ -88,7 +88,9 @@ class ManageHomePage extends Component {
 							 <div style={styles.buttonsStyle}>
 								 <div>
 									<NavLink to="/game" style={{display: 'block'}}>
-										<FlatButton label="Create Your Own Game" primary={true} />
+										<FlatButton 
+											label="Create Your Own Game" 
+											primary={true} />
 									</NavLink>
 									<FlatButton 
 										label="Look For Another Game" 
