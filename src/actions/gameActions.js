@@ -19,6 +19,11 @@ export function findGamesSuccess(games, courts) {
 	return { type: types.FIND_GAMES_SUCCESS, games, courts }
 }
 
+export function loadLastGameSuccess(lastGameId) {
+	console.log('lastGameId in loadLastGameSuccess: ', lastGameId);
+	return { type: types.LOAD_LAST_GAME_SUCCESS, lastGameId }
+}
+
 export function loadGames() {
 	return function(dispatch) {
 		const headers = new Headers({
@@ -78,3 +83,18 @@ export function findGames(game) {
 			})
 	}
 }
+
+export function loadLastGame() {
+	return function(dispatch) {
+		const headers = new Headers({
+ 			'Authorization':`Apikey ${API_KEY}`
+		})
+		fetch(`${BASE_URL}/games/last`, {headers})
+			.then(res => res.json()).then(res => {
+				console.log('res in loadLastGame: ', res);
+				console.log('lastGameId in loadLastGame: ', res.lastGameId);
+				return dispatch(loadLastGameSuccess(res.lastGameId))
+			})
+	}
+}
+

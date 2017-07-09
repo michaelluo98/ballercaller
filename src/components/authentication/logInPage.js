@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import {PropTypes} from 'prop-types'
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as sessionActions from '../../actions/sessionActions';
@@ -16,11 +15,9 @@ const styles = {
 		justifyContent: 'center'
 	},
 	mainDivStyle: {
-		height: '100%', 
-		width: '100%',
 		display: 'flex',
 		alignItems: 'center', 
-		justifyContent: 'center'
+		justifyContent: 'center', 
 	}
 }
 

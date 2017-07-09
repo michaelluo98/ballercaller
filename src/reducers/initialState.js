@@ -3,7 +3,8 @@ export const gameInitialState = {
 	courts: [],
 	allCourts: [], 
 	foundGames: [], 
-	foundCourts: []
+	foundCourts: [], 
+	lastGameId: ''
 }
 
 export const sessionInitialState = {

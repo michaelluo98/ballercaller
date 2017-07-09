@@ -33,11 +33,6 @@ class ManageGamePage extends Component {
 
 	updateGameState(event, name='', value = 0) {
 		let game = this.state.game;
-		/*console.log('inside updateGameState: ', event);
-		console.log('inside updateGameState: ', name);
-		console.log('inside updateGameState: ', value);
-		console.log('inside updateGameState', event.target.name);
-		console.log('inside updateGameState', event.target.value);*/
 
 		if (value === 0 && typeof(name) === 'string') {
 			const field = event.target.name;
@@ -63,14 +58,16 @@ class ManageGamePage extends Component {
 
 	saveGame(event) {
 		event.preventDefault();
-		this.props.actions.saveGame(this.state.game);
-		this.props.history.push(`/${this.state.game.id}`)
+		const game = Object.assign({}, this.state.game, 
+																{game_mod_id: this.props.currentUser.id})
+		this.props.actions.saveGame(game);
+		const nextGameId = this.props.lastGameId + 1;
+		this.props.history.push(`/game/${nextGameId}`)
 	}
 
 	render () {
 		return (
 			<div>
-				{console.log('showgame: ', this.props.showGame)}
 				{this.props.showGame && this.props.showGame.name ?
 						<ShowGame game={this.props.showGame}/> :
 						<GameForm
@@ -95,17 +92,23 @@ function getGameById(games, id) {
 }
 
 function mapStateToProps(state, ownProps) {
+	console.log('state in mapStateToProps: ', state.games);
 	const gameId = ownProps.match.params.id;
 	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '',
 							extra_info: '', court_id: '', setting: 'false'};
 	let showGame = {};
+	const {currentUser} = state.session;
+	const {lastGameId} = state.games;
+	console.log('lastGameId Type: ', typeof(lastGameId))
 	if (gameId && state.games.games.length > 0) {
 		showGame = getGameById(state.games.games, gameId);
 	}
 	return {
 		game: game,
 		allCourts: state.games.allCourts,
-		showGame
+		showGame, 
+		currentUser, 
+		lastGameId
 	};
 }
 

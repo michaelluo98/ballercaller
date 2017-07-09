@@ -31,6 +31,11 @@ export default function gameReducer(state = gameInitialState, action) {
 				return Object.assign({}, state, {foundGames, foundCourts});
 			}
 
+		case types.LOAD_LAST_GAME_SUCCESS: 
+			const lastGameId = action.lastGameId;
+			console.log('lastGameId in reducer: ', lastGameId)
+			return Object.assign({}, state, {lastGameId})
+
 		default:
 			return state;
 	}
