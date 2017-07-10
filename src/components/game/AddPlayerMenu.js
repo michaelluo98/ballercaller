@@ -4,15 +4,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import addPlayerStyles from '../styles/addPlayerStyles';
-
-
-const menuItems = [
-  <MenuItem primaryText="Refresh" />,
-  <MenuItem primaryText="Send feedback" />,
-  <MenuItem primaryText="Settings" />,
-  <MenuItem primaryText="Help" />,
-  <MenuItem primaryText="Sign out" />
-];
+import AddPlayerMenuItems from './AddPlayerMenuItems';
 
 class AddPlayerMenu extends Component {
   constructor(props, context) {
@@ -36,11 +28,9 @@ class AddPlayerMenu extends Component {
             positionStyle={playerStyle} />
         </IconButton>
         }
-        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-        targetOrigin={{horizontal: 'left', vertical: 'top'}}
         style={playerStyle}
       >
-        {menuItems.map(element => element)}
+        <AddPlayerMenuItems />
       </IconMenu>
     )
   }

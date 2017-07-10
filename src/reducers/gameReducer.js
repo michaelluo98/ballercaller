@@ -42,6 +42,14 @@ export default function gameReducer(state = gameInitialState, action) {
 		case types.QUICK_JOIN_GAME_SUCCESS: 
 			return state;
 
+		case types.LOAD_TEAMS_SUCCESS: 
+			const teams = action.teams; 
+			return Object.assign({}, state, {teams});
+
+		case types.LOAD_PLAYERS_SUCCESS: 
+			const {playersOne, playersTwo} = action;
+			return Object.assign({}, state, {playersOne, playersTwo})
+
 		default:
 			return state;
 	}

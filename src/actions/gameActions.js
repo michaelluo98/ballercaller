@@ -27,6 +27,14 @@ export function quickJoinGameSuccess() {
 	return { type: types.QUICK_JOIN_GAME_SUCCESS }
 }
 
+export function loadTeamsSuccess(teams) {
+	return { type: types.LOAD_TEAMS_SUCCESS, teams }
+}
+
+export function loadPlayersSuccess(playersOne, playersTwo) {
+	return { type: types.LOAD_PLAYERS_SUCCESS, playersOne, playersTwo }
+}
+
 export function loadGames() {
 	return function(dispatch) {
 		const headers = new Headers({
@@ -36,6 +44,32 @@ export function loadGames() {
 			.then(res => res.json()).then(res => {
 				dispatch(loadGamesSuccess(res));
 			});
+	}
+}
+
+export function loadTeams() {
+	return function(dispatch) {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+		fetch(`${BASE_URL}/teams`, {headers})
+			.then(res => res.json()).then(res => {
+				console.log('res in loadTeams: ', res.teams);
+				dispatch(loadTeamsSuccess(res.teams));
+			})
+	}
+}
+
+export function loadPlayers(gameId) {
+	return function(dispatch) {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+	fetch(`${BASE_URL}/games/${gameId}/players`, {headers})
+		.then(res => res.json()).then(res => {
+			console.log('res in loadPlayers', res);
+			dispatch(loadPlayersSuccess(res.playersOne, res.playersTwo))
+		})
 	}
 }
 

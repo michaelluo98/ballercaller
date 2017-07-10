@@ -66,6 +66,7 @@ class ManageGamePage extends Component {
 		return (
 			<div>
 				{this.props.showGame === undefined && this.props.actions.loadGames()}
+				{this.props.showGame && this.props.actions.loadPlayers(this.props.showGame.id)}
 				
 				{this.props.showGame && this.props.showGame.name ?
 						<ShowGame game={this.props.showGame}/> :

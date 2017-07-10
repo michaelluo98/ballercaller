@@ -8,9 +8,6 @@ import DropDown from './DropDown';
 import styles from '../styles/gameStyles';
 
 const inputStyle = {
-	//position: 'fixed',
-	//bottom: '50%',
-	//left: '48%',
 	borderRadius: '100px',
 	width: '50px',
 	height: '50px',

@@ -4,7 +4,10 @@ export const gameInitialState = {
 	allCourts: [], 
 	foundGames: [], 
 	foundCourts: [], 
-	lastGameId: ''
+	lastGameId: '', 
+	teams: [], 
+	playersOne: [], 
+	playersTwo: []
 }
 
 export const sessionInitialState = {
