@@ -1,7 +1,5 @@
 import React from 'react';
 import AddPlayerMenu from './AddPlayerMenu';
-
-import AddPlayerButton from './AddPlayerButton';
 import addPlayerStyles from '../styles/addPlayerStyles';
 
 function addPlayerButtons({currentUser, playersOne, playersTwo}) {

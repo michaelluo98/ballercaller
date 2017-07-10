@@ -6,7 +6,6 @@ import * as gameActions from '../../actions/gameActions';
 import GameForm from './GameForm';
 import ShowGame from './ShowGame';
 import AddPlayerButtons from './AddPlayerButtons';
-import FontAwesome from 'react-fontawesome';
 
 const styles = {
 	threePointLine: {
@@ -81,10 +80,6 @@ class ManageGamePage extends Component {
 						/>
 				}
 				<div style={styles.threePointLine}></div>
-					<FontAwesome
-						name='rocket'
-				    size='2x'
-					/>
 				<AddPlayerButtons 
 					currentUser={this.props.currentUser} 
 					playersOne={this.props.playersOne}
