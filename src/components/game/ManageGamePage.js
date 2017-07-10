@@ -6,6 +6,7 @@ import * as gameActions from '../../actions/gameActions';
 import GameForm from './GameForm';
 import ShowGame from './ShowGame';
 import AddPlayerButtons from './AddPlayerButtons';
+import FontAwesome from 'react-fontawesome';
 
 const styles = {
 	threePointLine: {
@@ -65,8 +66,9 @@ class ManageGamePage extends Component {
 	render () {
 		return (
 			<div>
-				{this.props.showGame === undefined && this.props.actions.loadGames()}
-				{this.props.showGame && this.props.actions.loadPlayers(this.props.showGame.id)}
+				{this.props.showGame.id === undefined && this.props.actions.loadGames()}
+				{this.props.gameId && this.props.playersOne.length === 0 
+						&& this.props.actions.loadPlayers(this.props.gameId)}
 				
 				{this.props.showGame && this.props.showGame.name ?
 						<ShowGame game={this.props.showGame}/> :
@@ -79,7 +81,14 @@ class ManageGamePage extends Component {
 						/>
 				}
 				<div style={styles.threePointLine}></div>
-				<AddPlayerButtons currentUser={this.props.currentUser}/>
+					<FontAwesome
+						name='rocket'
+				    size='2x'
+					/>
+				<AddPlayerButtons 
+					currentUser={this.props.currentUser} 
+					playersOne={this.props.playersOne}
+					playersTwo={this.props.playersTwo}/>
 			</div>
 		);
 	}
@@ -97,7 +106,7 @@ function mapStateToProps(state, ownProps) {
 							extra_info: '', court_id: '', setting: 'false'};
 	let showGame = {};
 	const {currentUser} = state.session;
-	const {lastGameId} = state.games;
+	const {lastGameId, playersOne, playersTwo} = state.games;
 	if (gameId && state.games.games.length > 0) {
 		showGame = getGameById(state.games.games, gameId);
 	}
@@ -107,6 +116,9 @@ function mapStateToProps(state, ownProps) {
 		showGame, 
 		currentUser, 
 		lastGameId, 
+		playersOne, 
+		playersTwo, 
+		gameId
 	};
 }
 

@@ -6,14 +6,14 @@ export default function gameReducer(state = gameInitialState, action) {
 		case types.LOAD_GAMES_SUCCESS:
 			const {games, courts} = action.games;
 
-			console.log('oldstate in LOAD_GAMES_SUCCESS:', state);
+			//console.log('oldstate in LOAD_GAMES_SUCCESS:', state);
 			const newState = Object.assign({}, state, {games, courts});
-			console.log('newState in LOAD_GAMES_SUCCESS: ', newState);
+			//console.log('newState in LOAD_GAMES_SUCCESS: ', newState);
 			return newState;
 
 		case types.CREATE_GAME_SUCCESS:
-			console.log('game in CREATE_GAME_SUCCESS: ', action.game)
-			console.log('state in CREATE_GAME_SUCCESS:', state);
+			//console.log('game in CREATE_GAME_SUCCESS: ', action.game)
+			//console.log('state in CREATE_GAME_SUCCESS:', state);
 			return state;
 
 		case types.LOAD_COURTS_SUCCESS:
