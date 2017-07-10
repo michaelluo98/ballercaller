@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import Map from './GoogleMap';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as gameActions from '../../../actions/gameActions';
 
 const mapStyle = {
     height: '490px',
@@ -9,17 +12,17 @@ const mapStyle = {
  	  marginTop: '10px',
     textAlign: 'center',
     display: 'absolute',
-
 };
 
 class GameMap extends Component {
-	constructor(props) {
-		super(props);
-    this.renderMarkers = this.renderMarkers.bind(this)
+	constructor(props, context) {
+		super(props, context);
 
 		this.state = {
 			courts: []
 		}
+		this.handleMarkerClick = this.handleMarkerClick.bind(this);
+    this.renderMarkers = this.renderMarkers.bind(this)
 	}
 
 
@@ -38,6 +41,10 @@ class GameMap extends Component {
     })
   }
 
+	handleMarkerClick(gameId) {
+		this.props.history.push(`/game/${gameId}`)
+	}
+
   render() {
 
     return (
@@ -50,6 +57,7 @@ class GameMap extends Component {
           }
 					center={{ lat: 49.2564956, lng: -123.105743 }}
           markers={this.renderMarkers()}
+					onMarkerClick={this.handleMarkerClick}
           containerElement={<Paper style={mapStyle} zDepth={2} circle={true} />}
           mapElement={<div
                       style={{ height: `100%`, borderRadius: '50%' }}>
@@ -60,18 +68,10 @@ class GameMap extends Component {
   }
 }
 
-// {console.log(this.props.games)}
-// {console.log(this.props.courts)}
-// {console.log(markers)}
+function mapDispatchToProps(dispatch) {
+	return {
+		actions: bindActionCreators(gameActions, dispatch)
+	}
+}
 
-// <Paper style={mapStyle} zDepth={2} circle={true} />
-//   <div>
-//     <h1>Games</h1>
-//     {console.log(this.props.games)}
-//     {this.props.games && this.props.games.map(gameRow)}
-//   </div>
-//
-//
-// </Paper>
-
-export default GameMap;
+export default connect(null, mapDispatchToProps)(GameMap);

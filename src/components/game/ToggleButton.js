@@ -33,7 +33,6 @@ class ToggleButton extends Component {
 		else {
 			this.setState({toggle: 'true'})
 		}
-		console.log(this.state.toggle);
 		this.props.onChange(event, event.target.name, this.state.toggle);
 	}
 

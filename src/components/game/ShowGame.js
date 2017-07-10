@@ -14,7 +14,6 @@ function showGame({game}) {
 				</div>
 				{game.setting ? <h4>Indoor</h4> : <h4>Outdoor</h4>}
 				<p><strong>Additional Information</strong>: {game.extra_info}</p>
-				{console.log('game: in showgame', game)}
       </div>
     </div>
   )

@@ -39,6 +39,9 @@ export default function gameReducer(state = gameInitialState, action) {
 			console.log('lastGameId in reducer: ', lastGameId)
 			return Object.assign({}, state, {lastGameId})
 
+		case types.QUICK_JOIN_GAME_SUCCESS: 
+			return state;
+
 		default:
 			return state;
 	}

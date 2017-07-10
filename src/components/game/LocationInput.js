@@ -25,9 +25,7 @@ export default class LocationInput extends Component {
   }
 
 	handleChange = (event, index, value) => {
-		console.log('value:', value);
 		this.setState({value});
-		console.log(this.state.value);
 		this.props.onChange(event, this.state.name, value);
 	}
 

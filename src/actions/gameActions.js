@@ -20,8 +20,11 @@ export function findGamesSuccess(foundGames, foundCourts) {
 }
 
 export function loadLastGameSuccess(lastGameId) {
-	console.log('lastGameId in loadLastGameSuccess: ', lastGameId);
 	return { type: types.LOAD_LAST_GAME_SUCCESS, lastGameId }
+}
+
+export function quickJoinGameSuccess() {
+	return { type: types.QUICK_JOIN_GAME_SUCCESS }
 }
 
 export function loadGames() {
@@ -91,10 +94,25 @@ export function loadLastGame() {
 		})
 		fetch(`${BASE_URL}/games/last`, {headers})
 			.then(res => res.json()).then(res => {
-				console.log('res in loadLastGame: ', res);
-				console.log('lastGameId in loadLastGame: ', res.lastGameId);
 				return dispatch(loadLastGameSuccess(res.lastGameId))
 			})
 	}
 }
 
+export function quickJoinGame(currentUser, gameId) {
+	return function(dispatch) {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`,
+			'Accept':'application/json',
+			'Content-Type':'application/json'
+		})
+		fetch(`${BASE_URL}/games/${gameId}`, {
+			headers, 
+			method: 'POST',
+			body: JSON.stringify({user: {id: gameId}})
+		}).then(res => res.json()).then(res => {
+			return dispatch(quickJoinGameSuccess())
+		})
+
+	}
+}
