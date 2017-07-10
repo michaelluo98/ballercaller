@@ -100,17 +100,20 @@ export function loadLastGame() {
 }
 
 export function quickJoinGame(currentUser, gameId) {
+	console.log('gameId in quickJoinGame: ', gameId)
+	console.log('data: ', JSON.stringify({user: {id: currentUser.id}}))
 	return function(dispatch) {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`,
 			'Accept':'application/json',
 			'Content-Type':'application/json'
 		})
-		fetch(`${BASE_URL}/games/${gameId}`, {
+		fetch(`${BASE_URL}/games/${gameId}/quickjoin`, {
 			headers, 
 			method: 'POST',
-			body: JSON.stringify({user: {id: gameId}})
+			body: JSON.stringify({user: {id: currentUser.id}})
 		}).then(res => res.json()).then(res => {
+			console.log('res in quickjoin: ', res);
 			return dispatch(quickJoinGameSuccess())
 		})
 

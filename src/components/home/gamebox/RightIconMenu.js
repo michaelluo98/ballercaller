@@ -36,7 +36,7 @@ class RightIconMenu extends Component {
   }
 
 	handleTouch() {
-		this.props.actions.quickJoinGame(this.props.gameId, this.props.currentUser)
+		this.props.actions.quickJoinGame(this.props.currentUser, this.props.gameId)
 	}
 
   render() {
