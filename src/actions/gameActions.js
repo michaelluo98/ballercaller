@@ -35,6 +35,10 @@ export function loadPlayersSuccess(playersOne, playersTwo) {
 	return { type: types.LOAD_PLAYERS_SUCCESS, playersOne, playersTwo }
 }
 
+export function clearPlayersSuccess() {
+	return { type: types.CLEAR_PLAYERS_SUCCESS, playersOne: [], playersTwo: [] }
+}
+
 export function loadGames() {
 	return function(dispatch) {
 		const headers = new Headers({
@@ -54,7 +58,6 @@ export function loadTeams() {
 		})
 		fetch(`${BASE_URL}/teams`, {headers})
 			.then(res => res.json()).then(res => {
-				console.log('res in loadTeams: ', res.teams);
 				dispatch(loadTeamsSuccess(res.teams));
 			})
 	}
@@ -87,7 +90,13 @@ export function saveGame(game) {
 		})
 			.then(game => {
 				dispatch(createGameSuccess(game));
-			});
+				return game;
+			})
+			.then(game => {
+				console.log('-----------LOADING PLAYERS----------------')
+				loadPlayers(game.id);
+				loadGames();
+			})
 	}
 }
 
@@ -151,5 +160,11 @@ export function quickJoinGame(currentUser, gameId) {
 			return dispatch(quickJoinGameSuccess())
 		})
 
+	}
+}
+
+export function clearPlayers() {
+	return function(dispatch) {
+		dispatch(clearPlayersSuccess());	
 	}
 }

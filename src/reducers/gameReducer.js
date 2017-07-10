@@ -24,7 +24,6 @@ export default function gameReducer(state = gameInitialState, action) {
 		case types.FIND_GAMES_SUCCESS: 
 			const {foundGames} = action;
 			const {foundCourts} = action;
-			console.log('state in found games success:', state);
 			if (foundGames.length === 0) {
 				const errors = {foundGames: ['error'], 
 												foundCourts: ['error']}
@@ -36,7 +35,6 @@ export default function gameReducer(state = gameInitialState, action) {
 
 		case types.LOAD_LAST_GAME_SUCCESS: 
 			const lastGameId = action.lastGameId;
-			console.log('lastGameId in reducer: ', lastGameId)
 			return Object.assign({}, state, {lastGameId})
 
 		case types.QUICK_JOIN_GAME_SUCCESS: 
@@ -49,6 +47,11 @@ export default function gameReducer(state = gameInitialState, action) {
 		case types.LOAD_PLAYERS_SUCCESS: 
 			const {playersOne, playersTwo} = action;
 			return Object.assign({}, state, {playersOne, playersTwo})
+
+		case types.CLEAR_PLAYERS_SUCCESS: 
+			const teamOne = action.playersOne;
+			const teamTwo = action.playersTwo;
+			return Object.assign({}, state, {playersOne: teamOne, playersTwo: teamTwo})
 
 		default:
 			return state;

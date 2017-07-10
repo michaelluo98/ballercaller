@@ -55,7 +55,7 @@ class ManageGamePage extends Component {
 
 	saveGame(event) {
 		event.preventDefault();
-		const game = Object.assign({}, this.state.game, 
+		const game = Object.assign({}, this.state.game,
 																{game_mod_id: this.props.currentUser.id})
 		this.props.actions.saveGame(game);
 		const nextGameId = this.props.lastGameId + 1;
@@ -65,10 +65,15 @@ class ManageGamePage extends Component {
 	render () {
 		return (
 			<div>
-				{this.props.showGame.id === undefined && this.props.actions.loadGames()}
+				{this.props.gameId === undefined && this.props.playersOne.length > 0
+						&& this.props.actions.clearPlayers()}
 				{this.props.gameId && this.props.playersOne.length === 0 
-						&& this.props.actions.loadPlayers(this.props.gameId)}
-				
+						&& this.props.actions.loadGames()}
+						{console.log('showGame in ManageHomePage', this.props.showGame)}
+						{console.log('showGameBoolVal in ManageHomePage', !!this.props.showGame)}
+				{this.props.showGame && this.props.showGame.id && this.props.playersOne.length === 0  
+				  	&& this.props.actions.loadPlayers(this.props.gameId)}
+
 				{this.props.showGame && this.props.showGame.name ?
 						<ShowGame game={this.props.showGame}/> :
 						<GameForm
@@ -80,8 +85,8 @@ class ManageGamePage extends Component {
 						/>
 				}
 				<div style={styles.threePointLine}></div>
-				<AddPlayerButtons 
-					currentUser={this.props.currentUser} 
+				<AddPlayerButtons
+					currentUser={this.props.currentUser}
 					playersOne={this.props.playersOne}
 					playersTwo={this.props.playersTwo}/>
 			</div>
@@ -101,18 +106,21 @@ function mapStateToProps(state, ownProps) {
 							extra_info: '', court_id: '', setting: 'false'};
 	let showGame = {};
 	const {currentUser} = state.session;
-	const {lastGameId, playersOne, playersTwo} = state.games;
+	const {lastGameId, playersOne, playersTwo, games} = state.games;
 	if (gameId && state.games.games.length > 0) {
 		showGame = getGameById(state.games.games, gameId);
 	}
+	console.log('playersOne in mapStateToProps: ', playersOne);
+	console.log('playersTwo in mapStateToProps: ', playersTwo);
 	return {
 		game: game,
+		games,
 		allCourts: state.games.allCourts,
-		showGame, 
-		currentUser, 
-		lastGameId, 
-		playersOne, 
-		playersTwo, 
+		showGame,
+		currentUser,
+		lastGameId,
+		playersOne,
+		playersTwo,
 		gameId
 	};
 }

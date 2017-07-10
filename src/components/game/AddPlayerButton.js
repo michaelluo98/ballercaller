@@ -5,8 +5,8 @@ import UserIcon from 'material-ui/svg-icons/action/account-circle'
 
 function addPlayerButton({secondary, positionStyle, player}) {
 	const addIcon = player ? 
-		<ContentAdd /> :
-		<UserIcon style={{height: '30px', width: '30px'}}/>
+		<UserIcon style={{height: '30px', width: '30px'}}/> :
+		<ContentAdd />
   let addButton = secondary === 'true' ?
   <FloatingActionButton style={positionStyle} secondary={true}>
 		{addIcon}
