@@ -4,7 +4,7 @@ import {ListItem} from 'material-ui/List'
 import Avatar from 'material-ui/Avatar';
 import {darkBlack} from 'material-ui/styles/colors';
 import RightIconMenu from './RightIconMenu'
-
+// rightIconButton={<RightIconMenu gameId={gameId}/>}
 
 function GameListRow({gameId, name, time, court, mode}) {
 	const intro = `${name} @ ${court}`;
@@ -12,15 +12,12 @@ function GameListRow({gameId, name, time, court, mode}) {
     <ListItem
       leftAvatar={<Avatar src="images/jason_face2.png" />}
       primaryText={intro}
-      rightIconButton={<RightIconMenu gameId={gameId}/>}
+      rightIconButton={<RightIconMenu gameId={gameId} />}
       secondaryText={
-        <p>
-					<span style={{color: darkBlack}}>mode: {mode} | GameTime: {moment(time).format('MMMM Do [@] h:mm a')} </span>
-        </p>
+        <p> <span style={{color: darkBlack}}>mode: {mode} | GameTime: {moment(time).format('MMMM Do [@] h:mm a')} </span> </p>
       }
       secondaryTextLines={1}
     />
-
   )
 }
 

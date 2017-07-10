@@ -50,11 +50,11 @@ class GameBox extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  const {games, courts} = state.games
+  const {games, courts} = state.games;
 	const waitingGames = games.filter(game => game.status === 'waiting');
   return {
 		games: waitingGames,
-		courts, 
+		courts
   };
 }
 
