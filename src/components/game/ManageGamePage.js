@@ -25,10 +25,13 @@ class ManageGamePage extends Component {
 
 		this.state = {
 			game: Object.assign({}, this.props.game),
+			playersOne: Object.assign({}, this.props.playersOne),
+			playersTwo: Object.assign({}, this.props.playersTwo),
 			errors: {},
 		}
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
+		this.updateTeamState = this.updateTeamState.bind(this);
 	}
 
 	updateGameState(event, name='', value = 0) {
@@ -53,10 +56,27 @@ class ManageGamePage extends Component {
 		return this.setState({game: game});
 	}
 
+	updateTeamState(player, teamNum) {
+		let team;
+		if (teamNum === 1) {
+			team = this.state.playersOne
+			team.push(player)
+			return this.setState({})
+		}
+		else {
+			team = this.state.playersTwo
+			team.push(player)
+			return this.setState({})
+		}
+
+	}
+
 	saveGame(event) {
 		event.preventDefault();
 		const game = Object.assign({}, this.state.game,
-																{game_mod_id: this.props.currentUser.id})
+			{game_mod_id: this.props.currentUser.id}, 
+			{playersOne: this.state.playersOne}, 
+			{playersTwo: this.state.playersTwo})
 		this.props.actions.saveGame(game);
 		const nextGameId = this.props.lastGameId + 1;
 		this.props.history.push(`/game/${nextGameId}`)
@@ -88,7 +108,8 @@ class ManageGamePage extends Component {
 				<AddPlayerButtons
 					currentUser={this.props.currentUser}
 					playersOne={this.props.playersOne}
-					playersTwo={this.props.playersTwo}/>
+					playersTwo={this.props.playersTwo}
+					handleChange={this.updateTeamState}/>
 			</div>
 		);
 	}
