@@ -78,7 +78,7 @@ class ManageGamePage extends Component {
 						/>
 				}
 				<div style={styles.threePointLine}></div>
-				<AddPlayerButtons />
+				<AddPlayerButtons currentUser={this.props.currentUser}/>
 			</div>
 		);
 	}

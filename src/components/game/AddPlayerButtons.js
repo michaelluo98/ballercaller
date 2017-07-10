@@ -1,63 +1,59 @@
 import React from 'react';
+import AddPlayerMenu from './AddPlayerMenu';
+
 import AddPlayerButton from './AddPlayerButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
 import addPlayerStyles from '../styles/addPlayerStyles';
 
 function addPlayerButtons() {
-	const menuItems = [
-    <MenuItem primaryText="Refresh" />,
-    <MenuItem primaryText="Send feedback" />,
-    <MenuItem primaryText="Settings" />,
-    <MenuItem primaryText="Help" />,
-    <MenuItem primaryText="Sign out" />
-	];
   return (
     <div>
-      <IconMenu
-        iconButtonElement={
-        <IconButton>
-          <AddPlayerButton secondary="true"
-            positionStyle={addPlayerStyles.playerOne} />
-        </IconButton>
-        }
-        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-        targetOrigin={{horizontal: 'left', vertical: 'top'}}
-        style={addPlayerStyles.playerOne}
-      >
-				{menuItems.map(element => element)}
-      </IconMenu>
-      <AddPlayerButton secondary="true"
-        positionStyle={addPlayerStyles.playerTwo}/>
-      <AddPlayerButton secondary="true"
-        positionStyle={addPlayerStyles.playerThree}/>
-      <AddPlayerButton secondary="true"
-        positionStyle={addPlayerStyles.playerFour}/>
-      <AddPlayerButton secondary="true"
-        positionStyle={addPlayerStyles.playerFive}/>
+			<AddPlayerMenu
+				playerNum={"playerOne"}
+				playerStyle={addPlayerStyles.playerOne}
+				secondary="true"
+			/>
+			<AddPlayerMenu
+				playerNum={"playerTwo"}
+				playerStyle={addPlayerStyles.playerTwo}
+				secondary="true"
+			/>
+			<AddPlayerMenu
+				playerNum={"playerThree"}
+				playerStyle={addPlayerStyles.playerThree}
+				secondary="true"
+			/>
+			<AddPlayerMenu
+				playerNum={"playerFour"}
+				playerStyle={addPlayerStyles.playerFour}
+				secondary="true"
+			/>
+			<AddPlayerMenu
+				playerNum={"playerFive"}
+				playerStyle={addPlayerStyles.playerFive}
+				secondary="true"
+			/>
 
-      <AddPlayerButton
-        positionStyle={addPlayerStyles.playerSix}/>
-      <AddPlayerButton
-				positionStyle={addPlayerStyles.playerSeven}/>
-			<IconMenu
-        iconButtonElement={
-        <IconButton>
-          <AddPlayerButton
-            positionStyle={addPlayerStyles.playerEight} />
-        </IconButton>
-        }
-        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-        targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-        style={addPlayerStyles.playerEight}
-      >
-				{menuItems.map(element => element)}
-      </IconMenu>
-      <AddPlayerButton
-        positionStyle={addPlayerStyles.playerNine}/>
-      <AddPlayerButton
-        positionStyle={addPlayerStyles.playerTen}/>
+			<AddPlayerMenu
+				playerNum={"playerSix"}
+				playerStyle={addPlayerStyles.playerSix}
+			/>
+			<AddPlayerMenu
+				playerNum={"playerSeven"}
+				playerStyle={addPlayerStyles.playerSeven}
+			/>
+			<AddPlayerMenu
+				playerNum={"playerEight"}
+				playerStyle={addPlayerStyles.playerEight}
+			/>
+			<AddPlayerMenu
+				playerNum={"playerNine"}
+				playerStyle={addPlayerStyles.playerNine}
+			/>
+			<AddPlayerMenu
+				playerNum={"playerTen"}
+				playerStyle={addPlayerStyles.playerTen}
+			/>
+
     </div>
   )
 }

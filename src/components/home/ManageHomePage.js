@@ -118,6 +118,7 @@ class ManageHomePage extends Component {
 									games={this.props.foundGames.slice(0,2)}
 									courts={this.props.foundCourts.slice(0,2)}
 									listGame={false}
+									handleOpen={this.handleOpenBar}
 								/>
 							</Paper>
 		}
