@@ -13,7 +13,7 @@ const style = {
   display: 'absolute',
 }
 
-const GameList = ({games, courts, listGame}) => (
+const GameList = ({games, courts, listGame, handleOpen}) => (
     <div className="game-list">
       <List>
 				{listGame ?
@@ -27,7 +27,9 @@ const GameList = ({games, courts, listGame}) => (
 									name={game.name}
 									time={game.start_time}
 									court={courts[index].name}
-									mode={game.mode} />;
+									mode={game.mode}
+									handleOpen={handleOpen}
+								/>;
 			})}
       </List>
     </div>

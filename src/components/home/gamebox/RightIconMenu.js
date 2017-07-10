@@ -32,11 +32,13 @@ class RightIconMenu extends Component {
   constructor(props, context) {
     super(props, context);
 
+
 		this.handleTouch = this.handleTouch.bind(this);
   }
 
 	handleTouch() {
 		this.props.actions.quickJoinGame(this.props.currentUser, this.props.gameId)
+		this.props.handleOpen();
 	}
 
   render() {

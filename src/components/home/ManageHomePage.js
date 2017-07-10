@@ -9,6 +9,7 @@ import GameList from './gamebox/GameList';
 import Paper from 'material-ui/Paper';
 import {NavLink} from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
+import Snackbar from 'material-ui/Snackbar';
 
 const styles = {
 	findGameStyle: {
@@ -37,12 +38,22 @@ class ManageHomePage extends Component {
 
 		this.state = {
 			game: Object.assign({}, this.props.game), 
-			foundToggle: false
+			foundToggle: false, 
+			open: false
 		}
-
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
 		this.findGame = this.findGame.bind(this);
+		this.handleOpenBar = this.handleOpenBar.bind(this);
+		this.handleCloseBar = this.handleCloseBar.bind(this);
+	}
+
+	handleOpenBar() {
+		this.setState({open: true});
+	}
+
+	handleCloseBar() {
+		this.setState({open: false})
 	}
 
 	updateGameState(event, name='', value = 0) {
@@ -115,9 +126,17 @@ class ManageHomePage extends Component {
 	render() {
 		return (
 			<div>
-				<GameBox />
+				<GameBox 
+					handleOpen={this.handleOpenBar} 
+				/>
 				{this.findGame()}
 				<Calendar />
+				<Snackbar
+				  open={this.state.open}
+				  message="successfully joined game!"
+				  autoHideDuration={4000}
+				  onRequestClose={this.handleCloseBar}
+				/>
 			</div>
 		)
 	}

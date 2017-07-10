@@ -39,6 +39,7 @@ class GameBox extends Component {
 					games={this.props.games.slice(0,6)}
 					courts={this.props.courts.slice(0,6)}
 					listGame={true}
+					handleOpen={this.props.handleOpen}
 					/> }
     		<SelectMapView
     			selectedMapView = {this.state.selectedMapView}
