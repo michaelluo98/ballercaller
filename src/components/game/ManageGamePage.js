@@ -28,7 +28,7 @@ class ManageGamePage extends Component {
 		this.state = {
 			game: Object.assign({}, this.props.game),
 			playersOne: this.props.playersOne,
-			playersTwo: this.props.playersOne,
+			playersTwo: this.props.playersTwo,
 			createGame: true
 		}
 		this.updateGameState = this.updateGameState.bind(this);
@@ -67,17 +67,19 @@ class ManageGamePage extends Component {
 
 	updateTeamState(event, menuItem, index) {
 		const {player, teamNum} = menuItem.props;
-		let team;
+		console.log('playersOneState: ', this.state.playersOne)
+		console.log('playersTwoState: ', this.state.playersTwo)
+		console.log('teamNum in updateTeamState:', teamNum);
 		if (teamNum === 1) {
-			team = this.state.playersOne
-			console.log('team in updateTeamState: ', team);
+			let team = this.state.playersOne
+			console.log('setting teamone State')
 			team.push(player)
 			return this.setState({playersOne: team})
 		}
 		else {
-			team = this.state.playersTwo
-			console.log('team in updateTeamState: ', team);
+			let team = this.state.playersTwo
 			team.push(player)
+			console.log('setting teamtwo State')
 			return this.setState({playersTwo: team})
 		}
 	}
@@ -109,7 +111,8 @@ class ManageGamePage extends Component {
 		}
 
 		// need to know that showGame exists and is loaded
-		if (this.props.showGame) {
+		if (this.props.showGame && this.props.showGame.id && 
+				this.props.playersOnes.length === 0) {
 			this.props.actions.loadPlayers(this.props.gameId)
 		}
 	}
@@ -117,20 +120,6 @@ class ManageGamePage extends Component {
 	render () {
 		return (
 			<div>
-				{/* showgame -> creategame */}
-				{/*this.props.gameId === undefined && this.props.playersOne.length > 0 &&
-				this.state.createGame === false && this.props.actions.clearPlayers() &&
-				this.setState({createGame: !this.state.createGame})}
-				{/* creategame -> showgame */}
-				{/*this.props.gameId && this.state.createGame && 
-				 this.setState({createGame: !this.state.createGame}) }
-				{/* creategame -> showgame*/}
-				{/*this.props.gameId && this.props.playersOne.length === 0 &&
-				 this.props.actions.loadGames()}
-				{/* creategame -> showgame, need for showGame to exist first */}
-				{/*this.props.showGame && this.props.showGame.id && 
-				this.props.playersOne.length === 0 && 
-				this.props.actions.loadPlayers(this.props.gameId)*/}
 				{this.updatePageState()}
 
 				{this.props.showGame && this.props.showGame.name ?
@@ -146,8 +135,8 @@ class ManageGamePage extends Component {
 				<div style={styles.threePointLine}></div>
 				<AddPlayerButtons
 					currentUser={this.props.currentUser}
-					playersOne={this.props.playersOne}
-					playersTwo={this.props.playersTwo}
+					playersOne={this.state.playersOne}
+					playersTwo={this.state.playersTwo}
 					handleChange={this.updateTeamState}
 					favorites={this.props.favorites} />
 			</div>
