@@ -34,6 +34,7 @@ class ManageGamePage extends Component {
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
 		this.updateTeamState = this.updateTeamState.bind(this);
+		this.updatePageState = this.updatePageState.bind(this);
 	}
 
 	componentDidMount() {
@@ -45,7 +46,6 @@ class ManageGamePage extends Component {
 
 	updateGameState(event, name='', value = 0) {
 		let game = this.state.game;
-
 		if (value === 0 && typeof(name) === 'string') {
 			const field = event.target.name;
 			game[field] = event.target.value;
@@ -93,23 +93,45 @@ class ManageGamePage extends Component {
 		this.props.history.push(`/game/${nextGameId}`)
 	}
 
+	updatePageState() {
+		// showgame -> creategame
+		if (this.props.gameId === undefined && this.props.playersOne &&
+				this.props.playersOne.length > 0 && this.state.createGame === false) {
+			this.props.actions.clearPlayers();
+			this.setState({createGame: !this.state.createGame})
+		}
+
+		// creategame -> showgame
+		if (this.props.gameId && this.state.createGame && 
+				this.props.playersOne.length === 0) {
+			this.props.actions.loadGames();	
+			this.setState({createGame: !this.state.createGame})
+		}
+
+		// need to know that showGame exists and is loaded
+		if (this.props.showGame) {
+			this.props.actions.loadPlayers(this.props.gameId)
+		}
+	}
+
 	render () {
 		return (
 			<div>
 				{/* showgame -> creategame */}
-				{this.props.gameId === undefined && this.props.playersOne.length > 0 &&
+				{/*this.props.gameId === undefined && this.props.playersOne.length > 0 &&
 				this.state.createGame === false && this.props.actions.clearPlayers() &&
 				this.setState({createGame: !this.state.createGame})}
 				{/* creategame -> showgame */}
-				{this.props.gameId && this.state.createGame && 
+				{/*this.props.gameId && this.state.createGame && 
 				 this.setState({createGame: !this.state.createGame}) }
 				{/* creategame -> showgame*/}
-				{this.props.gameId && this.props.playersOne.length === 0 &&
+				{/*this.props.gameId && this.props.playersOne.length === 0 &&
 				 this.props.actions.loadGames()}
 				{/* creategame -> showgame, need for showGame to exist first */}
-				{this.props.showGame && this.props.showGame.id && 
+				{/*this.props.showGame && this.props.showGame.id && 
 				this.props.playersOne.length === 0 && 
-				this.props.actions.loadPlayers(this.props.gameId)}
+				this.props.actions.loadPlayers(this.props.gameId)*/}
+				{this.updatePageState()}
 
 				{this.props.showGame && this.props.showGame.name ?
 						<ShowGame game={this.props.showGame}/> :
