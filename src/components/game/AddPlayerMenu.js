@@ -14,8 +14,6 @@ class AddPlayerMenu extends Component {
   }
 
   render() {
-		console.log('playerNum in IconMenu: ', this.props.playerNum);
-		console.log('team in IconMenu: ', this.props.team);
     return (
       <IconMenu
         iconButtonElement={
@@ -33,6 +31,7 @@ class AddPlayerMenu extends Component {
 					playerNum={this.props.playerNum}
 					team={this.props.team}
 					handleChange={this.props.handleChange}
+					favorites={this.props.favorites}
 				/>
       </IconMenu>
     )

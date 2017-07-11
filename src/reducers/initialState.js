@@ -12,6 +12,7 @@ export const gameInitialState = {
 
 export const sessionInitialState = {
 	session: !!sessionStorage.jwt, 
-	currentUser: {}
+	currentUser: {}, 
+	favorites: []
 }
 

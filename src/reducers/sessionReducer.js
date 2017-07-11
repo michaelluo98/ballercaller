@@ -3,9 +3,6 @@ import {sessionInitialState} from './initialState';
 import history from '../components/history';
 import {push} from 'react-router-redux';
 
-// const store = configureStore();
-
-//let newInitialState = Object.assign({}, initialState.session, initialState.currentUser);
 export default function sessionReducer(state = sessionInitialState, action, dispatch) {
 
   switch(action.type) {
@@ -26,6 +23,10 @@ export default function sessionReducer(state = sessionInitialState, action, disp
       // dispatch(push('/'))
       // store.dispatch(push('/'))
       return !!sessionStorage.jwt
+
+		case types.GET_FAVORITES_SUCCESS: 
+			const {favorites} = action; 
+			return Object.assign({}, state, {favorites})
 
     default:
       return state;

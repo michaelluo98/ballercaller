@@ -2,7 +2,8 @@ import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
 
 // onTouchTap
-function AddPlayerMenuItems({handleChange}) {
+function AddPlayerMenuItems({handleChange, favorites}) {
+	console.log('favorites in AddPlayerMenuItems:', favorites)
   return (
     <div>
       <MenuItem primaryText="Refresh" />

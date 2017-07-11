@@ -4,15 +4,35 @@ import sessionApi from '../api/sessionApi';
 import {PropTypes} from 'prop-types';
 import { push } from 'react-router-redux';
 
+const BASE_URL = 'http://localhost:3000/api/v1';
+const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71ae";
+
 export function loginSuccess(currentUser) {
   return {type: types.LOG_IN_SUCCESS, currentUser}
 }
 
+export function getFavoritesSuccess(favorites) {
+	return {type: types.GET_FAVORITES_SUCCESS, favorites}
+}
+
 function addCurrentUser(dispatch, credentials) {
-  fetch(`http://localhost:3000/api/v1/users/${credentials.email}`)
+  fetch(`${BASE_URL}/users/${credentials.email}`)
     .then(res => res.json()).then(res => {
       dispatch(loginSuccess(res.user));
     })
+}
+
+export function getFavorites(id) {
+	return function(dispatch) {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+		fetch(`${BASE_URL}/users/${id}/favorites`, {headers})
+			.then(res => res.json()).then(res => {
+				console.log('favorites in getFavorites: ', res.favorites)
+				dispatch(getFavoritesSuccess(res.favorites));
+			})
+	}
 }
 
 export function logInUser(credentials) {

@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as gameActions from '../../actions/gameActions';
+import * as sessionActions from '../../actions/sessionActions';
 import GameForm from './GameForm';
 import ShowGame from './ShowGame';
 import AddPlayerButtons from './AddPlayerButtons';
@@ -19,6 +20,7 @@ const styles = {
 	},
 }
 
+
 class ManageGamePage extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -32,6 +34,10 @@ class ManageGamePage extends Component {
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
 		this.updateTeamState = this.updateTeamState.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.sessionActions.getFavorites(this.props.currentUser.id);
 	}
 
 	updateGameState(event, name='', value = 0) {
@@ -89,8 +95,6 @@ class ManageGamePage extends Component {
 						&& this.props.actions.clearPlayers()}
 				{this.props.gameId && this.props.playersOne.length === 0 
 						&& this.props.actions.loadGames()}
-						{console.log('showGame in ManageHomePage', this.props.showGame)}
-						{console.log('showGameBoolVal in ManageHomePage', !!this.props.showGame)}
 				{this.props.showGame && this.props.showGame.id && this.props.playersOne.length === 0  
 				  	&& this.props.actions.loadPlayers(this.props.gameId)}
 
@@ -109,7 +113,8 @@ class ManageGamePage extends Component {
 					currentUser={this.props.currentUser}
 					playersOne={this.props.playersOne}
 					playersTwo={this.props.playersTwo}
-					handleChange={this.updateTeamState}/>
+					handleChange={this.updateTeamState}
+					favorites={this.props.favorites} />
 			</div>
 		);
 	}
@@ -126,13 +131,12 @@ function mapStateToProps(state, ownProps) {
 	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '',
 							extra_info: '', court_id: '', setting: 'false'};
 	let showGame = {};
-	const {currentUser} = state.session;
+	const {currentUser, favorites} = state.session;
+	console.log('favorites in mapStateToProps:', favorites);
 	const {lastGameId, playersOne, playersTwo, games} = state.games;
 	if (gameId && state.games.games.length > 0) {
 		showGame = getGameById(state.games.games, gameId);
 	}
-	console.log('playersOne in mapStateToProps: ', playersOne);
-	console.log('playersTwo in mapStateToProps: ', playersTwo);
 	return {
 		game: game,
 		games,
@@ -142,13 +146,15 @@ function mapStateToProps(state, ownProps) {
 		lastGameId,
 		playersOne,
 		playersTwo,
-		gameId
+		gameId, 
+		favorites
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		actions: bindActionCreators(gameActions, dispatch)
+		actions: bindActionCreators(gameActions, dispatch),
+		sessionActions: bindActionCreators(sessionActions, dispatch)
 	};
 }
 
