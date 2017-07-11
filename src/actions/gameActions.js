@@ -35,8 +35,8 @@ export function loadPlayersSuccess(playersOne, playersTwo) {
 	return { type: types.LOAD_PLAYERS_SUCCESS, playersOne, playersTwo }
 }
 
-export function clearPlayersSuccess() {
-	return { type: types.CLEAR_PLAYERS_SUCCESS, playersOne: [], playersTwo: [] }
+export function clearPlayersSuccess(playersOne, playersTwo) {
+	return { type: types.CLEAR_PLAYERS_SUCCESS, playersOne, playersTwo}
 }
 
 export function loadGames() {
@@ -76,27 +76,39 @@ export function loadPlayers(gameId) {
 	}
 }
 
-export function saveGame(game) {
-	return function(dispatch) {
+export function saveGame(game, playersOne, playersTwo) {
+	return async (dispatch) => {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`,
 			'Accept':'application/json',
 			'Content-Type':'application/json'
 		})
-		fetch(`${BASE_URL}/games`, {
+		const newGame = await fetch(`${BASE_URL}/games`, {
 			headers,
 			method: 'POST',
 			body: JSON.stringify({game: game})
 		})
-			.then(game => {
-				dispatch(createGameSuccess(game));
-				return game;
-			})
-			.then(game => {
-				console.log('-----------LOADING PLAYERS----------------')
-				loadPlayers(game.id);
-				loadGames();
-			})
+		let teamOneId;
+		let teamTwoId;
+		const newGameId = await newGame.json().then(res => {
+			teamOneId = res.teamOneId;
+			teamTwoId = res.teamTwoId;
+			return res.id;
+		})
+		const teamOne = await fetch(`${BASE_URL}/teams/${teamOneId}`, {
+			headers, 
+			method: 'POST', 
+			body: JSON.stringify({team: playersOne})
+		})
+		const teamTwo = await fetch(`${BASE_URL}/teams/${teamTwoId}`, {
+			headers, 
+			method: 'POST', 
+			body: JSON.stringify({team: playersTwo})
+		})
+		console.log('done waiting, gameId:', newGameId);
+		console.log('done waiting, teamOneId:', teamOneId);
+		console.log('done waiting, teamTwoId:', teamTwoId);
+		dispatch(createGameSuccess(newGame));
 	}
 }
 
@@ -120,12 +132,12 @@ export function findGames(game) {
 			'Content-Type':'application/json'
 		})
 		fetch(`${BASE_URL}/games/find`, {
-			headers, 
+			headers,
 			method: 'POST',
 			body: JSON.stringify({game: game})
 		})
 		.then(res => res.json()).then(res => {
-				return dispatch(findGamesSuccess(res.games, res.courts))	
+				return dispatch(findGamesSuccess(res.games, res.courts))
 			})
 	}
 }
@@ -152,7 +164,7 @@ export function quickJoinGame(currentUser, gameId) {
 			'Content-Type':'application/json'
 		})
 		fetch(`${BASE_URL}/games/${gameId}/quickjoin`, {
-			headers, 
+			headers,
 			method: 'POST',
 			body: JSON.stringify({user: {id: currentUser.id}})
 		}).then(res => res.json()).then(res => {
@@ -165,6 +177,6 @@ export function quickJoinGame(currentUser, gameId) {
 
 export function clearPlayers() {
 	return function(dispatch) {
-		dispatch(clearPlayersSuccess());	
+		dispatch(clearPlayersSuccess([], []));
 	}
 }

@@ -27,8 +27,8 @@ class ManageGamePage extends Component {
 
 		this.state = {
 			game: Object.assign({}, this.props.game),
-			playersOne: this.props.playersOne,
-			playersTwo: this.props.playersTwo,
+			playersOne: Array.from(this.props.playersOne),
+			playersTwo: Array.from(this.props.playersTwo),
 			createGame: true
 		}
 		this.updateGameState = this.updateGameState.bind(this);
@@ -82,13 +82,13 @@ class ManageGamePage extends Component {
 		}
 	}
 
-	saveGame(event) {
+	saveGame = async (event) => {
 		event.preventDefault();
 		const game = Object.assign({}, this.state.game,
-			{game_mod_id: this.props.currentUser.id}, 
-			{playersOne: this.state.playersOne}, 
-			{playersTwo: this.state.playersTwo})
-		this.props.actions.saveGame(game);
+			{game_mod_id: this.props.currentUser.id})
+		const playersOne = Object.assign({}, this.state.playersOne);
+		const playersTwo = Object.assign({}, this.state.playersTwo);
+		await this.props.actions.saveGame(game, playersOne, playersTwo);
 		const nextGameId = this.props.lastGameId + 1;
 		this.props.history.push(`/game/${nextGameId}`)
 	}
@@ -102,15 +102,15 @@ class ManageGamePage extends Component {
 		}
 
 		// creategame -> showgame
-		if (this.props.gameId && this.state.createGame && 
+		if (this.props.gameId && this.state.createGame &&
 				this.props.playersOne.length === 0) {
-			this.props.actions.loadGames();	
+			this.props.actions.loadGames();
 			this.setState({createGame: !this.state.createGame})
 		}
 
 		// need to know that showGame exists and is loaded
-		if (this.props.showGame && this.props.showGame.id && 
-				this.props.playersOnes.length === 0) {
+		if (this.props.showGame && this.props.showGame.id &&
+				this.props.playersOne.length === 0) {
 			this.props.actions.loadPlayers(this.props.gameId)
 		}
 	}
@@ -167,7 +167,7 @@ function mapStateToProps(state, ownProps) {
 		lastGameId,
 		playersOne,
 		playersTwo,
-		gameId, 
+		gameId,
 		favorites
 	};
 }
