@@ -14,6 +14,7 @@ export default function gameReducer(state = gameInitialState, action) {
 		case types.CREATE_GAME_SUCCESS:
 			//console.log('game in CREATE_GAME_SUCCESS: ', action.game)
 			//console.log('state in CREATE_GAME_SUCCESS:', state);
+			console.log('---------------in CREATE GAME SUCCESS----------------')
 			return state;
 
 		case types.LOAD_COURTS_SUCCESS:

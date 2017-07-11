@@ -98,16 +98,13 @@ export function saveGame(game, playersOne, playersTwo) {
 		const teamOne = await fetch(`${BASE_URL}/teams/${teamOneId}`, {
 			headers, 
 			method: 'POST', 
-			body: JSON.stringify({team: playersOne})
+			body: JSON.stringify({team: {players_attributes: playersOne}})
 		})
 		const teamTwo = await fetch(`${BASE_URL}/teams/${teamTwoId}`, {
 			headers, 
 			method: 'POST', 
-			body: JSON.stringify({team: playersTwo})
+			body: JSON.stringify({team: {players_attributes: playersTwo}})
 		})
-		console.log('done waiting, gameId:', newGameId);
-		console.log('done waiting, teamOneId:', teamOneId);
-		console.log('done waiting, teamTwoId:', teamTwoId);
 		dispatch(createGameSuccess(newGame));
 	}
 }
