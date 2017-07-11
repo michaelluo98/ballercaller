@@ -27,9 +27,9 @@ class ManageGamePage extends Component {
 
 		this.state = {
 			game: Object.assign({}, this.props.game),
-			playersOne: [],
-			playersTwo: [],
-			errors: {},
+			playersOne: this.props.playersOne,
+			playersTwo: this.props.playersOne,
+			createGame: true
 		}
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
@@ -66,17 +66,9 @@ class ManageGamePage extends Component {
 	}
 
 	updateTeamState(event, menuItem, index) {
-		/*console.log('event in updateTeamState: ', event);
-		console.log('event.target in updateTeamState: ', event.target);
-		console.log('event.target.value in updateTeamState: ', event.target.value);
-		console.log('event.target.name in updateTeamState: ', event.target.name);
-		console.log('event.target.player in updateTeamState: ', event.target.player);
-		console.log('index in updateTeamState: ', index);*/
-
-		console.log('menuItem: ', menuItem.props.player)
-		console.log('menuItem in updateTeamState: ', menuItem);
+		const {player, teamNum} = menuItem.props;
 		let team;
-		/*if (teamNum === 1) {
+		if (teamNum === 1) {
 			team = this.state.playersOne
 			console.log('team in updateTeamState: ', team);
 			team.push(player)
@@ -86,9 +78,8 @@ class ManageGamePage extends Component {
 			team = this.state.playersTwo
 			console.log('team in updateTeamState: ', team);
 			team.push(player)
-			return this.setState({playersTwo: team})*/
-		//}
-
+			return this.setState({playersTwo: team})
+		}
 	}
 
 	saveGame(event) {
@@ -105,12 +96,20 @@ class ManageGamePage extends Component {
 	render () {
 		return (
 			<div>
-				{this.props.gameId === undefined && this.props.playersOne.length > 0
-						&& this.props.actions.clearPlayers()}
-				{this.props.gameId && this.props.playersOne.length === 0 
-						&& this.props.actions.loadGames()}
-				{this.props.showGame && this.props.showGame.id && this.props.playersOne.length === 0  
-				  	&& this.props.actions.loadPlayers(this.props.gameId)}
+				{/* showgame -> creategame */}
+				{this.props.gameId === undefined && this.props.playersOne.length > 0 &&
+				this.state.createGame === false && this.props.actions.clearPlayers() &&
+				this.setState({createGame: !this.state.createGame})}
+				{/* creategame -> showgame */}
+				{this.props.gameId && this.state.createGame && 
+				 this.setState({createGame: !this.state.createGame}) }
+				{/* creategame -> showgame*/}
+				{this.props.gameId && this.props.playersOne.length === 0 &&
+				 this.props.actions.loadGames()}
+				{/* creategame -> showgame, need for showGame to exist first */}
+				{this.props.showGame && this.props.showGame.id && 
+				this.props.playersOne.length === 0 && 
+				this.props.actions.loadPlayers(this.props.gameId)}
 
 				{this.props.showGame && this.props.showGame.name ?
 						<ShowGame game={this.props.showGame}/> :

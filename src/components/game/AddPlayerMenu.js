@@ -36,6 +36,7 @@ class AddPlayerMenu extends Component {
 										key={index}
 										name="yah"
 										player={player}
+										teamNum={this.props.teamNum}
 								/>
 				})}
       </IconMenu>
