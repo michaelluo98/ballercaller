@@ -23,6 +23,7 @@ function addCurrentUser(dispatch, credentials) {
 }
 
 export function getFavorites(id) {
+	console.log('id in getFavorites: ', id)
 	return function(dispatch) {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`

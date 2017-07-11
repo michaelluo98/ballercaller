@@ -85,7 +85,6 @@ class ManageHomePage extends Component {
 	}
 
 	findGame() {
-		console.log('state in findGame: ', this.state); 
 		if (this.props.foundGames.length === 0 || this.state.foundToggle) {
 			return <SearchForm
 							onChange={this.updateGameState}

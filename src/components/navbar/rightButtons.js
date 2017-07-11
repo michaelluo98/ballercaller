@@ -54,7 +54,7 @@ RightButtons.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-  return {logged_in: state.session};
+  return {logged_in: state.session.session};
 }
 
 function mapDispatchToProps(dispatch) {

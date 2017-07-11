@@ -4,6 +4,8 @@ import history from '../components/history';
 import {push} from 'react-router-redux';
 
 export default function sessionReducer(state = sessionInitialState, action, dispatch) {
+	console.log('initialState: ', sessionInitialState);
+	console.log('State: ', state);
 
   switch(action.type) {
 
@@ -15,6 +17,7 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			const currentUser = action.currentUser;
 			//console.log('currentUser in sessionReducer', currentUser);	
 			//const newState = Object.assign({}, state, {session: !!sessionStorage.jwt, currentUser})
+			console.log('in log in')
 			return Object.assign({}, state, {session: !!sessionStorage.jwt, currentUser});
 
     case types.LOG_OUT:
@@ -22,9 +25,11 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			// history.push('/');
       // dispatch(push('/'))
       // store.dispatch(push('/'))
-      return !!sessionStorage.jwt
+			console.log('inlog out');
+      return Object.assign({}, state, {session: !!sessionStorage.jwt })
 
 		case types.GET_FAVORITES_SUCCESS: 
+			console.log('in GET_FAVORITES_SUCCESS');
 			const {favorites} = action; 
 			return Object.assign({}, state, {favorites})
 

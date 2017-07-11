@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import AddPlayerButton from './AddPlayerButton';
 import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import AddPlayerMenuItems from './AddPlayerMenuItems';
 
@@ -26,13 +27,17 @@ class AddPlayerMenu extends Component {
 					</IconButton>
         }
         style={this.props.playerStyle}
+				onItemTouchTap={this.props.handleChange}
       >
-				<AddPlayerMenuItems 
-					playerNum={this.props.playerNum}
-					team={this.props.team}
-					handleChange={this.props.handleChange}
-					favorites={this.props.favorites}
-				/>
+				{this.props.favorites.map((player, index)=> {
+					const fullName = `${player.first_name} ${player.last_name}`;
+					return <MenuItem 
+										primaryText={fullName}
+										key={index}
+										name="yah"
+										player={player}
+								/>
+				})}
       </IconMenu>
     )
   }

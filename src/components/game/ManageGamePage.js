@@ -27,8 +27,8 @@ class ManageGamePage extends Component {
 
 		this.state = {
 			game: Object.assign({}, this.props.game),
-			playersOne: Object.assign({}, this.props.playersOne),
-			playersTwo: Object.assign({}, this.props.playersTwo),
+			playersOne: [],
+			playersTwo: [],
 			errors: {},
 		}
 		this.updateGameState = this.updateGameState.bind(this);
@@ -37,7 +37,10 @@ class ManageGamePage extends Component {
 	}
 
 	componentDidMount() {
-		this.props.sessionActions.getFavorites(this.props.currentUser.id);
+		console.log('currentUserId in componentDidMount: ', this.props.currentUser.id)
+		if (this.props.currentUser.id) {
+			this.props.sessionActions.getFavorites(this.props.currentUser.id);
+		}
 	}
 
 	updateGameState(event, name='', value = 0) {
@@ -62,18 +65,29 @@ class ManageGamePage extends Component {
 		return this.setState({game: game});
 	}
 
-	updateTeamState(player, teamNum) {
+	updateTeamState(event, menuItem, index) {
+		/*console.log('event in updateTeamState: ', event);
+		console.log('event.target in updateTeamState: ', event.target);
+		console.log('event.target.value in updateTeamState: ', event.target.value);
+		console.log('event.target.name in updateTeamState: ', event.target.name);
+		console.log('event.target.player in updateTeamState: ', event.target.player);
+		console.log('index in updateTeamState: ', index);*/
+
+		console.log('menuItem: ', menuItem.props.player)
+		console.log('menuItem in updateTeamState: ', menuItem);
 		let team;
-		if (teamNum === 1) {
+		/*if (teamNum === 1) {
 			team = this.state.playersOne
+			console.log('team in updateTeamState: ', team);
 			team.push(player)
-			return this.setState({})
+			return this.setState({playersOne: team})
 		}
 		else {
 			team = this.state.playersTwo
+			console.log('team in updateTeamState: ', team);
 			team.push(player)
-			return this.setState({})
-		}
+			return this.setState({playersTwo: team})*/
+		//}
 
 	}
 
@@ -132,7 +146,6 @@ function mapStateToProps(state, ownProps) {
 							extra_info: '', court_id: '', setting: 'false'};
 	let showGame = {};
 	const {currentUser, favorites} = state.session;
-	console.log('favorites in mapStateToProps:', favorites);
 	const {lastGameId, playersOne, playersTwo, games} = state.games;
 	if (gameId && state.games.games.length > 0) {
 		showGame = getGameById(state.games.games, gameId);

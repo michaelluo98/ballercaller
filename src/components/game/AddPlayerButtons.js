@@ -3,7 +3,6 @@ import AddPlayerMenu from './AddPlayerMenu';
 import addPlayerStyles from '../styles/addPlayerStyles';
 
 function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, favorites}) {
-	console.log('favorites in addPlayerButtons:', favorites)
   return (
     <div>
 			<AddPlayerMenu
@@ -14,6 +13,7 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				team={playersOne}
 				handleChange={handleChange}
 				favorites={favorites}
+				teamNum={1}
 			/>
 			<AddPlayerMenu
 				playerNum={1}
@@ -23,6 +23,7 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				team={playersOne}
 				handleChange={handleChange}
 				favorites={favorites}
+				teamNum={1}
 			/>
 			<AddPlayerMenu
 				playerNum={2}
@@ -32,6 +33,7 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				team={playersOne}
 				handleChange={handleChange}
 				favorites={favorites}
+				teamNum={1}
 			/>
 			<AddPlayerMenu
 				playerNum={3}
@@ -41,6 +43,7 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				team={playersOne}
 				handleChange={handleChange}
 				favorites={favorites}
+				teamNum={1}
 			/>
 			<AddPlayerMenu
 				playerNum={4}
@@ -50,6 +53,7 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				team={playersOne}
 				handleChange={handleChange}
 				favorites={favorites}
+				teamNum={1}
 			/>
 
 			<AddPlayerMenu
@@ -59,6 +63,7 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				team={playersTwo}
 				handleChange={handleChange}
 				favorites={favorites}
+				teamNum={2}
 			/>
 			<AddPlayerMenu
 				playerNum={1}
@@ -67,6 +72,7 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				team={playersTwo}
 				handleChange={handleChange}
 				favorites={favorites}
+				teamNum={2}
 			/>
 			<AddPlayerMenu
 				playerNum={2}
@@ -75,6 +81,7 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				team={playersTwo}
 				handleChange={handleChange}
 				favorites={favorites}
+				teamNum={2}
 			/>
 			<AddPlayerMenu
 				playerNum={3}
@@ -83,6 +90,7 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				team={playersTwo}
 				handleChange={handleChange}
 				favorites={favorites}
+				teamNum={2}
 			/>
 			<AddPlayerMenu
 				playerNum={4}
@@ -91,6 +99,7 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				team={playersTwo}
 				handleChange={handleChange}
 				favorites={favorites}
+				teamNum={2}
 			/>
     </div>
   )
