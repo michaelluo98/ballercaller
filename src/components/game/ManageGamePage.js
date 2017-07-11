@@ -66,19 +66,17 @@ class ManageGamePage extends Component {
 	}
 
 	updateTeamState(event, menuItem, index) {
-		const {player, teamNum} = menuItem.props;
-		console.log('playersOneState: ', this.state.playersOne)
-		console.log('playersTwoState: ', this.state.playersTwo)
-		console.log('teamNum in updateTeamState:', teamNum);
+		const {player, teamNum, playerNum} = menuItem.props;
+		console.log('index in updateTeamState: ', index)
 		if (teamNum === 1) {
 			let team = this.state.playersOne
 			console.log('setting teamone State')
-			team.push(player)
+			team[playerNum] = player;
 			return this.setState({playersOne: team})
 		}
 		else {
 			let team = this.state.playersTwo
-			team.push(player)
+			team[playerNum] = player;
 			console.log('setting teamtwo State')
 			return this.setState({playersTwo: team})
 		}

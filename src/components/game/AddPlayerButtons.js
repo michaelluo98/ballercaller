@@ -6,10 +6,10 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
   return (
     <div>
 			<AddPlayerMenu
-				playerNum={0}
+				playerNum={3}
 				playerStyle={addPlayerStyles.playerOne}
 				secondary="true"
-				player={playersOne[0]}
+				player={playersOne[3]}
 				handleChange={handleChange}
 				favorites={favorites}
 				teamNum={1}
@@ -24,19 +24,19 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				teamNum={1}
 			/>
 			<AddPlayerMenu
-				playerNum={2}
+				playerNum={0}
 				playerStyle={addPlayerStyles.playerThree}
 				secondary="true"
-				player={playersOne[2]}
+				player={playersOne[0]}
 				handleChange={handleChange}
 				favorites={favorites}
 				teamNum={1}
 			/>
 			<AddPlayerMenu
-				playerNum={3}
+				playerNum={2}
 				playerStyle={addPlayerStyles.playerFour}
 				secondary="true"
-				player={playersOne[3]}
+				player={playersOne[2]}
 				handleChange={handleChange}
 				favorites={favorites}
 				teamNum={1}
@@ -52,9 +52,9 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 			/>
 
 			<AddPlayerMenu
-				playerNum={0}
+				playerNum={3}
 				playerStyle={addPlayerStyles.playerSix}
-				player={playersTwo[0]}
+				player={playersTwo[3]}
 				handleChange={handleChange}
 				favorites={favorites}
 				teamNum={2}
@@ -68,17 +68,17 @@ function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, fa
 				teamNum={2}
 			/>
 			<AddPlayerMenu
-				playerNum={2}
+				playerNum={0}
 				playerStyle={addPlayerStyles.playerEight}
-				player={playersTwo[2]}
+				player={playersTwo[0]}
 				handleChange={handleChange}
 				favorites={favorites}
 				teamNum={2}
 			/>
 			<AddPlayerMenu
-				playerNum={3}
+				playerNum={2}
 				playerStyle={addPlayerStyles.playerNine}
-				player={playersTwo[3]}
+				player={playersTwo[2]}
 				handleChange={handleChange}
 				favorites={favorites}
 				teamNum={2}

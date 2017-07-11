@@ -33,7 +33,7 @@ class AddPlayerMenu extends Component {
 					const fullName = `${player.first_name} ${player.last_name}`;
 					return <MenuItem 
 										primaryText={fullName}
-										key={index}
+										playerNum={this.props.playerNum}
 										name="yah"
 										player={player}
 										teamNum={this.props.teamNum}
