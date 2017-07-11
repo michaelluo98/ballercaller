@@ -2,7 +2,8 @@ import React from 'react';
 import {List} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import GameListRow from './GameListRow';
-import Paper from 'material-ui/Paper';
+import BackIcon from 'material-ui/svg-icons/navigation/arrow-back' 
+import IconButton from 'material-ui/IconButton';
 
 const style = {
   height: '490px',
@@ -13,8 +14,13 @@ const style = {
   display: 'absolute',
 }
 
-const GameList = ({games, courts, listGame, handleOpen}) => (
-    <div className="game-list">
+const GameList = ({games, courts, listGame, handleOpen, handleBack}) => (
+    <div className="game-list" style={{maxHeight: '490px', overflow: 'auto', paddingTop: '15px'}}>
+			<IconButton 
+				style={{position: 'absolute', left: '56%', bottom: '30%'}}
+				onTouchTap={handleBack}>
+				<BackIcon />
+			</IconButton>
       <List>
 				{listGame ?
 						<Subheader> Games Near You: </Subheader> :

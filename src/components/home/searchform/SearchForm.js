@@ -9,13 +9,13 @@ import PlayerMode from './PlayerMode';
 import DatePicker from './DatePicker';
 
 const style = {
-    height: 175,
-    width: 470,
-    margin: 30,
-  	marginLeft: 60,
-    textAlign: 'center',
-    display: 'inline-block',
-		marginTop: 330
+  height: 175,
+  width: 470,
+  margin: 30,
+  marginLeft: 60,
+  textAlign: 'center',
+  display: 'inline-block',
+	marginTop: 330, 
 };
 
 const firstRowStyles = {

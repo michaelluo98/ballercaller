@@ -20,6 +20,8 @@ const styles = {
     textAlign: 'center',
 		marginTop: 330, 
 		display: 'inline-block', 
+		maxHeight: 175, 
+		overflow: 'auto'
 	},
 	buttonsStyle: {
 		display: 'flex', 
@@ -114,10 +116,11 @@ class ManageHomePage extends Component {
 		else {
 			return <Paper style={styles.findGameStyle} zDepth={2} rounded={false}>
 								<GameList 
-									games={this.props.foundGames.slice(0,2)}
-									courts={this.props.foundCourts.slice(0,2)}
+									games={this.props.foundGames}
+									courts={this.props.foundCourts}
 									listGame={false}
 									handleOpen={this.handleOpenBar}
+									handleBack={() => this.setState({foundToggle: true})}
 								/>
 							</Paper>
 		}
