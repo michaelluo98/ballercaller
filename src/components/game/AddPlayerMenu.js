@@ -22,16 +22,17 @@ class AddPlayerMenu extends Component {
 						<AddPlayerButton
 							secondary={this.props.secondary}
 							positionStyle={this.props.playerStyle}
-							player={this.props.player} 
+							player={this.props.player}
 						/>
 					</IconButton>
         }
         style={this.props.playerStyle}
 				onItemTouchTap={this.props.handleChange}
+        maxHeight={300}
       >
 				{this.props.favorites.map((player, index)=> {
 					const fullName = `${player.first_name} ${player.last_name}`;
-					return <MenuItem 
+					return <MenuItem
 										primaryText={fullName}
 										playerNum={this.props.playerNum}
 										name="yah"

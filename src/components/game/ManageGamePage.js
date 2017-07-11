@@ -24,10 +24,16 @@ const styles = {
 class ManageGamePage extends Component {
 	constructor(props, context) {
 		super(props, context);
+		const players = Array.from(this.props.playersOne).filter((e) => {
+			e.id === this.props.currentUser.id
+		})
+		const realPlayersOne = players.length === 0 ? 
+			Array.from(this.props.playersOne).concat(this.props.currentUser) : 
+			Array.from(this.props.playersOne)
 
 		this.state = {
 			game: Object.assign({}, this.props.game),
-			playersOne: Array.from(this.props.playersOne),
+			playersOne: realPlayersOne,
 			playersTwo: Array.from(this.props.playersTwo),
 			createGame: true
 		}
@@ -96,7 +102,7 @@ class ManageGamePage extends Component {
 	updatePageState() {
 		// showgame -> creategame
 		if (this.props.gameId === undefined && this.props.playersOne &&
-				this.props.playersOne.length > 0 && this.state.createGame === false) {
+				this.props.playersOne.length > 0 && this.state.createGame) {
 			this.props.actions.clearPlayers();
 			this.setState({createGame: !this.state.createGame})
 		}
@@ -132,7 +138,6 @@ class ManageGamePage extends Component {
 				}
 				<div style={styles.threePointLine}></div>
 				<AddPlayerButtons
-					currentUser={this.props.currentUser}
 					playersOne={this.state.playersOne}
 					playersTwo={this.state.playersTwo}
 					handleChange={this.updateTeamState}

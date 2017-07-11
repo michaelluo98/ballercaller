@@ -83,6 +83,7 @@ class ManageHomePage extends Component {
 	saveGame(event) {
 		event.preventDefault();
 		this.setState({foundToggle: false})
+		this.setState({game: Object.assign({}, this.props.game)})
 		this.props.actions.findGames(this.state.game)
 	}
 

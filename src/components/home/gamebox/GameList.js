@@ -16,11 +16,14 @@ const style = {
 
 const GameList = ({games, courts, listGame, handleOpen, handleBack}) => (
     <div className="game-list" style={{maxHeight: '490px', overflow: 'auto', paddingTop: '15px'}}>
-			<IconButton 
-				style={{position: 'absolute', left: '56%', bottom: '30%'}}
-				onTouchTap={handleBack}>
-				<BackIcon />
-			</IconButton>
+			{listGame === false ? 
+				<IconButton 
+					style={{position: 'absolute', left: '55%', bottom: '30%'}}
+					onTouchTap={handleBack}>
+					<BackIcon />
+				</IconButton> :
+				<div></div>
+			}
       <List>
 				{listGame ?
 						<Subheader> Games Near You: </Subheader> :

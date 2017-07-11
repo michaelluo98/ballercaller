@@ -2,7 +2,7 @@ import React from 'react';
 import AddPlayerMenu from './AddPlayerMenu';
 import addPlayerStyles from '../styles/addPlayerStyles';
 
-function addPlayerButtons({currentUser, playersOne, playersTwo, handleChange, favorites}) {
+function addPlayerButtons({playersOne, playersTwo, handleChange, favorites}) {
   return (
     <div>
 			<AddPlayerMenu

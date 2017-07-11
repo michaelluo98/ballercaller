@@ -7,7 +7,12 @@ import Menu from 'material-ui/Menu';
 function AddPlayerMenuItems({handleChange, favorites, teamNum}) {
 	console.log('favorites in AddPlayerMenuItems:', favorites)
   return (
-    <Menu onItemTouchTap={handleChange()}>
+		<Menu 
+			onItemTouchTap={handleChange()}
+			style={{maxHeight: '30%', overflowY: 'hidden', color: 'red'}}
+			listStyle={{maxHeight: '30%', overflowY: 'hidden', color: 'red'}}
+			menuItemStyle={{maxHeight: '30%', overflowY: 'hidden', color: 'red'}}
+		>
 			{favorites.map((player, index)=> {
 				const fullName = `${player.first_name} ${player.last_name}`;
 				return <MenuItem 
