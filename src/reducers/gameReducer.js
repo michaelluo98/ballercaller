@@ -4,10 +4,10 @@ import {gameInitialState} from './initialState';
 export default function gameReducer(state = gameInitialState, action) {
 	switch (action.type) {
 		case types.LOAD_GAMES_SUCCESS:
-			const {games, courts} = action.games;
+			const {games, courts, creators} = action.games;
 
 			//console.log('oldstate in LOAD_GAMES_SUCCESS:', state);
-			const newState = Object.assign({}, state, {games, courts});
+			const newState = Object.assign({}, state, {games, courts, creators});
 			//console.log('newState in LOAD_GAMES_SUCCESS: ', newState);
 			return newState;
 

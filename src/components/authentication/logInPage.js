@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import {PropTypes} from 'prop-types'
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as sessionActions from '../../actions/sessionActions';
@@ -77,22 +78,23 @@ class LogInPage extends Component {
 						<form>
 							<TextField
 								name="email"
-								hintText="email"
+								floatingLabelText="Enter your email"
 								value={this.state.credentials.email}
 								onChange={this.onChange}
 								style={{textAlign: 'center', paddingLeft: '15px'}}/>
 							<TextField
 								name="password"
-								hintText="password"
+								floatingLabelText="Enter your password"
 								type="password"
 								value={this.state.credentials.password}
 								onChange={this.onChange}
 								style={{textAlign: 'center', paddingLeft: '15px'}}/>
-							<input
-								type="submit"
-								className="btn btn-primary"
-								onClick={this.onSave}
-								style={{textAlign: 'center', marginLeft: '130px'}}/>
+							<RaisedButton 
+								onTouchTap={this.onSave}
+								secondary={true}
+								label="Sign in"
+								style={{marginTop: '15px', width: '90%', marginLeft: '15px'}}
+							/>
 						</form>
 					</Paper>
 					<Paper zDepth={2} style={styles.newAccountStyle}>

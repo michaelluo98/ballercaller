@@ -17,7 +17,6 @@ const mapStyle = {
 class GameMap extends Component {
 	constructor(props, context) {
 		super(props, context);
-
 		this.state = {
 			courts: []
 		}
@@ -59,7 +58,7 @@ class GameMap extends Component {
 					onMarkerClick={this.handleMarkerClick}
           containerElement={<Paper style={mapStyle} zDepth={2} circle={true} />}
           mapElement={<div
-                      style={{ height: `100%`, borderRadius: '0%' }}>
+                      style={{ height: `100%`, borderRadius: '50%' }}>
                       </div>}
         />
       </div>

@@ -6,11 +6,10 @@ import DateInput from './DateInput';
 import LocationInput from './LocationInput';
 import DropDown from './DropDown';
 import styles from '../styles/gameStyles';
+import IconButton from 'material-ui/IconButton';
+import BallLogo from '../../icons/basketball.svg';
 
 const inputStyle = {
-	borderRadius: '100px',
-	width: '50px',
-	height: '50px',
 	display: 'inline',
 	float: 'right',
 	marginRight: '20px'
@@ -33,11 +32,16 @@ const GameForm = ({onChange, onSave, courts}) => (
 			<LocationInput onChange={onChange} courts={courts}/>
       <TextInput multiline="true" onChange={onChange}/>
       <ToggleButton onChange={onChange}/>
-			<input
-				type="submit"
+			<IconButton 
+				onTouchTap={onSave} 
 				style={inputStyle}
-				onClick={onSave}
-			/>
+				tooltip="Create game" 
+				touch={true} 
+				tooltipPosition="top-left"> 
+				<svg className={`icon icon-info`} style={styles.iconStyle} width={40} height={40}>
+					<use xlinkHref={`${BallLogo}#icon-info`} />
+				</svg>
+			</IconButton>
     </form>
   </div>
 );

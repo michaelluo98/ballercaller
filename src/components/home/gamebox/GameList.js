@@ -14,7 +14,7 @@ const style = {
   display: 'absolute',
 }
 
-const GameList = ({games, courts, listGame, handleOpen, handleBack}) => (
+const GameList = ({games, courts, creators, listGame, handleOpen, handleBack}) => (
     <div className="game-list" style={{maxHeight: '490px', overflow: 'auto', paddingTop: '15px'}}>
 			{listGame === false ? 
 				<IconButton 
@@ -36,6 +36,7 @@ const GameList = ({games, courts, listGame, handleOpen, handleBack}) => (
 									name={game.name}
 									time={game.start_time}
 									court={courts[index].name}
+									creator={creators[index]}
 									mode={game.mode}
 									handleOpen={handleOpen}
 								/>;

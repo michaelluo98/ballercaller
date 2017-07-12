@@ -1,6 +1,7 @@
 export const gameInitialState = {
 	games: [],
 	courts: [],
+	creators: [],
 	allCourts: [], 
 	foundGames: [], 
 	foundCourts: [], 

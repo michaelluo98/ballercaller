@@ -33,7 +33,6 @@ const styles = {
 
 }
 
-
 class ManageHomePage extends Component {
 	constructor(props, context) {
 		super(props, context);

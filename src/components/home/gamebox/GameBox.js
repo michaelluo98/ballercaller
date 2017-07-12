@@ -36,8 +36,9 @@ class GameBox extends Component {
 					courts={this.props.courts}
 				/> :
 				<GameList
-					games={this.props.games.slice(0,6)}
-					courts={this.props.courts.slice(0,6)}
+					games={this.props.games}
+					courts={this.props.courts}
+					creators={this.props.creators}
 					listGame={true}
 					handleOpen={this.props.handleOpen}
 					/> }
@@ -51,11 +52,12 @@ class GameBox extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  const {games, courts} = state.games;
+  const {games, courts, creators} = state.games;
 	const waitingGames = games.filter(game => game.status === 'waiting');
   return {
 		games: waitingGames,
-		courts
+		courts, 
+		creators
   };
 }
 
