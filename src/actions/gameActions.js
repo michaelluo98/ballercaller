@@ -15,8 +15,8 @@ export function loadCourtsSuccess(allCourts) {
 	return { type: types.LOAD_COURTS_SUCCESS, allCourts };
 }
 
-export function findGamesSuccess(foundGames, foundCourts) {
-	return { type: types.FIND_GAMES_SUCCESS, foundGames, foundCourts }
+export function findGamesSuccess(foundGames, foundCourts, foundCreators) {
+	return { type: types.FIND_GAMES_SUCCESS, foundGames, foundCourts, foundCreators }
 }
 
 export function loadLastGameSuccess(lastGameId) {
@@ -46,6 +46,7 @@ export function loadGames() {
 		})
 		fetch(`${BASE_URL}/games`, {headers})
 			.then(res => res.json()).then(res => {
+				console.log('res in loadGames: ', res);
 				dispatch(loadGamesSuccess(res));
 			});
 	}
@@ -143,7 +144,7 @@ export function findGames(game) {
 			body: JSON.stringify({game: game})
 		})
 		.then(res => res.json()).then(res => {
-				return dispatch(findGamesSuccess(res.games, res.courts))
+				return dispatch(findGamesSuccess(res.games, res.courts, res.creators))
 			})
 	}
 }

@@ -5,6 +5,7 @@ export const gameInitialState = {
 	allCourts: [], 
 	foundGames: [], 
 	foundCourts: [], 
+	foundCreators: [],
 	lastGameId: '', 
 	teams: [], 
 	playersOne: [], 

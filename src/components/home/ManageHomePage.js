@@ -118,6 +118,7 @@ class ManageHomePage extends Component {
 								<GameList 
 									games={this.props.foundGames}
 									courts={this.props.foundCourts}
+									creators={this.props.foundCreators}
 									listGame={false}
 									handleOpen={this.handleOpenBar}
 									handleBack={() => this.setState({foundToggle: true})}
@@ -148,12 +149,13 @@ class ManageHomePage extends Component {
 function mapStateToProps(state, ownProps) {
 	let game = {name: '', mode: 'threes', start_time: '',
 							court_id: '', setting: 'false'};
-	const {allCourts, foundGames, foundCourts} = state.games
+	const {allCourts, foundGames, foundCourts, foundCreators} = state.games
 	return {
 		game: game,
 		allCourts, 
 		foundGames, 
-		foundCourts
+		foundCourts, 
+		foundCreators
 	}
 }
 

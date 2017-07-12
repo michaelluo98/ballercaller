@@ -37,6 +37,7 @@ const GameList = ({games, courts, creators, listGame, handleOpen, handleBack}) =
 									time={game.start_time}
 									court={courts[index].name}
 									creator={creators[index]}
+									listGame={listGame}
 									mode={game.mode}
 									handleOpen={handleOpen}
 								/>;
