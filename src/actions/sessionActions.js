@@ -15,11 +15,21 @@ export function getFavoritesSuccess(favorites) {
 	return {type: types.GET_FAVORITES_SUCCESS, favorites}
 }
 
+export function removeFromFavoritesSuccess(id) {
+	return {type: types.REMOVE_FROM_FAVORITES_SUCCESS, id}
+}
+
 function addCurrentUser(dispatch, credentials) {
   fetch(`${BASE_URL}/users/${credentials.email}`)
     .then(res => res.json()).then(res => {
       dispatch(loginSuccess(res.user));
     })
+}
+
+export function removeFromFavorites(player) {
+	return function(dispatch) {
+		dispatch(removeFromFavoritesSuccess(player.id));
+	}
 }
 
 export function getFavorites(id) {

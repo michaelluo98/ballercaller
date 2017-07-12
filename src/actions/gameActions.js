@@ -83,6 +83,7 @@ export function saveGame(game, playersOne, playersTwo) {
 			'Accept':'application/json',
 			'Content-Type':'application/json'
 		})
+
 		const newGame = await fetch(`${BASE_URL}/games`, {
 			headers,
 			method: 'POST',
@@ -90,21 +91,25 @@ export function saveGame(game, playersOne, playersTwo) {
 		})
 		let teamOneId;
 		let teamTwoId;
+
 		const newGameId = await newGame.json().then(res => {
 			teamOneId = res.teamOneId;
 			teamTwoId = res.teamTwoId;
 			return res.id;
 		})
+
 		const teamOne = await fetch(`${BASE_URL}/teams/${teamOneId}`, {
 			headers, 
 			method: 'POST', 
 			body: JSON.stringify({team: {players_attributes: playersOne}})
 		})
+
 		const teamTwo = await fetch(`${BASE_URL}/teams/${teamTwoId}`, {
 			headers, 
 			method: 'POST', 
 			body: JSON.stringify({team: {players_attributes: playersTwo}})
 		})
+
 		dispatch(createGameSuccess(newGame));
 	}
 }
@@ -121,6 +126,9 @@ export function loadCourts() {
  	}
 }
 
+// functionToCall() {
+//	
+// }
 export function findGames(game) {
 	return function(dispatch) {
 		const headers = new Headers({
@@ -128,6 +136,7 @@ export function findGames(game) {
 			'Accept':'application/json',
 			'Content-Type':'application/json'
 		})
+		//dispatch(functionToCall())
 		fetch(`${BASE_URL}/games/find`, {
 			headers,
 			method: 'POST',

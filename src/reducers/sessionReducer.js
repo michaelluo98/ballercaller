@@ -10,21 +10,10 @@ export default function sessionReducer(state = sessionInitialState, action, disp
   switch(action.type) {
 
     case types.LOG_IN_SUCCESS:
-			// history.push('/');
-      // store.dispatch(push('/'))
-      // dispatch(push('/'))
-			//console.log('state in sessionReducer: ', state);
 			const currentUser = action.currentUser;
-			//console.log('currentUser in sessionReducer', currentUser);	
-			//const newState = Object.assign({}, state, {session: !!sessionStorage.jwt, currentUser})
-			console.log('in log in')
 			return Object.assign({}, state, {session: !!sessionStorage.jwt, currentUser});
 
     case types.LOG_OUT:
-      // browserHistory.push('/')
-			// history.push('/');
-      // dispatch(push('/'))
-      // store.dispatch(push('/'))
 			console.log('inlog out');
       return Object.assign({}, state, {session: !!sessionStorage.jwt })
 
@@ -32,6 +21,13 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			console.log('in GET_FAVORITES_SUCCESS');
 			const {favorites} = action; 
 			return Object.assign({}, state, {favorites})
+
+		case types.REMOVE_FROM_FAVORITES_SUCCESS: 
+			const removedId = action.id
+			const newFavorites = state.favorites.filter((player) => {
+				return player.id !== removedId
+			})
+			return Object.assign({}, state, {favorites: newFavorites})
 
     default:
       return state;

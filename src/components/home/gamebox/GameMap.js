@@ -25,7 +25,6 @@ class GameMap extends Component {
     this.renderMarkers = this.renderMarkers.bind(this)
 	}
 
-
   renderMarkers() {
     return this.props.courts.map((court, index) => {
       let location = {};
@@ -60,7 +59,7 @@ class GameMap extends Component {
 					onMarkerClick={this.handleMarkerClick}
           containerElement={<Paper style={mapStyle} zDepth={2} circle={true} />}
           mapElement={<div
-                      style={{ height: `100%`, borderRadius: '50%' }}>
+                      style={{ height: `100%`, borderRadius: '0%' }}>
                       </div>}
         />
       </div>
