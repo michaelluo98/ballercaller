@@ -73,17 +73,18 @@ class ManageGamePage extends Component {
 
 	updateTeamState(event, menuItem, index) {
 		const {player, teamNum, playerNum} = menuItem.props;
-		this.props.sessionActions.removeFromFavorites(player);
 		if (teamNum === 1) {
 			let team = this.state.playersOne
 			console.log('setting teamone State')
 			team[playerNum] = player;
+			this.props.sessionActions.removeFromFavorites(player);
 			return this.setState({playersOne: team})
 		}
 		else {
 			let team = this.state.playersTwo
 			team[playerNum] = player;
 			console.log('setting teamtwo State')
+			this.props.sessionActions.removeFromFavorites(player);
 			return this.setState({playersTwo: team})
 		}
 	}
