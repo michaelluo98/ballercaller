@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom'
 // import {PropTypes} from 'prop-types'
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
@@ -12,6 +13,7 @@ const styles = {
 	paperStyle: {
 		height: '220px', 
 		width: '300px', 
+		borderRadius: '10px',
 		display: 'flex', 
 		alignItems: 'center', 
 		justifyContent: 'center'
@@ -27,6 +29,7 @@ const styles = {
 	newAccountStyle: {
 		height: '50px', 
 		width: '300px', 
+		borderRadius: '10px',
 		marginTop: '20px', 
 		display: 'flex', 
 		justifyContent: 'center', 
@@ -38,6 +41,21 @@ const styles = {
 		display: 'flex', 
 		alignItems: 'center',
 		justifyContent: 'center',
+	}, 
+	linkStyle: {
+		textDecoration: 'none', 
+		color: 'blue'
+	}, 
+	contactStyle: {
+		fontFamily: 'Roboto, sans-serif', 
+		fontSize: '12px', 
+		paddingLeft: '5px',
+		paddingRight: '5px'
+	}, 
+	titleStyle: {
+		fontFamily: 'Roboto, sans-serif', 
+		fontSize: '16px', 
+		marginTop: '8px'
 	}
 }
 
@@ -72,7 +90,7 @@ class LogInPage extends Component {
 						</svg>
 					</div>
 					<div style={{display: 'flex', justifyContent: 'center'}}>
-						<h3>Sign in to BallerCaller</h3>
+						<h3 style={styles.titleStyle}>Sign in to BallerCaller</h3>
 					</div>
 					<Paper style={styles.paperStyle} zDepth={2}>
 						<form>
@@ -98,8 +116,16 @@ class LogInPage extends Component {
 						</form>
 					</Paper>
 					<Paper zDepth={2} style={styles.newAccountStyle}>
-						<p>New to BallerCaller? Create an account.</p>
+						<p style={{fontSize: 'small'}}>New to BallerCaller? <NavLink to="/signup" style={styles.linkStyle}> Create an account.</NavLink> 
+ </p>
 					</Paper>
+
+					<div style={{paddingTop: '30px', display: 'flex', justifyContent: 'center'}}>
+						<p style={styles.contactStyle}>Terms</p>
+						<p style={styles.contactStyle}>Privacy</p>
+						<p style={styles.contactStyle}>Security</p>
+						<p style={styles.contactStyle}>Contact Us</p>
+					</div>
 
 				</div>
 		  </div>
