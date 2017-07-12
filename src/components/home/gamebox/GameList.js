@@ -15,7 +15,7 @@ const style = {
 }
 
 const GameList = ({games, courts, creators, listGame, handleOpen, handleBack}) => (
-    <div className="game-list" style={{maxHeight: '490px', overflow: 'auto', paddingTop: '15px'}}>
+    <div className="game-list" style={{maxHeight: '490px', overflow: 'auto', paddingTop: '10px'}}>
 			{listGame === false ? 
 				<IconButton 
 					style={{position: 'absolute', left: '55%', bottom: '30%'}}

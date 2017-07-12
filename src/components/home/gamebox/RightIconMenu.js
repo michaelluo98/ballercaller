@@ -19,7 +19,7 @@ const iconButtonElement = (
     <IconButton
       touch={true}
       tooltip="more"
-      tooltipPosition="bottom-left"
+      tooltipPosition="top-left"
     >
       <MoreVertIcon color={grey400} />
     </IconButton>
@@ -45,7 +45,7 @@ class RightIconMenu extends Component {
     return (
       <IconMenu iconButtonElement={iconButtonElement} style={menuButtonStyle} >
         <MenuItem>Quick View</MenuItem>
-        <MenuItem onTouchTap={this.handleTouch} >Quick Join</MenuItem>
+        <MenuItem onTouchTap={this.handleTouch}>Quick Join</MenuItem>
         <MenuItem>Message Creator</MenuItem>
       </IconMenu>
     )
