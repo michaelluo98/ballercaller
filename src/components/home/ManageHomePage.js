@@ -45,11 +45,14 @@ class ManageHomePage extends Component {
 			modalOpen: false, 
 			showGame: {}, 
 			showCourt: {}, 
-			showCreator: {}
+			showCreator: {}, 
+			teamOne: [], 
+			teamTwo: []
 		}
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
 		this.findGame = this.findGame.bind(this);
+		this.displayGame = this.displayGame.bind(this);
 		this.handleOpenBar = this.handleOpenBar.bind(this);
 		this.handleCloseBar = this.handleCloseBar.bind(this);
 		this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -78,11 +81,12 @@ class ManageHomePage extends Component {
 		this.setState({showGame})
 		this.setState({showCourt: showCourtArr[0]})
 		await this.setState({showCreator: showCreatorArr[0]})
-
+		await this.props.actions.loadPlayers(showGame.id)
 		this.setState({modalOpen: true})
 	}
 	
 	handleCloseModal() {
+		this.props.actions.clearPlayers();
 		this.setState({modalOpen: false})
 	}
 
@@ -160,6 +164,22 @@ class ManageHomePage extends Component {
 		}
 	}
 
+	displayGame() {
+		return <div style={{width: '100%', height: '100%'}}>
+						{this.state.showGame.start_time}	
+						{this.state.showCourt.name}
+						{this.state.showCreator.first_name}
+						{this.state.showCreator.last_name}
+						{this.state.teamOne.map((player) => {
+							return <p>{player.first_name}</p>
+						})}
+						<p>-----------------------------</p>
+						{this.state.teamTwo.map((player) => {
+							return <p>{player.first_name}</p>
+						})}
+					</div>
+	}
+
 	render() {
 		const actions = [
 		  <FlatButton
@@ -185,12 +205,15 @@ class ManageHomePage extends Component {
 				/>
 
 				<Dialog
-					title="Dialog With Actions"
+					title={this.state.showGame.name}
 					actions={actions}
 					modal={true}
 					open={this.state.modalOpen}
+					style={{width: '60%', height: '100%'}}
+					paperProps={{circle: true}}
 				>
-					Only actions can close this dialog.
+					{this.displayGame()}
+					
 				</Dialog>
 			</div>
 		)
@@ -202,7 +225,7 @@ function mapStateToProps(state, ownProps) {
 							court_id: '', setting: ''};
 	const {allCourts, foundGames, foundCourts, foundCreators} = state.games;
 	const {games, courts, creators} = state.games;
-	//const {foundTeams} = state.games;
+	const {playersOne, playersTwo} = state.games;
 	return {
 		game: game,
 		allCourts,
@@ -211,8 +234,9 @@ function mapStateToProps(state, ownProps) {
 		foundCreators, 
 		games, 
 		courts, 
-		creators
-		//foundTeams
+		creators, 
+		teamOne: playersOne, 
+		teamTwo: playersTwo
 	}
 }
 

@@ -48,7 +48,10 @@ class RightIconMenu extends Component {
 
   render() {
     return (
-      <IconMenu iconButtonElement={iconButtonElement} style={menuButtonStyle} >
+			<IconMenu
+				iconButtonElement={iconButtonElement} 
+				style={menuButtonStyle}
+				touchTapCloseDelay={1}>
 				<MenuItem 
 					onTouchTap={this.handleOpenModal}
 					id={this.props.gameId}>
