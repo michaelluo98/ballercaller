@@ -18,7 +18,7 @@ export default class LocationInput extends Component {
   constructor(props) {
     super(props);
 		this.state = {
-			value: 1,
+			value: '',
 			name: 'court_id'
 		};
     this.renderLocations = this.renderLocations.bind(this);
@@ -47,7 +47,8 @@ export default class LocationInput extends Component {
 					labelStyle={styles.height}
           autoWidth={false}
 					name="court_id"
-        >
+				>
+				<MenuItem key={100} value={''} primaryText={"Any Location"}/>
         {this.renderLocations()}
         </DropDownMenu>
       </div>

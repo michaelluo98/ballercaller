@@ -35,13 +35,15 @@ class GameBox extends Component {
 					games={this.props.games}
 					courts={this.props.courts}
 				/> :
-				<GameList
-					games={this.props.games}
-					courts={this.props.courts}
-					creators={this.props.creators}
-					listGame={true}
-					handleOpen={this.props.handleOpen}
-					/> }
+				<div style={{maxHeight: '470px', overflow: 'auto', paddingTop: '10px'}}>
+					<GameList
+						games={this.props.games}
+						courts={this.props.courts}
+						creators={this.props.creators}
+						listGame={true}
+						handleOpen={this.props.handleOpen}
+						/>
+				</div> }
     		<SelectMapView
     			selectedMapView = {this.state.selectedMapView}
     			onSelect = {this.updateMapView} />

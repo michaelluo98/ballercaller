@@ -14,21 +14,19 @@ const style = {
   display: 'absolute',
 }
 
+
+
 const GameList = ({games, courts, creators, listGame, handleOpen, handleBack}) => (
-    <div className="game-list" style={{maxHeight: '490px', overflow: 'auto', paddingTop: '10px'}}>
-			{listGame === false ? 
+	//const gameListStyle = {maxHeight: '490px', overflow: 'auto', paddingTop: '10px'};
+    <div className="game-list">
+			{!listGame && 
 				<IconButton 
 					style={{position: 'absolute', left: '55%', bottom: '30%'}}
 					onTouchTap={handleBack}>
 					<BackIcon />
-				</IconButton> :
-				<div></div>
-			}
+				</IconButton>} 
       <List>
-				{listGame ?
-						<Subheader> Games Near You: </Subheader> :
-						<div></div>
-				}
+				{listGame && <Subheader> Games Near You: </Subheader>} 
 			{games.map((game, index) => {
 				return <GameListRow
 									key={game.id}

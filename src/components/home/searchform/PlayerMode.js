@@ -18,7 +18,7 @@ export default class DropDown extends Component {
   constructor(props) {
     super(props);
 		this.state = {
-			value: "threes",
+			value: "",
 			name: 'mode'
 		};
   }
@@ -41,6 +41,7 @@ export default class DropDown extends Component {
           autoWidth={false}
 					name="mode"
         >
+          <MenuItem value={""} primaryText="Any Mode" />
           <MenuItem value={"threes"} primaryText="3 v 3" />
           <MenuItem value={"fours"} primaryText="4 v 4" />
           <MenuItem value={"fives"} primaryText="5 v 5" />

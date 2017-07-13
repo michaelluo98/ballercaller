@@ -150,8 +150,8 @@ class ManageHomePage extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	let game = {name: '', mode: 'threes', start_time: '',
-							court_id: '', setting: 'false'};
+	let game = {name: '', mode: '', start_time: '',
+							court_id: '', setting: ''};
 	const {allCourts, foundGames, foundCourts, foundCreators} = state.games
 	return {
 		game: game,
