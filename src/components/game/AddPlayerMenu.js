@@ -3,15 +3,35 @@ import AddPlayerButton from './AddPlayerButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import AddPlayerMenuItems from './AddPlayerMenuItems';
 
 class AddPlayerMenu extends Component {
   constructor(props, context) {
     super(props, context);
+    this.handleOnItemTouchTap = this.handleOnItemTouchTap.bind(this)
 
     this.state = {
 
     }
+  }
+
+  renderMenuItems() {
+    return (
+      this.props.favorites.map((player, index)=> {
+        const fullName = `${player.first_name} ${player.last_name}`;
+        return <MenuItem
+                  primaryText={fullName}
+                  playerNum={this.props.playerNum}
+                  name="yah"
+                  player={player}
+                  teamNum={this.props.teamNum}
+              />
+      })
+    )
+  }
+
+  handleOnItemTouchTap(e) {
+    setTimeout(this.props.handleChange(e), 300)
+    // this.props.handleChange()
   }
 
   render() {
@@ -28,18 +48,10 @@ class AddPlayerMenu extends Component {
         }
         style={this.props.playerStyle}
 				onItemTouchTap={this.props.handleChange}
+        touchTapCloseDelay={100}
         maxHeight={300}
       >
-				{this.props.favorites.map((player, index)=> {
-					const fullName = `${player.first_name} ${player.last_name}`;
-					return <MenuItem
-										primaryText={fullName}
-										playerNum={this.props.playerNum}
-										name="yah"
-										player={player}
-										teamNum={this.props.teamNum}
-								/>
-				})}
+				{this.renderMenuItems()}
       </IconMenu>
     )
   }

@@ -5,7 +5,7 @@ import * as gameActions from '../../actions/gameActions';
 import SearchForm from './searchform/SearchForm';
 import GameBox from './gamebox/GameBox';
 import Calendar from './tabs/ManageCalendarPage';
-import GameList from './gamebox/GameList'; 
+import GameList from './gamebox/GameList';
 import Paper from 'material-ui/Paper';
 import {NavLink} from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
@@ -18,16 +18,16 @@ const styles = {
     margin: 30,
   	marginLeft: 60,
     textAlign: 'center',
-		marginTop: 330, 
-		display: 'inline-block', 
-		maxHeight: 175, 
+		marginTop: 330,
+		display: 'inline-block',
+		maxHeight: 175,
 		overflow: 'auto'
 	},
 	buttonsStyle: {
-		display: 'flex', 
-		alignItems: 'center', 
-		justifyContent: 'center', 
-		width: '100%', 
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
 		height: '100%'
 	}
 
@@ -38,8 +38,8 @@ class ManageHomePage extends Component {
 		super(props, context);
 
 		this.state = {
-			game: Object.assign({}, this.props.game), 
-			foundToggle: false, 
+			game: Object.assign({}, this.props.game),
+			findToggle: false,
 			open: false
 		}
 		this.updateGameState = this.updateGameState.bind(this);
@@ -81,13 +81,13 @@ class ManageHomePage extends Component {
 
 	saveGame(event) {
 		event.preventDefault();
-		this.setState({foundToggle: false})
+		this.setState({findToggle: false})
 		this.setState({game: Object.assign({}, this.props.game)})
 		this.props.actions.findGames(this.state.game)
 	}
 
 	findGame() {
-		if (this.props.foundGames.length === 0 || this.state.foundToggle) {
+		if (this.props.foundGames.length === 0 || this.state.findToggle) {
 			return <SearchForm
 							onChange={this.updateGameState}
 							onSave={this.saveGame}
@@ -99,29 +99,33 @@ class ManageHomePage extends Component {
 			return <Paper style={styles.findGameStyle} zDepth={2} rounded={false}>
 							 <div style={styles.buttonsStyle}>
 								 <div>
-									<NavLink to="/game" style={{display: 'block'}}>
-										<FlatButton 
-											label="Create Your Own Game" 
-											primary={true} />
-									</NavLink>
-									<FlatButton 
-										label="Look For Another Game" 
+										<FlatButton
+											label="Create Your Own Game"
+											primary={true}
+											style={{display: 'block'}}
+											onTouchTap={() => {
+												this.setState({findToggle: true});
+												console.log('state now after going to createGame: ', this.state);
+												this.props.history.push('/game');
+											}}/>
+									<FlatButton
+										label="Look For Another Game"
 										secondary={true}
 										style={{display: 'block'}}
-										onTouchTap={() => this.setState({foundToggle: true})}/>
+										onTouchTap={() => this.setState({findToggle: true})}/>
 								</div>
 							 </div>
 						 </Paper>
 		}
 		else {
 			return <Paper style={styles.findGameStyle} zDepth={2} rounded={false}>
-								<GameList 
+								<GameList
 									games={this.props.foundGames}
 									courts={this.props.foundCourts}
 									creators={this.props.foundCreators}
 									listGame={false}
 									handleOpen={this.handleOpenBar}
-									handleBack={() => this.setState({foundToggle: true})}
+									handleBack={() => this.setState({findToggle: true})}
 								/>
 							</Paper>
 		}
@@ -130,8 +134,8 @@ class ManageHomePage extends Component {
 	render() {
 		return (
 			<div>
-				<GameBox 
-					handleOpen={this.handleOpenBar} 
+				<GameBox
+					handleOpen={this.handleOpenBar}
 				/>
 				{this.findGame()}
 				<Calendar />
@@ -152,9 +156,9 @@ function mapStateToProps(state, ownProps) {
 	const {allCourts, foundGames, foundCourts, foundCreators} = state.games
 	return {
 		game: game,
-		allCourts, 
-		foundGames, 
-		foundCourts, 
+		allCourts,
+		foundGames,
+		foundCourts,
 		foundCreators
 	}
 }
