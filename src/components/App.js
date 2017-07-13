@@ -47,14 +47,3 @@ class App extends Component {
 
 export default App;
 
-
-// const bottomRight = {
-// 	marginTop: 350,
-// 	paddingTop: 350
-// }
-// <GameBox />
-// <Switch>
-// 	<Route exact path='/' />
-// </Switch>
-// <CalendarMessengerTab />
-// <SearchForm style={bottomRight}/>

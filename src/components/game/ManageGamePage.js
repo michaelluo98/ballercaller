@@ -35,7 +35,9 @@ class ManageGamePage extends Component {
 			game: Object.assign({}, this.props.game),
 			playersOne: realPlayersOne,
 			playersTwo: Array.from(this.props.playersTwo),
-			createGame: true
+			createGame: true, 
+			showCreator: {}, 
+			showCourt: {}
 		}
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
@@ -128,7 +130,11 @@ class ManageGamePage extends Component {
 				{this.updatePageState()}
 
 				{this.props.showGame && this.props.showGame.name ?
-						<ShowGame game={this.props.showGame}/> :
+						<ShowGame 
+							game={this.props.showGame}
+							court={this.props.showCourt}
+							creator={this.props.showCreator}
+						/> :
 						<GameForm
 							game={this.state.game}
 							errors={this.state.game}
@@ -148,27 +154,45 @@ class ManageGamePage extends Component {
 	}
 }
 
-function getGameById(games, id) {
-	const game = games.filter(game => game.id.toString() === id);
-	if (game) return game[0];
+function getById(games, allCourts, allCreators, id) {
+	const gameArr = games.filter(game => game.id.toString() === id);
+	if (gameArr) {
+		const game = gameArr[0]
+		console.log('game in getById: ', game)
+		const courts = allCourts.filter((court) => {
+			return court.id == game.court_id
+		}) 
+		const creators = allCreators.filter((creator) => {
+			return creator.id == game.game_mod_id
+		})
+		return [game, courts[0], creators[0]];
+	}
 	return null;
 }
 
-function mapStateToProps(state, ownProps) {
+
+function mapStateToProps (state, ownProps) {
 	const gameId = ownProps.match.params.id;
 	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '',
 							extra_info: '', court_id: '', setting: 'false'};
-	let showGame = {};
 	const {currentUser, favorites} = state.session;
-	const {lastGameId, playersOne, playersTwo, games} = state.games;
-	if (gameId && state.games.games.length > 0) {
-		showGame = getGameById(state.games.games, gameId);
+	const {lastGameId, playersOne, playersTwo, games, creators, courts} = state.games;
+
+	let showGames = [];
+	if (gameId && state.games.games.length > 0 && 
+		state.games.courts.length > 0 && state.games.creators.length > 0) {
+		showGames = getById(state.games.games, state.games.courts, state.games.creators, gameId);
 	}
+
 	return {
 		game: game,
 		games,
+		creators, 
+		courts,
 		allCourts: state.games.allCourts,
-		showGame,
+		showGame: showGames[0],
+		showCourt: showGames[1], 
+		showCreator: showGames[2],
 		currentUser,
 		lastGameId,
 		playersOne,
