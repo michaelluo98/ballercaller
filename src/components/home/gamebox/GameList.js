@@ -14,10 +14,8 @@ const style = {
   display: 'absolute',
 }
 
-
-
-const GameList = ({games, courts, creators, listGame, handleOpen, handleBack}) => (
-	//const gameListStyle = {maxHeight: '490px', overflow: 'auto', paddingTop: '10px'};
+const GameList = ({games, courts, creators, listGame, handleOpen,
+									handleBack, handleOpenModal}) => (
     <div className="game-list">
 			{!listGame && 
 				<IconButton 
@@ -25,6 +23,8 @@ const GameList = ({games, courts, creators, listGame, handleOpen, handleBack}) =
 					onTouchTap={handleBack}>
 					<BackIcon />
 				</IconButton>} 
+				{console.log('hanldeOopenModal in Gamelist: ', handleOpenModal)}
+				{console.log('hanldeOpenBar in Gamelist: ', handleOpen)}
       <List>
 				{listGame && <Subheader> Games Near You: </Subheader>} 
 			{games.map((game, index) => {
@@ -38,6 +38,7 @@ const GameList = ({games, courts, creators, listGame, handleOpen, handleBack}) =
 									listGame={listGame}
 									mode={game.mode}
 									handleOpen={handleOpen}
+									handleOpenModal={handleOpenModal}
 								/>;
 			})}
       </List>

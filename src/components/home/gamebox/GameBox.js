@@ -42,6 +42,7 @@ class GameBox extends Component {
 						creators={this.props.creators}
 						listGame={true}
 						handleOpen={this.props.handleOpen}
+						handleOpenModal={this.props.handleOpenModal}
 						/>
 				</div> }
     		<SelectMapView

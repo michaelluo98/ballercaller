@@ -5,7 +5,8 @@ import Avatar from 'material-ui/Avatar';
 import {darkBlack} from 'material-ui/styles/colors';
 import RightIconMenu from './RightIconMenu'
 
-function GameListRow({gameId, name, time, court, mode, handleOpen, creator, listGame}) {
+function GameListRow({gameId, name, time, court, mode, handleOpen, 
+											creator, listGame, handleOpenModal}) {
 	const intro = `${name} @ ${court}`;
 	let modeDisplay = ''
 	if (mode === 'threes') {
@@ -19,6 +20,8 @@ function GameListRow({gameId, name, time, court, mode, handleOpen, creator, list
 	}
 	const creatorName = `${creator.first_name} ${creator.last_name}`
 	const lineNum = listGame ? 1 : 2
+	{console.log('handleOpenModal in GameListRow: ', handleOpenModal);}
+	{console.log('handleOpenBar in GameListRow: ', handleOpen);}
   return (
     <ListItem
       leftAvatar={<Avatar src="images/jason_face2.png" />}
@@ -26,6 +29,7 @@ function GameListRow({gameId, name, time, court, mode, handleOpen, creator, list
 			rightIconButton={<RightIconMenu 
 												gameId={gameId}
 												handleOpen={handleOpen}
+												handleOpenModal={handleOpenModal}
 											 />}
       secondaryText={
 				<p>

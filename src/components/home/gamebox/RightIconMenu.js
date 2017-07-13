@@ -7,6 +7,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import {grey400} from 'material-ui/styles/colors';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
 
 const menuButtonStyle = {
   position: 'absolute',
@@ -32,8 +33,8 @@ class RightIconMenu extends Component {
   constructor(props, context) {
     super(props, context);
 
-
 		this.handleTouch = this.handleTouch.bind(this);
+		this.handleOpenModal = this.handleOpenModal.bind(this);
   }
 
 	handleTouch() {
@@ -41,10 +42,14 @@ class RightIconMenu extends Component {
 		this.props.handleOpen();
 	}
 
+	handleOpenModal() {
+		this.props.handleOpenModal();
+	}
+
   render() {
     return (
       <IconMenu iconButtonElement={iconButtonElement} style={menuButtonStyle} >
-        <MenuItem>Quick View</MenuItem>
+        <MenuItem onTouchTap={this.handleOpenModal}>Quick View</MenuItem>
         <MenuItem onTouchTap={this.handleTouch}>Quick Join</MenuItem>
         <MenuItem>Message Creator</MenuItem>
       </IconMenu>

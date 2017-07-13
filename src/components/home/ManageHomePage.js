@@ -10,6 +10,7 @@ import Paper from 'material-ui/Paper';
 import {NavLink} from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
+import Dialog from 'material-ui/Dialog';
 
 const styles = {
 	findGameStyle: {
@@ -40,13 +41,16 @@ class ManageHomePage extends Component {
 		this.state = {
 			game: Object.assign({}, this.props.game),
 			findToggle: false,
-			open: false
+			open: false, 
+			modalOpen: false
 		}
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
 		this.findGame = this.findGame.bind(this);
 		this.handleOpenBar = this.handleOpenBar.bind(this);
 		this.handleCloseBar = this.handleCloseBar.bind(this);
+		this.handleOpenModal = this.handleOpenModal.bind(this);
+		this.handleCloseModal = this.handleCloseModal.bind(this);
 	}
 
 	handleOpenBar() {
@@ -55,6 +59,14 @@ class ManageHomePage extends Component {
 
 	handleCloseBar() {
 		this.setState({open: false})
+	}
+	
+	handleOpenModal() {
+		this.setState({modalOpen: true})
+	}
+	
+	handleCloseModal() {
+		this.setState({modalOpen: false})
 	}
 
 	updateGameState(event, name='', value = 0) {
@@ -125,25 +137,44 @@ class ManageHomePage extends Component {
 									listGame={false}
 									handleOpen={this.handleOpenBar}
 									handleBack={() => this.props.actions.clearFound()}
+									handleOpenModal={this.handleOpenModal}
 								/>
 							</Paper>
 		}
 	}
 
 	render() {
+		const actions = [
+		  <FlatButton
+		     label="Cancel"
+		     primary={true}
+		     onTouchTap={this.handleCloseModal}
+	    />,
+		]
 		return (
 			<div>
 				<GameBox
 					handleOpen={this.handleOpenBar}
+					handleOpenModal={this.handleOpenModal}
 				/>
 				{this.findGame()}
 				<Calendar />
+
 				<Snackbar
 				  open={this.state.open}
 				  message="successfully joined game!"
 				  autoHideDuration={4000}
 				  onRequestClose={this.handleCloseBar}
 				/>
+
+				<Dialog
+					title="Dialog With Actions"
+					actions={actions}
+					modal={true}
+					open={this.state.modalOpen}
+				>
+					Only actions can close this dialog.
+				</Dialog>
 			</div>
 		)
 	}
