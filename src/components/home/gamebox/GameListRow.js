@@ -28,6 +28,7 @@ function GameListRow({gameId, name, time, court, mode, handleOpen,
 												gameId={gameId}
 												handleOpen={handleOpen}
 												handleOpenModal={handleOpenModal}
+												listGame={listGame}
 											 />}
       secondaryText={
 				<p>

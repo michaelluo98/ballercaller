@@ -43,7 +43,7 @@ class RightIconMenu extends Component {
 	}
 
 	handleOpenModal(e) {
-		this.props.handleOpenModal(e.currentTarget.id);
+		this.props.handleOpenModal(e.currentTarget.id, this.props.listGame);
 	}
 
   render() {
