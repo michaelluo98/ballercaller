@@ -23,8 +23,6 @@ const GameList = ({games, courts, creators, listGame, handleOpen,
 					onTouchTap={handleBack}>
 					<BackIcon />
 				</IconButton>} 
-				{console.log('hanldeOopenModal in Gamelist: ', handleOpenModal)}
-				{console.log('hanldeOpenBar in Gamelist: ', handleOpen)}
       <List>
 				{listGame && <Subheader> Games Near You: </Subheader>} 
 			{games.map((game, index) => {

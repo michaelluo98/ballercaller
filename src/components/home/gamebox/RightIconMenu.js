@@ -42,14 +42,18 @@ class RightIconMenu extends Component {
 		this.props.handleOpen();
 	}
 
-	handleOpenModal() {
-		this.props.handleOpenModal();
+	handleOpenModal(e) {
+		this.props.handleOpenModal(e.currentTarget.id);
 	}
 
   render() {
     return (
       <IconMenu iconButtonElement={iconButtonElement} style={menuButtonStyle} >
-        <MenuItem onTouchTap={this.handleOpenModal}>Quick View</MenuItem>
+				<MenuItem 
+					onTouchTap={this.handleOpenModal}
+					id={this.props.gameId}>
+					Quick View
+				</MenuItem>
         <MenuItem onTouchTap={this.handleTouch}>Quick Join</MenuItem>
         <MenuItem>Message Creator</MenuItem>
       </IconMenu>

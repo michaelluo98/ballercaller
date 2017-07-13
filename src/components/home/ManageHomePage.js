@@ -42,7 +42,10 @@ class ManageHomePage extends Component {
 			game: Object.assign({}, this.props.game),
 			findToggle: false,
 			open: false, 
-			modalOpen: false
+			modalOpen: false, 
+			showGame: {}, 
+			showCourt: {}, 
+			showCreator: {}
 		}
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
@@ -61,7 +64,21 @@ class ManageHomePage extends Component {
 		this.setState({open: false})
 	}
 	
-	handleOpenModal() {
+	async handleOpenModal(gameId) {
+		const showGameArr = this.props.games.filter((game) => {
+			return game.id == gameId
+		})
+		const showGame = showGameArr[0]
+		const showCourtArr = this.props.courts.filter((court) => {
+			return court.id == showGame.court_id
+		})
+		const showCreatorArr = this.props.creators.filter((creator) => {
+			return creator.id == showGame.game_mod_id
+		})
+		this.setState({showGame})
+		this.setState({showCourt: showCourtArr[0]})
+		await this.setState({showCreator: showCreatorArr[0]})
+
 		this.setState({modalOpen: true})
 	}
 	
@@ -183,13 +200,19 @@ class ManageHomePage extends Component {
 function mapStateToProps(state, ownProps) {
 	let game = {name: '', mode: '', start_time: '',
 							court_id: '', setting: ''};
-	const {allCourts, foundGames, foundCourts, foundCreators} = state.games
+	const {allCourts, foundGames, foundCourts, foundCreators} = state.games;
+	const {games, courts, creators} = state.games;
+	//const {foundTeams} = state.games;
 	return {
 		game: game,
 		allCourts,
 		foundGames,
 		foundCourts,
-		foundCreators
+		foundCreators, 
+		games, 
+		courts, 
+		creators
+		//foundTeams
 	}
 }
 

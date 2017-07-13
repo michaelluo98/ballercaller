@@ -35,7 +35,7 @@ class GameBox extends Component {
 					games={this.props.games}
 					courts={this.props.courts}
 				/> :
-				<div style={{maxHeight: '470px', overflow: 'auto', paddingTop: '10px'}}>
+				<div style={{maxHeight: '490px', overflow: 'auto', paddingTop: '10px'}}>
 					<GameList
 						games={this.props.games}
 						courts={this.props.courts}

@@ -20,8 +20,6 @@ function GameListRow({gameId, name, time, court, mode, handleOpen,
 	}
 	const creatorName = `${creator.first_name} ${creator.last_name}`
 	const lineNum = listGame ? 1 : 2
-	{console.log('handleOpenModal in GameListRow: ', handleOpenModal);}
-	{console.log('handleOpenBar in GameListRow: ', handleOpen);}
   return (
     <ListItem
       leftAvatar={<Avatar src="images/jason_face2.png" />}
