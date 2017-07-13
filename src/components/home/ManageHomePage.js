@@ -87,7 +87,7 @@ class ManageHomePage extends Component {
 	}
 
 	findGame() {
-		if (this.props.foundGames.length === 0 || this.state.findToggle) {
+		if (this.props.foundGames.length === 0) {
 			return <SearchForm
 							onChange={this.updateGameState}
 							onSave={this.saveGame}
@@ -104,15 +104,14 @@ class ManageHomePage extends Component {
 											primary={true}
 											style={{display: 'block'}}
 											onTouchTap={() => {
-												this.setState({findToggle: true});
-												console.log('state now after going to createGame: ', this.state);
+												this.props.actions.clearFound();
 												this.props.history.push('/game');
 											}}/>
 									<FlatButton
 										label="Look For Another Game"
 										secondary={true}
 										style={{display: 'block'}}
-										onTouchTap={() => this.setState({findToggle: true})}/>
+										onTouchTap={() => this.props.actions.clearFound()}/>
 								</div>
 							 </div>
 						 </Paper>
@@ -125,7 +124,7 @@ class ManageHomePage extends Component {
 									creators={this.props.foundCreators}
 									listGame={false}
 									handleOpen={this.handleOpenBar}
-									handleBack={() => this.setState({findToggle: true})}
+									handleBack={() => this.props.actions.clearFound()}
 								/>
 							</Paper>
 		}

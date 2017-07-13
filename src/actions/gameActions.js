@@ -16,7 +16,13 @@ export function loadCourtsSuccess(allCourts) {
 }
 
 export function findGamesSuccess(foundGames, foundCourts, foundCreators) {
-	return { type: types.FIND_GAMES_SUCCESS, foundGames, foundCourts, foundCreators }
+	return { type: types.FIND_GAMES_SUCCESS, 
+					foundGames, foundCourts, foundCreators }
+}
+
+export function clearFoundSuccess(foundGamesEmpty, foundCourtsEmpty, foundCreatorsEmpty) {
+	return { type: types.CLEAR_FOUND_SUCCESS, 
+					foundGamesEmpty, foundCourtsEmpty, foundCreatorsEmpty }
 }
 
 export function loadLastGameSuccess(lastGameId) {
@@ -147,6 +153,12 @@ export function findGames(game) {
 				return dispatch(findGamesSuccess(res.games, res.courts, res.creators))
 			})
 	}
+}
+
+export function clearFound() {
+	return function(dispatch) {
+		return dispatch(clearFoundSuccess([], [], []))
+	} 
 }
 
 export function loadLastGame() {

@@ -34,6 +34,14 @@ export default function gameReducer(state = gameInitialState, action) {
 				return Object.assign({}, state, {foundGames, foundCourts, foundCreators});
 			}
 
+		case types.CLEAR_FOUND_SUCCESS: 
+			const {foundGamesEmpty, foundCourtsEmpty, foundCreatorsEmpty} = action; 
+			const foundEmpty = {foundGames: foundGamesEmpty, 
+													foundCourts: foundCourtsEmpty, 
+													foundCreators: foundCreatorsEmpty};
+			console.log('empty foundEmpty: ', foundEmpty)
+			return Object.assign({}, state, foundEmpty);
+
 		case types.LOAD_LAST_GAME_SUCCESS: 
 			const lastGameId = action.lastGameId;
 			return Object.assign({}, state, {lastGameId})
