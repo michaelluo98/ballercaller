@@ -1,8 +1,8 @@
 import * as types from './actionTypes';
 import sessionApi from '../api/sessionApi';
 // import history from '../components/history';
-import {PropTypes} from 'prop-types';
-import { push } from 'react-router-redux';
+//import {PropTypes} from 'prop-types';
+//import { push } from 'react-router-redux';
 
 const BASE_URL = 'http://localhost:3000/api/v1';
 const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71ae";

@@ -33,7 +33,7 @@ class GameBox extends Component {
     	  {this.state.selectedMapView === 'Map' ?
 				<GameMap
 					games={this.props.games}
-					courts={this.props.courts}
+					courts={this.props.allCourts}
 				/> :
 				<div style={{maxHeight: '490px', overflow: 'auto', paddingTop: '10px'}}>
 					<GameList
@@ -55,11 +55,12 @@ class GameBox extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  const {games, courts, creators} = state.games;
+  const {games, courts, creators, allCourts} = state.games;
 	const waitingGames = games.filter(game => game.status === 'waiting');
   return {
 		games: waitingGames,
 		courts, 
+		allCourts,
 		creators
   };
 }

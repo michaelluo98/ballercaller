@@ -25,7 +25,7 @@ class ManageGamePage extends Component {
 	constructor(props, context) {
 		super(props, context);
 		const players = Array.from(this.props.playersOne).filter((e) => {
-			e.id === this.props.currentUser.id
+			return e.id === this.props.currentUser.id
 		})
 		const realPlayersOne = players.length === 0 ? 
 			Array.from(this.props.playersOne).concat(this.props.currentUser) : 

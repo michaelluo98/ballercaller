@@ -47,7 +47,6 @@ class gameCalendar extends Component {
 	}
 
   render() {
-		console.log('currentUser in ManageCalendarPage render: ', !!this.props.currentUser);
 		//Object.keys(this.props.currentUser).length
 		if (this.props.currentUser && 
 			Object.keys(this.props.currentUser).length !== 0 && 
@@ -61,20 +60,11 @@ class gameCalendar extends Component {
 						const month = gameTime.getMonth();
 						const day = gameTime.getDate();
 						const parsedDate = new Date(year, month, day);
-						/*console.log(game.start_time);
-						console.log(gameTime);
-						console.log(gameTime.getDate());
-						console.log(gameTime.getMonth());
-						console.log(gameTime.getUTCFullYear());*/
 						return parsedDate;
 					})
 					this.setState({userGames: dates})
 				})
 		}
-		// {this.props.currentUser && console.log(this.getCurrentUserGames())}
-		//component={withMultipleDates(Calendar)}
-		//			interpolateSelection={defaultMultipleDateInterpolation}
-		//[new Date(2017, 6, 13), new Date(2017, 6, 14)]
     return (
 			<Paper style={style} zDepth={1} rounded={false}>
 				<InfiniteCalendar
@@ -94,7 +84,6 @@ class gameCalendar extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log('currentState mapStateToProps in Calendar: ', state);
 	const {currentUser} = state.session;
 	return {
 		currentUser,

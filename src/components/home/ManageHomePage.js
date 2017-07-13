@@ -7,7 +7,7 @@ import GameBox from './gamebox/GameBox';
 import Calendar from './tabs/ManageCalendarPage';
 import GameList from './gamebox/GameList';
 import Paper from 'material-ui/Paper';
-import {NavLink} from 'react-router-dom';
+//import {NavLink} from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
 import Dialog from 'material-ui/Dialog';
@@ -79,7 +79,6 @@ class ManageHomePage extends Component {
 	}
 	
 	async handleOpenModal(gameId, listGame) {
-		let showGameArr = []
 		if (listGame) {
 			const showGameArr = this.props.games.filter((game) => {
 				return game.id == gameId

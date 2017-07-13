@@ -52,7 +52,6 @@ export function loadGames() {
 		})
 		fetch(`${BASE_URL}/games`, {headers})
 			.then(res => res.json()).then(res => {
-				console.log('res in loadGames: ', res);
 				dispatch(loadGamesSuccess(res));
 			});
 	}
@@ -77,7 +76,6 @@ export function loadPlayers(gameId) {
 		})
 	fetch(`${BASE_URL}/games/${gameId}/players`, {headers})
 		.then(res => res.json()).then(res => {
-			console.log('res in loadPlayers', res);
 			dispatch(loadPlayersSuccess(res.playersOne, res.playersTwo))
 		})
 	}
@@ -99,19 +97,19 @@ export function saveGame(game, playersOne, playersTwo) {
 		let teamOneId;
 		let teamTwoId;
 
-		const newGameId = await newGame.json().then(res => {
+		await newGame.json().then(res => {
 			teamOneId = res.teamOneId;
 			teamTwoId = res.teamTwoId;
 			return res.id;
 		})
 
-		const teamOne = await fetch(`${BASE_URL}/teams/${teamOneId}`, {
+		await fetch(`${BASE_URL}/teams/${teamOneId}`, {
 			headers, 
 			method: 'POST', 
 			body: JSON.stringify({team: {players_attributes: playersOne}})
 		})
 
-		const teamTwo = await fetch(`${BASE_URL}/teams/${teamTwoId}`, {
+		await fetch(`${BASE_URL}/teams/${teamTwoId}`, {
 			headers, 
 			method: 'POST', 
 			body: JSON.stringify({team: {players_attributes: playersTwo}})
@@ -174,8 +172,6 @@ export function loadLastGame() {
 }
 
 export function quickJoinGame(currentUser, gameId) {
-	console.log('gameId in quickJoinGame: ', gameId)
-	console.log('data: ', JSON.stringify({user: {id: currentUser.id}}))
 	return function(dispatch) {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`,
@@ -187,7 +183,6 @@ export function quickJoinGame(currentUser, gameId) {
 			method: 'POST',
 			body: JSON.stringify({user: {id: currentUser.id}})
 		}).then(res => res.json()).then(res => {
-			console.log('res in quickjoin: ', res);
 			return dispatch(quickJoinGameSuccess())
 		})
 

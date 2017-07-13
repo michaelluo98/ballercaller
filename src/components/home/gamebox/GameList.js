@@ -5,14 +5,14 @@ import GameListRow from './GameListRow';
 import BackIcon from 'material-ui/svg-icons/navigation/arrow-back' 
 import IconButton from 'material-ui/IconButton';
 
-const style = {
+/*const style = {
   height: '490px',
   width: '550px',
   marginLeft: '40px',
 	marginTop: '10px',
   textAlign: 'center',
   display: 'absolute',
-}
+}*/
 
 const GameList = ({games, courts, creators, listGame, handleOpen,
 									handleBack, handleOpenModal}) => (
