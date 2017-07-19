@@ -13,18 +13,15 @@ class GamePage extends React.Component {
   render() {
     return (
 			<div>
-				<h1>Games</h1>			
+				<h1>Games</h1>
 				{this.props.games && this.props.games.map(this.gameRow)}
-			</div>      
+			</div>
     );
   }
 }
-//{this.props.games.map(game => {
-//return <h1>{game.name}</h1>;
-//})}
 
 GamePage.propTypes = {
-	//games: PropTypes.array.isRequired, 
+	//games: PropTypes.array.isRequired,
 	actions: PropTypes.object.isRequired
 }
 

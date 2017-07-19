@@ -12,32 +12,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
 import Dialog from 'material-ui/Dialog';
 import moment from 'moment';
+import homeStyles from '../styles/homeStyles';
 
-const styles = {
-	findGameStyle: {
-    height: 175,
-    width: 470,
-    margin: 30,
-  	marginLeft: 60,
-    textAlign: 'center',
-		marginTop: 330,
-		display: 'inline-block',
-		maxHeight: 175,
-		overflow: 'auto'
-	},
-	buttonsStyle: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		width: '100%',
-		height: '100%'
-	}, 
-	dialogTitle: {
-		color: 'rgb(33, 150, 243)', 
-		fontSize: '36px'
-	}
-
-}
 
 class ManageHomePage extends Component {
 	constructor(props, context) {
@@ -46,15 +22,15 @@ class ManageHomePage extends Component {
 		this.state = {
 			game: Object.assign({}, this.props.game),
 			findToggle: false,
-			open: false, 
-			modalOpen: false, 
-			showGame: {}, 
-			showCourt: {}, 
-			showCreator: {}, 
-			teamOne: [], 
+			open: false,
+			modalOpen: false,
+			showGame: {},
+			showCourt: {},
+			showCreator: {},
+			teamOne: [],
 			teamTwo: [],
-			teamOneName: '', 
-			teamTwoName: '' 
+			teamOneName: '',
+			teamTwoName: ''
 		}
 		this.updateGameState = this.updateGameState.bind(this);
 		this.saveGame = this.saveGame.bind(this);
@@ -77,13 +53,13 @@ class ManageHomePage extends Component {
 	handleCloseBar() {
 		this.setState({open: false})
 	}
-	
+
 	async handleOpenModal(gameId, listGame) {
 		if (listGame) {
 			const showGameArr = this.props.games.filter((game) => {
 				return game.id.toString() === gameId
 			})
-			
+
 			const showGame = showGameArr[0]
 			const teamOneName = this.props.teams.filter((team) => {
 				return team.id === ((showGame.id * 2) - 1)
@@ -93,7 +69,7 @@ class ManageHomePage extends Component {
 			})
 			this.setState({teamOneName: teamOneName[0].name})
 			this.setState({teamTwoName: teamTwoName[0].name})
-			
+
 			const showCourtArr = this.props.courts.filter((court) => {
 				return court.id === showGame.court_id
 			})
@@ -110,7 +86,7 @@ class ManageHomePage extends Component {
 				return game.id.toString() === gameId
 			})
 			const showGame = showGameArr[0]
-	
+
 			const teamOneName = this.props.teams.filter((team) => {
 					return team.id === (showGame.id * 2)
 			})
@@ -119,7 +95,7 @@ class ManageHomePage extends Component {
 			})
 			this.setState({teamOneName: teamOneName[0].name})
 			this.setState({teamTwoName: teamTwoName[0].name})
-			
+
 			const showCourtArr = this.props.foundCourts.filter((court) => {
 				return court.id === showGame.court_id
 			})
@@ -133,7 +109,7 @@ class ManageHomePage extends Component {
 		}
 		this.setState({modalOpen: true})
 	}
-	
+
 	handleCloseModal() {
 		this.props.actions.clearPlayers();
 		this.setState({modalOpen: false})
@@ -178,8 +154,8 @@ class ManageHomePage extends Component {
 		}
 		else if (this.props.foundGames.length === 1 &&
 							this.props.foundGames[0] === 'error') {
-			return <Paper style={styles.findGameStyle} zDepth={2} rounded={false}>
-							 <div style={styles.buttonsStyle}>
+			return <Paper style={homeStyles.findGameStyle} zDepth={2} rounded={false}>
+							 <div style={homeStyles.buttonsStyle}>
 								 <div>
 										<FlatButton
 											label="Create Your Own Game"
@@ -199,7 +175,7 @@ class ManageHomePage extends Component {
 						 </Paper>
 		}
 		else {
-			return <Paper style={styles.findGameStyle} zDepth={2} rounded={false}>
+			return <Paper style={homeStyles.findGameStyle} zDepth={2} rounded={false}>
 								<GameList
 									games={this.props.foundGames}
 									courts={this.props.foundCourts}
@@ -249,7 +225,7 @@ class ManageHomePage extends Component {
 		}
 		return <p style={{fontSize: '14px'}}>{gameSetting} {modeDisplay}</p>
 	}
-	
+
 
 	displayGame() {
 		return (
@@ -304,7 +280,7 @@ class ManageHomePage extends Component {
 					modal={true}
 					open={this.state.modalOpen}
 					paperProps={{circle: true}}
-					titleStyle={styles.dialogTitle}
+					titleStyle={homeStyles.dialogTitle}
 				>
 					{this.displayGame()}
 				</Dialog>
@@ -324,12 +300,12 @@ function mapStateToProps(state, ownProps) {
 		allCourts,
 		foundGames,
 		foundCourts,
-		foundCreators, 
-		games, 
-		courts, 
-		creators, 
-		teamOne: playersOne, 
-		teamTwo: playersTwo, 
+		foundCreators,
+		games,
+		courts,
+		creators,
+		teamOne: playersOne,
+		teamTwo: playersTwo,
 		teams
 	}
 }

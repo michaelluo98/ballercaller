@@ -8,10 +8,6 @@ class AddPlayerMenu extends Component {
   constructor(props, context) {
     super(props, context);
     this.handleOnItemTouchTap = this.handleOnItemTouchTap.bind(this)
-
-    this.state = {
-
-    }
   }
 
   renderMenuItems() {

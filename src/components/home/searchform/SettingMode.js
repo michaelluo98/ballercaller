@@ -1,21 +1,6 @@
 import React, { Component } from 'react';
 import Toggle from 'material-ui/Toggle';
-
-const styles = {
-  block: {
-    maxWidth: 250,
-		paddingTop: '5px',
-		width: '60%',
-		display: 'inline'
-  },
-  toggle: {
-		marginTop: '15',
-		display: 'flex',
-		justifyContent: 'center',
-		width: '60%',
-		float: 'left',
-  }
-};
+import styles from '../../styles/homeStyles';
 
 class ToggleButton extends Component {
 	constructor(props) {
@@ -39,11 +24,11 @@ class ToggleButton extends Component {
 
 	render() {
 		return (
-			<div style={styles.block}>
+			<div style={styles.settingMode.block}>
 				<Toggle
 					label="Indoor"
 					labelPosition="right"
-					style={styles.toggle}
+					style={styles.settingMode.toggle}
 					name="setting"
 					onToggle={this.handleChange}
 				/>

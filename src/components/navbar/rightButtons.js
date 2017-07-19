@@ -5,12 +5,7 @@ import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import {bindActionCreators} from 'redux';
 import * as sessionActions from '../../actions/sessionActions';
-
-const buttonStyle = {
-  backgroundColor: 'transparent',
-  color: 'white',
-  paddingTop: '5px'
-};
+import styles from '../styles/navBarStyles';
 
 class RightButtons extends Component {
   constructor(props) {
@@ -29,7 +24,7 @@ class RightButtons extends Component {
         <div>
           <NavLink activeClassName='active' to='/'>
         		<div>
-        			<FlatButton label="LogOut" onClick={this.logOut} style={buttonStyle}/>
+        			<FlatButton label="LogOut" onClick={this.logOut} style={styles.button}/>
         		</div>
         	</NavLink>
         </div>
@@ -38,10 +33,10 @@ class RightButtons extends Component {
       return (
         <div>
           <NavLink activeClassName='active' to='/login'>
-      			<FlatButton label="Login" style={buttonStyle}/>
+      			<FlatButton label="Login" style={styles.button}/>
         	</NavLink>
-          <NavLink activeClassName='active' to='/'>
-            <FlatButton label="SignUp" style={buttonStyle}/>
+          <NavLink activeClassName='active' to='/signup'>
+            <FlatButton label="SignUp" style={styles.button}/>
           </NavLink>
         </div>
       );

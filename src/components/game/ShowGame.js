@@ -1,18 +1,7 @@
 import React from 'react';
-import styles from '../styles/gameStyles';
+import gameStyles from '../styles/gameStyles';
 import moment from 'moment';
-
 // fontFamily: 'Roboto, sans-serif'
-
-
-const showGameStyle = {
-	title: {
-		textAlign: 'center', 
-		marginTop: '5px', 
-		marginBottom: '2px', 
-		color: 'red'
-	}
-}
 
 function showSetting(game) {
 	const gameSetting = game.setting ? `Indoor` : `Outdoor`
@@ -40,10 +29,10 @@ const showCourtInfo = (court) => {
 
 function showGame({game, court, creator}) {
   return(
-    <div style={styles.mainStyle}>
-      <div style={styles.keyCircle} />
+    <div style={gameStyles.main}>
+      <div style={gameStyles.keyCircle} />
       <div style={{fontFamily: 'Roboto, sans-serif'}}>
-        <h1 style={showGameStyle.title}>{game.name}</h1>
+        <h1 style={gameStyles.showGame.title}>{game.name}</h1>
 				<div style={{padding: '5px'}}>
 					<p style={{fontSize: '12px'}}>
 						GameTime: {moment(game.start_time).format('MMMM Do [@] h:mm:ss a')}

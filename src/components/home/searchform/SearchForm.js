@@ -8,6 +8,7 @@ import SettingMode from './SettingMode';
 import PlayerMode from './PlayerMode';
 import DatePicker from './DatePicker';
 
+// keep because need to change the refactor the style
 const style = {
   height: 175,
   width: 470,
@@ -15,7 +16,7 @@ const style = {
   marginLeft: 60,
   textAlign: 'center',
   display: 'inline-block',
-	marginTop: 330, 
+	marginTop: 330,
 };
 
 const firstRowStyles = {

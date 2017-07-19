@@ -1,5 +1,5 @@
-const styles = {
-	mainStyle: {
+const gameStyles = {
+	main: {
 		height: 305 ,
 		width: 250,
 		padding: 0,
@@ -21,17 +21,49 @@ const styles = {
     position: 'fixed',
     bottom: '44%'
   },
-  formStyle: {
+  form: {
     display: 'flex',
     justifyContent: 'center',
   },
-  textStyle: {
+  text: {
     padding: '8px'
   },
-  dateTimeStyle: {
+  dateTime: {
     display: 'flex',
     justifyContent: 'space-around'
-  }
+  },
+	threePointLine: {
+		width: '1000px',
+		height: '480px', /* as the half of the width */
+		borderTopLeftRadius: '450px',
+		borderTopRightRadius: '450px',
+		border: '5px solid black',
+		borderBottom: 0,
+		position: 'fixed', bottom: '0px', left: '75px'
+	},
+	showGame: {
+		title: {
+			textAlign: 'center',
+			marginTop: '5px',
+			marginBottom: '2px',
+			color: 'red'
+		}
+	},
+	toggleButton: {
+		block: {
+			maxWidth: 250,
+			paddingTop: '5px',
+			width: '60%',
+			display: 'inline'
+		},
+		toggle: {
+			marginTop: '15',
+			display: 'flex',
+			justifyContent: 'center',
+			width: '60%',
+			float: 'left',
+		}
+	}
 };
 
-export default styles;
+export default gameStyles;

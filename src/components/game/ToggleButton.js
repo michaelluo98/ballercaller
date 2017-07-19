@@ -1,21 +1,6 @@
 import React, { Component } from 'react';
 import Toggle from 'material-ui/Toggle';
-
-const styles = {
-  block: {
-    maxWidth: 250,
-		paddingTop: '5px',
-		width: '60%',
-		display: 'inline'
-  },
-  toggle: {
-		marginTop: '15',
-		display: 'flex',
-		justifyContent: 'center',
-		width: '60%',
-		float: 'left',
-  }
-};
+import gameStyles from '../styles/gameStyles';
 
 class ToggleButton extends Component {
 	constructor(props) {
@@ -38,11 +23,11 @@ class ToggleButton extends Component {
 
 	render() {
 		return (
-			<div style={styles.block}>
+			<div style={gameStyles.toggleButton.block}>
 				<Toggle
 					label="Indoor only"
 					labelPosition="right"
-					style={styles.toggle}
+					style={gameStyles.toggleButton.toggle}
 					name="setting"
 					onToggle={this.handleChange}
 				/>

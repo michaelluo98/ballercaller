@@ -7,18 +7,7 @@ import * as sessionActions from '../../actions/sessionActions';
 import GameForm from './GameForm';
 import ShowGame from './ShowGame';
 import AddPlayerButtons from './AddPlayerButtons';
-
-const styles = {
-	threePointLine: {
-		width: '1000px',
-		height: '480px', /* as the half of the width */
-		borderTopLeftRadius: '450px',
-		borderTopRightRadius: '450px',
-		border: '5px solid black',
-		borderBottom: 0,
-		position: 'fixed', bottom: '0px', left: '75px'
-	},
-}
+import gameStyles from '../styles/gameStyles';
 
 
 class ManageGamePage extends Component {
@@ -28,7 +17,7 @@ class ManageGamePage extends Component {
 
 		this.state = {
 			game: Object.assign({}, this.props.game),
-			playersOne: Array.from(this.props.playersOne), 
+			playersOne: Array.from(this.props.playersOne),
 			playersTwo: Array.from(this.props.playersTwo),
 			createGame: true,
 			showCreator: {},
@@ -151,7 +140,7 @@ class ManageGamePage extends Component {
 							courts={this.props.allCourts}
 						/>
 				}
-				<div style={styles.threePointLine}></div>
+				<div style={gameStyles.threePointLine}></div>
 				<AddPlayerButtons
 					playersOne={this.state.playersOne}
 					playersTwo={this.state.playersTwo}

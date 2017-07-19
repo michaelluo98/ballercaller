@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ManageHomePage from './home/ManageHomePage';
 import ManageGamePage from './game/ManageGamePage';
 import LoginPage from './authentication/logInPage';
+import SignUpPage from './authentication/signUpPage';
 import history from './history';
 
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
 						<Switch>
 							<Route exact path="/" component={ManageHomePage} />
               <Route exact path="/login" component={LoginPage} />
+							<Route exact path="/signup" component={SignUpPage} />
 							<Route exact path="/game"
 								onEnter={this.requireAuth()}
                 component={ManageGamePage}
@@ -46,4 +48,3 @@ class App extends Component {
 }
 
 export default App;
-

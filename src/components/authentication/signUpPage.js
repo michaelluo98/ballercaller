@@ -8,9 +8,58 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as sessionActions from '../../actions/sessionActions';
 import BallLogo from '../../icons/basketball.svg';
-import loginStyles from '../styles/loginPageStyles';
 
-class LogInPage extends Component {
+const styles = {
+	paperStyle: {
+		height: '220px',
+		width: '300px',
+		borderRadius: '10px',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	mainDivStyle: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	logoStyle: {
+		display: 'inline-block',
+	},
+	newAccountStyle: {
+		height: '50px',
+		width: '300px',
+		borderRadius: '10px',
+		marginTop: '20px',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	introStyle: {
+		height: '100px',
+		width: '300px',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	linkStyle: {
+		textDecoration: 'none',
+		color: 'blue'
+	},
+	contactStyle: {
+		fontFamily: 'Roboto, sans-serif',
+		fontSize: '12px',
+		paddingLeft: '5px',
+		paddingRight: '5px'
+	},
+	titleStyle: {
+		fontFamily: 'Roboto, sans-serif',
+		fontSize: '16px',
+		marginTop: '8px'
+	}
+}
+
+class SignUpPage extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {credentials: {email: '', password: ''}}
@@ -33,17 +82,17 @@ class LogInPage extends Component {
 
   render() {
     return (
-      <div style={loginStyles.mainDivStyle}>
+      <div style={styles.mainDivStyle}>
 				<div>
-					<div style={loginStyles.introStyle}>
-						<svg className={`icon icon-info`} style={loginStyles.logoStyle} width={70} height={70}>
+					<div style={styles.introStyle}>
+						<svg className={`icon icon-info`} style={styles.logoStyle} width={70} height={70}>
 							<use xlinkHref={`${BallLogo}#icon-info`} />
 						</svg>
 					</div>
 					<div style={{display: 'flex', justifyContent: 'center'}}>
-						<h3 style={loginStyles.titleStyle}>Sign in to BallerCaller</h3>
+						<h3 style={styles.titleStyle}>Sign Up</h3>
 					</div>
-					<Paper style={loginStyles.paperStyle} zDepth={2}>
+					<Paper style={styles.paperStyle} zDepth={2}>
 						<form>
 							<TextField
 								name="email"
@@ -66,16 +115,16 @@ class LogInPage extends Component {
 							/>
 						</form>
 					</Paper>
-					<Paper zDepth={2} style={loginStyles.newAccountStyle}>
-						<p style={{fontSize: 'small'}}>New to BallerCaller? <NavLink to="/signup" style={loginStyles.linkStyle}> Create an account.</NavLink>
+					<Paper zDepth={2} style={styles.newAccountStyle}>
+						<p style={{fontSize: 'small'}}>New to BallerCaller? <NavLink to="/signup" style={styles.linkStyle}> Create an account.</NavLink>
  </p>
 					</Paper>
 
 					<div style={{paddingTop: '30px', display: 'flex', justifyContent: 'center'}}>
-						<p style={loginStyles.contactStyle}>Terms</p>
-						<p style={loginStyles.contactStyle}>Privacy</p>
-						<p style={loginStyles.contactStyle}>Security</p>
-						<p style={loginStyles.contactStyle}>Contact Us</p>
+						<p style={styles.contactStyle}>Terms</p>
+						<p style={styles.contactStyle}>Privacy</p>
+						<p style={styles.contactStyle}>Security</p>
+						<p style={styles.contactStyle}>Contact Us</p>
 					</div>
 
 				</div>
@@ -89,4 +138,4 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(sessionActions, dispatch)
   };
 }
-export default connect(null, mapDispatchToProps)(LogInPage);
+export default connect(null, mapDispatchToProps)(SignUpPage);

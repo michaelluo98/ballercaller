@@ -3,7 +3,7 @@ import TextField from 'material-ui/TextField';
 
 const styles = {
 	paddingLeft: '10px',
-	mainStyle: {
+	main: {
 		height: '48px'
 	}
 }
@@ -18,7 +18,7 @@ function TextInput({multiline, onChange}) {
 				hintStyle={styles}
 				name="name"
 				onChange={onChange}
-				style={styles.mainStyle}
+				style={styles.main}
 				/>
     </div>
   )
