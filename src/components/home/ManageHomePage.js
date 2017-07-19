@@ -81,24 +81,24 @@ class ManageHomePage extends Component {
 	async handleOpenModal(gameId, listGame) {
 		if (listGame) {
 			const showGameArr = this.props.games.filter((game) => {
-				return game.id == gameId
+				return game.id.toString() === gameId
 			})
 			
 			const showGame = showGameArr[0]
 			const teamOneName = this.props.teams.filter((team) => {
-				return team.id == (showGame.id * 2)
+				return team.id === ((showGame.id * 2) - 1)
 			})
 			const teamTwoName = this.props.teams.filter((team) => {
-				return team.id == ((showGame.id * 2) - 1)
+				return team.id === (showGame.id * 2)
 			})
 			this.setState({teamOneName: teamOneName[0].name})
 			this.setState({teamTwoName: teamTwoName[0].name})
 			
 			const showCourtArr = this.props.courts.filter((court) => {
-				return court.id == showGame.court_id
+				return court.id === showGame.court_id
 			})
 			const showCreatorArr = this.props.creators.filter((creator) => {
-				return creator.id == showGame.game_mod_id
+				return creator.id === showGame.game_mod_id
 			})
 			this.setState({showGame})
 			this.setState({showCourt: showCourtArr[0]})
@@ -107,24 +107,24 @@ class ManageHomePage extends Component {
 		}
 		else {
 			const showGameArr = this.props.foundGames.filter((game) => {
-				return game.id == gameId
+				return game.id.toString() === gameId
 			})
 			const showGame = showGameArr[0]
 	
 			const teamOneName = this.props.teams.filter((team) => {
-					return team.id == (showGame.id * 2)
+					return team.id === (showGame.id * 2)
 			})
 			const teamTwoName = this.props.teams.filter((team) => {
-				return team.id == ((showGame.id * 2) - 1)
+				return team.id === ((showGame.id * 2) - 1)
 			})
 			this.setState({teamOneName: teamOneName[0].name})
 			this.setState({teamTwoName: teamTwoName[0].name})
 			
 			const showCourtArr = this.props.foundCourts.filter((court) => {
-				return court.id == showGame.court_id
+				return court.id === showGame.court_id
 			})
 			const showCreatorArr = this.props.foundCreators.filter((creator) => {
-				return creator.id == showGame.game_mod_id
+				return creator.id === showGame.game_mod_id
 			})
 			this.setState({showGame})
 			this.setState({showCourt: showCourtArr[0]})

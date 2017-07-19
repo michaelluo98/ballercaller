@@ -56,7 +56,7 @@ class GameMap extends Component {
 					center={{ lat: 49.2564956, lng: -123.105743 }}
           markers={this.renderMarkers()}
 					onMarkerClick={this.handleMarkerClick}
-          containerElement={<Paper style={mapStyle} zDepth={2} circle={true} />}
+          containerElement={<Paper style={mapStyle} zDepth={2} circle={true}/>}
           mapElement={<div
                       style={{ height: `100%`, borderRadius: '50%' }}>
                       </div>}

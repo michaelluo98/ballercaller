@@ -27,16 +27,16 @@ class ManageGamePage extends Component {
 		const players = Array.from(this.props.playersOne).filter((e) => {
 			return e.id === this.props.currentUser.id
 		})
-		const realPlayersOne = players.length === 0 ? 
-			Array.from(this.props.playersOne).concat(this.props.currentUser) : 
+		const realPlayersOne = players.length === 0 ?
+			Array.from(this.props.playersOne).concat(this.props.currentUser) :
 			Array.from(this.props.playersOne)
 
 		this.state = {
 			game: Object.assign({}, this.props.game),
 			playersOne: realPlayersOne,
 			playersTwo: Array.from(this.props.playersTwo),
-			createGame: true, 
-			showCreator: {}, 
+			createGame: true,
+			showCreator: {},
 			showCourt: {}
 		}
 		this.updateGameState = this.updateGameState.bind(this);
@@ -129,8 +129,9 @@ class ManageGamePage extends Component {
 			<div>
 				{this.updatePageState()}
 
+				{console.log('showGame:', this.props.showGame)}
 				{this.props.showGame && this.props.showGame.name ?
-						<ShowGame 
+						<ShowGame
 							game={this.props.showGame}
 							court={this.props.showCourt}
 							creator={this.props.showCreator}
@@ -156,18 +157,17 @@ class ManageGamePage extends Component {
 
 function getById(games, allCourts, allCreators, id) {
 	const gameArr = games.filter(game => game.id.toString() === id);
-	if (gameArr) {
+	if (gameArr.length === 1 ) {
 		const game = gameArr[0]
-		console.log('game in getById: ', game)
 		const courts = allCourts.filter((court) => {
-			return court.id == game.court_id
-		}) 
+			return court.id === game.court_id
+		})
 		const creators = allCreators.filter((creator) => {
-			return creator.id == game.game_mod_id
+			return creator.id === game.game_mod_id
 		})
 		return [game, courts[0], creators[0]];
 	}
-	return null;
+	return [];
 }
 
 
@@ -178,8 +178,9 @@ function mapStateToProps (state, ownProps) {
 	const {currentUser, favorites} = state.session;
 	const {lastGameId, playersOne, playersTwo, games, creators, courts} = state.games;
 
+
 	let showGames = [];
-	if (gameId && state.games.games.length > 0 && 
+	if (gameId && state.games.games.length > 0 &&
 		state.games.courts.length > 0 && state.games.creators.length > 0) {
 		showGames = getById(state.games.games, state.games.courts, state.games.creators, gameId);
 	}
@@ -187,11 +188,11 @@ function mapStateToProps (state, ownProps) {
 	return {
 		game: game,
 		games,
-		creators, 
+		creators,
 		courts,
 		allCourts: state.games.allCourts,
 		showGame: showGames[0],
-		showCourt: showGames[1], 
+		showCourt: showGames[1],
 		showCreator: showGames[2],
 		currentUser,
 		lastGameId,

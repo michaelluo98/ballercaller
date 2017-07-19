@@ -6,15 +6,12 @@ export default function gameReducer(state = gameInitialState, action) {
 		case types.LOAD_GAMES_SUCCESS:
 			const {games, courts, creators} = action.games;
 
-			console.log('oldstate in LOAD_GAMES_SUCCESS:', state);
 			const newState = Object.assign({}, state, {games, courts, creators});
-			console.log('newState in LOAD_GAMES_SUCCESS: ', newState);
 			return newState;
 
 		case types.CREATE_GAME_SUCCESS:
 			//console.log('game in CREATE_GAME_SUCCESS: ', action.game)
 			//console.log('state in CREATE_GAME_SUCCESS:', state);
-			console.log('---------------in CREATE GAME SUCCESS----------------')
 			return state;
 
 		case types.LOAD_COURTS_SUCCESS:
@@ -39,7 +36,6 @@ export default function gameReducer(state = gameInitialState, action) {
 			const foundEmpty = {foundGames: foundGamesEmpty, 
 													foundCourts: foundCourtsEmpty, 
 													foundCreators: foundCreatorsEmpty};
-			console.log('empty foundEmpty: ', foundEmpty)
 			return Object.assign({}, state, foundEmpty);
 
 		case types.LOAD_LAST_GAME_SUCCESS: 
