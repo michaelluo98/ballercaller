@@ -52,13 +52,14 @@ export function getFavorites(id) {
 }
 
 export function getCurrentUser(id) {
-  console.log('id in getCurrentUser', id)
+	//console.log('id in getCurrentUser', id)
   return function (dispatch) {
     const headers = new Headers({
       'Authorization':`Apikey ${API_KEY}`
     })
     fetch(`${BASE_URL}/users/${id}`, {headers})
     .then(res => res.json()).then(res => {
+			console.log('currentUser in getCurrentUser', res.user);
       dispatch(getCurrentUserSuccess(res.user));
     })
   }

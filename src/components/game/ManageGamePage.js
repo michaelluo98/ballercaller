@@ -24,12 +24,11 @@ const styles = {
 class ManageGamePage extends Component {
 	constructor(props, context) {
 		super(props, context);
-		//needfix
 		this.props.sessionActions.getCurrentUser(this.props.currentUserId);
 
 		this.state = {
 			game: Object.assign({}, this.props.game),
-			playersOne: Array.from(this.props.playersTwo),
+			playersOne: Array.from(this.props.playersOne), 
 			playersTwo: Array.from(this.props.playersTwo),
 			createGame: true,
 			showCreator: {},
@@ -48,7 +47,7 @@ class ManageGamePage extends Component {
 		}
 	}
 
-	componentDidUpdate() {
+	componentWillUpdate() {
 		const players = Array.from(this.props.playersOne).filter((e) => {
 			return e.id === this.props.currentUserId
 		})
@@ -56,9 +55,9 @@ class ManageGamePage extends Component {
 		//needfix
 			Array.from(this.props.playersOne).concat(this.props.currentUser) :
 			Array.from(this.props.playersOne)
-
-		if (players.length === 0) 
-		this.setState({playersOne: realPlayersOne})
+		if (this.state.playersOne.length === 0) {
+			this.setState({playersOne: realPlayersOne})
+		}
 	}
 
 	updateGameState(event, name='', value = 0) {
@@ -138,7 +137,6 @@ class ManageGamePage extends Component {
 			<div>
 				{this.updatePageState()}
 
-				{console.log('showGame:', this.props.showGame)}
 				{this.props.showGame && this.props.showGame.name ?
 						<ShowGame
 							game={this.props.showGame}
@@ -186,7 +184,6 @@ function mapStateToProps (state, ownProps) {
 							extra_info: '', court_id: '', setting: 'false'};
 	const {currentUser, favorites, currentUserId} = state.session;
 	const {lastGameId, playersOne, playersTwo, games, creators, courts} = state.games;
-
 
 	let showGames = [];
 	if (gameId && state.games.games.length > 0 &&

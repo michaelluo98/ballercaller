@@ -23,7 +23,7 @@ export default function sessionReducer(state = sessionInitialState, action, disp
       return Object.assign({}, state, loggedOutState)
 
     case types.GET_CURRENT_USER_SUCCESS:
-      console.log('user in GET_CURRENT_USER_SUCCESS', action.user);
+			//console.log('user in GET_CURRENT_USER_SUCCESS', action.user);
       return Object.assign({}, state, {currentUser: action.user});
 
 		case types.GET_FAVORITES_SUCCESS:
