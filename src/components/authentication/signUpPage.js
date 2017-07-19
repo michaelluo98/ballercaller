@@ -11,7 +11,7 @@ import BallLogo from '../../icons/basketball.svg';
 
 const styles = {
 	paperStyle: {
-		height: '220px',
+		height: '100%',
 		width: '300px',
 		borderRadius: '10px',
 		display: 'flex',
@@ -20,8 +20,7 @@ const styles = {
 	},
 	mainDivStyle: {
 		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'space-around',
 	},
 	logoStyle: {
 		display: 'inline-block',
@@ -62,16 +61,25 @@ const styles = {
 class SignUpPage extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {credentials: {email: '', password: ''}}
+		this.state = { newUser: 
+			{
+				email: '',
+				first_name: '',
+				last_name: '', 
+				password: '', 
+				password_confirmation: ''
+			}
+		}
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
 
   onChange(event) {
     const field = event.target.name;
-    const credentials = this.state.credentials;
-    credentials[field] = event.target.value;
-    return this.setState({credentials: credentials});
+    const newUser = this.state.newUser;
+    newUser[field] = event.target.value;
+		console.log('newUser: ', newUser);
+    return this.setState({newUser: newUser});
   }
 
   onSave(event) {
@@ -83,12 +91,11 @@ class SignUpPage extends Component {
   render() {
     return (
       <div style={styles.mainDivStyle}>
-				<div>
-					<div style={styles.introStyle}>
-						<svg className={`icon icon-info`} style={styles.logoStyle} width={70} height={70}>
-							<use xlinkHref={`${BallLogo}#icon-info`} />
-						</svg>
-					</div>
+				{ /*leftside info */ }
+				<div style={{width: '40%', height: '100%', border: '5px solid red'}}>
+				</div>
+				{ /* rightSide SignUp form */ }
+				<div style={{width: '40%', height: '100%', border: '5px solid red'}}>
 					<div style={{display: 'flex', justifyContent: 'center'}}>
 						<h3 style={styles.titleStyle}>Sign Up</h3>
 					</div>
@@ -97,14 +104,35 @@ class SignUpPage extends Component {
 							<TextField
 								name="email"
 								floatingLabelText="Enter your email"
-								value={this.state.credentials.email}
+								value={this.state.newUser.email}
+								onChange={this.onChange}
+								style={{textAlign: 'center', paddingLeft: '15px'}}/>
+							<TextField
+								name="first_name"
+								floatingLabelText="First Name"
+								type="first_name"
+								value={this.state.newUser.first_name}
+								onChange={this.onChange}
+								style={{textAlign: 'center', paddingLeft: '15px'}}/>
+							<TextField
+								name="last_name"
+								floatingLabelText="Last Name"
+								type="last_name"
+								value={this.state.newUser.last_name}
 								onChange={this.onChange}
 								style={{textAlign: 'center', paddingLeft: '15px'}}/>
 							<TextField
 								name="password"
 								floatingLabelText="Enter your password"
 								type="password"
-								value={this.state.credentials.password}
+								value={this.state.newUser.password}
+								onChange={this.onChange}
+								style={{textAlign: 'center', paddingLeft: '15px'}}/>
+							<TextField
+								name="password_confirmation"
+								floatingLabelText="Please confirm your password"
+								type="password"
+								value={this.state.newUser.password_confirmation}
 								onChange={this.onChange}
 								style={{textAlign: 'center', paddingLeft: '15px'}}/>
 							<RaisedButton
@@ -114,10 +142,6 @@ class SignUpPage extends Component {
 								style={{marginTop: '15px', width: '90%', marginLeft: '15px'}}
 							/>
 						</form>
-					</Paper>
-					<Paper zDepth={2} style={styles.newAccountStyle}>
-						<p style={{fontSize: 'small'}}>New to BallerCaller? <NavLink to="/signup" style={styles.linkStyle}> Create an account.</NavLink>
- </p>
 					</Paper>
 
 					<div style={{paddingTop: '30px', display: 'flex', justifyContent: 'center'}}>
