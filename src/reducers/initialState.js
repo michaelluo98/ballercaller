@@ -2,19 +2,19 @@ export const gameInitialState = {
 	games: [],
 	courts: [],
 	creators: [],
-	allCourts: [], 
-	foundGames: [], 
-	foundCourts: [], 
+	allCourts: [],
+	foundGames: [],
+	foundCourts: [],
 	foundCreators: [],
-	lastGameId: '', 
-	teams: [], 
-	playersOne: [], 
+	lastGameId: '',
+	teams: [],
+	playersOne: [],
 	playersTwo: []
 }
 
 export const sessionInitialState = {
-	session: !!sessionStorage.jwt, 
-	currentUser: {}, 
+	session: !!sessionStorage.jwt,
+	currentUser: {},
+	currentUserId: sessionStorage.currentUserId || 0,
 	favorites: []
 }
-

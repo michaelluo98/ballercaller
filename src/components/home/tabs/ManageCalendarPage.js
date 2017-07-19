@@ -41,17 +41,14 @@ class gameCalendar extends Component {
 	}
 
 	getCurrentUserGames() {
-		if (this.props.currentUser) {
-			return this.getUserGames(this.props.currentUser.id)
+		if (!!this.props.currentUserId) {
+			return this.getUserGames(this.props.currentUserId)
 		}
 	}
 
   render() {
-		//Object.keys(this.props.currentUser).length
-		if (this.props.currentUser && 
-			Object.keys(this.props.currentUser).length !== 0 && 
-			this.state.userGames.length === 0) {
-
+		//Object.keys(this.props.currentUser).length to determine currentUser exists
+		if (!!this.props.currentUserId && this.state.userGames.length === 0) {
       this.getCurrentUserGames()
 			  .then(games => {
 					const dates = games.map(game => {
@@ -84,9 +81,9 @@ class gameCalendar extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	const {currentUser} = state.session;
+	const {currentUserId} = state.session;
 	return {
-		currentUser,
+		currentUserId,
 	}
 };
 

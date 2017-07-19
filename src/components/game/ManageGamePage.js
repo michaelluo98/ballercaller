@@ -24,16 +24,12 @@ const styles = {
 class ManageGamePage extends Component {
 	constructor(props, context) {
 		super(props, context);
-		const players = Array.from(this.props.playersOne).filter((e) => {
-			return e.id === this.props.currentUser.id
-		})
-		const realPlayersOne = players.length === 0 ?
-			Array.from(this.props.playersOne).concat(this.props.currentUser) :
-			Array.from(this.props.playersOne)
+		//needfix
+		this.props.sessionActions.getCurrentUser(this.props.currentUserId);
 
 		this.state = {
 			game: Object.assign({}, this.props.game),
-			playersOne: realPlayersOne,
+			playersOne: Array.from(this.props.playersTwo),
 			playersTwo: Array.from(this.props.playersTwo),
 			createGame: true,
 			showCreator: {},
@@ -46,10 +42,23 @@ class ManageGamePage extends Component {
 	}
 
 	componentDidMount() {
-		console.log('currentUserId in componentDidMount: ', this.props.currentUser.id)
-		if (this.props.currentUser.id) {
-			this.props.sessionActions.getFavorites(this.props.currentUser.id);
+		console.log('currentUserId in componentDidMount: ', this.props.currentUserId)
+		if (this.props.currentUserId) {
+			this.props.sessionActions.getFavorites(this.props.currentUserId);
 		}
+	}
+
+	componentDidUpdate() {
+		const players = Array.from(this.props.playersOne).filter((e) => {
+			return e.id === this.props.currentUserId
+		})
+		const realPlayersOne = players.length === 0 ?
+		//needfix
+			Array.from(this.props.playersOne).concat(this.props.currentUser) :
+			Array.from(this.props.playersOne)
+
+		if (players.length === 0) 
+		this.setState({playersOne: realPlayersOne})
 	}
 
 	updateGameState(event, name='', value = 0) {
@@ -94,7 +103,7 @@ class ManageGamePage extends Component {
 	saveGame = async (event) => {
 		event.preventDefault();
 		const game = Object.assign({}, this.state.game,
-			{game_mod_id: this.props.currentUser.id})
+			{game_mod_id: this.props.currentUserId})
 		const playersOne = Object.assign({}, this.state.playersOne);
 		const playersTwo = Object.assign({}, this.state.playersTwo);
 		await this.props.actions.saveGame(game, playersOne, playersTwo);
@@ -175,7 +184,7 @@ function mapStateToProps (state, ownProps) {
 	const gameId = ownProps.match.params.id;
 	let game = {game_mod_id: '', name: '', mode: 'threes', start_time: '',
 							extra_info: '', court_id: '', setting: 'false'};
-	const {currentUser, favorites} = state.session;
+	const {currentUser, favorites, currentUserId} = state.session;
 	const {lastGameId, playersOne, playersTwo, games, creators, courts} = state.games;
 
 
@@ -195,6 +204,7 @@ function mapStateToProps (state, ownProps) {
 		showCourt: showGames[1],
 		showCreator: showGames[2],
 		currentUser,
+		currentUserId,
 		lastGameId,
 		playersOne,
 		playersTwo,

@@ -19,9 +19,14 @@ export function removeFromFavoritesSuccess(id) {
 	return {type: types.REMOVE_FROM_FAVORITES_SUCCESS, id}
 }
 
+export function getCurrentUserSuccess(user) {
+  return {type: types.GET_CURRENT_USER_SUCCESS, user}
+}
+
 function addCurrentUser(dispatch, credentials) {
   fetch(`${BASE_URL}/users/${credentials.email}`)
     .then(res => res.json()).then(res => {
+      sessionStorage.setItem('currentUserId', res.user.id);
       dispatch(loginSuccess(res.user));
     })
 }
@@ -33,18 +38,32 @@ export function removeFromFavorites(player) {
 }
 
 export function getFavorites(id) {
-	console.log('id in getFavorites: ', id)
+	// console.log('id in getFavorites: ', id)
 	return function(dispatch) {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`
 		})
 		fetch(`${BASE_URL}/users/${id}/favorites`, {headers})
 			.then(res => res.json()).then(res => {
-				console.log('favorites in getFavorites: ', res.favorites)
+				// console.log('favorites in getFavorites: ', res.favorites)
 				dispatch(getFavoritesSuccess(res.favorites));
 			})
 	}
 }
+
+export function getCurrentUser(id) {
+  console.log('id in getCurrentUser', id)
+  return function (dispatch) {
+    const headers = new Headers({
+      'Authorization':`Apikey ${API_KEY}`
+    })
+    fetch(`${BASE_URL}/users/${id}`, {headers})
+    .then(res => res.json()).then(res => {
+      dispatch(getCurrentUserSuccess(res.user));
+    })
+  }
+}
+
 
 export function logInUser(credentials) {
   return function(dispatch) {
@@ -70,5 +89,6 @@ export function logInUser(credentials) {
 
 export function logOutUser() {
   sessionStorage.removeItem('jwt');
+  sessionStorage.removeItem('currentUserId')
   return {type: types.LOG_OUT}
 }

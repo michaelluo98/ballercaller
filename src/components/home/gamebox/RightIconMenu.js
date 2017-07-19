@@ -37,7 +37,7 @@ class RightIconMenu extends Component {
   }
 
 	handleTouch() {
-		this.props.actions.quickJoinGame(this.props.currentUser, this.props.gameId)
+		this.props.actions.quickJoinGame(this.props.currentUserId, this.props.gameId)
 		this.props.handleOpen();
 	}
 
@@ -48,10 +48,10 @@ class RightIconMenu extends Component {
   render() {
     return (
 			<IconMenu
-				iconButtonElement={iconButtonElement} 
+				iconButtonElement={iconButtonElement}
 				style={menuButtonStyle}
 				touchTapCloseDelay={1}>
-				<MenuItem 
+				<MenuItem
 					onTouchTap={this.handleOpenModal}
 					id={this.props.gameId}>
 					Quick View
@@ -64,9 +64,9 @@ class RightIconMenu extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	const {currentUser} = state.session
+	const {currentUserId} = state.session
 	return {
-		currentUser
+		currentUserId
 	}
 }
 

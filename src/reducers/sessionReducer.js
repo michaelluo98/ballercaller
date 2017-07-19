@@ -6,16 +6,31 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 
     case types.LOG_IN_SUCCESS:
 			const currentUser = action.currentUser;
-			return Object.assign({}, state, {session: !!sessionStorage.jwt, currentUser});
+      console.log('sessionStorage.currentUserId', sessionStorage.currentUserId);
+      const loggedInState = {
+        session: !!sessionStorage.jwt,
+        currentUser,
+        currentUserId: sessionStorage.currentUserId
+      }
+			return Object.assign({}, state, loggedInState);
 
     case types.LOG_OUT:
-      return Object.assign({}, state, {session: !!sessionStorage.jwt })
+      const loggedOutState = {
+        session: !!sessionStorage.jwt,
+        currentUser: {},
+        currentUserId: 0
+      }
+      return Object.assign({}, state, loggedOutState)
 
-		case types.GET_FAVORITES_SUCCESS: 
-			const {favorites} = action; 
+    case types.GET_CURRENT_USER_SUCCESS:
+      console.log('user in GET_CURRENT_USER_SUCCESS', action.user);
+      return Object.assign({}, state, {currentUser: action.user});
+
+		case types.GET_FAVORITES_SUCCESS:
+			const {favorites} = action;
 			return Object.assign({}, state, {favorites})
 
-		case types.REMOVE_FROM_FAVORITES_SUCCESS: 
+		case types.REMOVE_FROM_FAVORITES_SUCCESS:
 			const removedId = action.id
 			const newFavorites = state.favorites.filter((player) => {
 				return player.id !== removedId

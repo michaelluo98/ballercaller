@@ -16,12 +16,12 @@ export function loadCourtsSuccess(allCourts) {
 }
 
 export function findGamesSuccess(foundGames, foundCourts, foundCreators) {
-	return { type: types.FIND_GAMES_SUCCESS, 
+	return { type: types.FIND_GAMES_SUCCESS,
 					foundGames, foundCourts, foundCreators }
 }
 
 export function clearFoundSuccess(foundGamesEmpty, foundCourtsEmpty, foundCreatorsEmpty) {
-	return { type: types.CLEAR_FOUND_SUCCESS, 
+	return { type: types.CLEAR_FOUND_SUCCESS,
 					foundGamesEmpty, foundCourtsEmpty, foundCreatorsEmpty }
 }
 
@@ -104,14 +104,14 @@ export function saveGame(game, playersOne, playersTwo) {
 		})
 
 		await fetch(`${BASE_URL}/teams/${teamOneId}`, {
-			headers, 
-			method: 'POST', 
+			headers,
+			method: 'POST',
 			body: JSON.stringify({team: {players_attributes: playersOne}})
 		})
 
 		await fetch(`${BASE_URL}/teams/${teamTwoId}`, {
-			headers, 
-			method: 'POST', 
+			headers,
+			method: 'POST',
 			body: JSON.stringify({team: {players_attributes: playersTwo}})
 		})
 
@@ -132,7 +132,7 @@ export function loadCourts() {
 }
 
 // functionToCall() {
-//	
+//
 // }
 export function findGames(game) {
 	return function(dispatch) {
@@ -156,7 +156,7 @@ export function findGames(game) {
 export function clearFound() {
 	return function(dispatch) {
 		return dispatch(clearFoundSuccess([], [], []))
-	} 
+	}
 }
 
 export function loadLastGame() {
@@ -171,7 +171,7 @@ export function loadLastGame() {
 	}
 }
 
-export function quickJoinGame(currentUser, gameId) {
+export function quickJoinGame(currentUserId, gameId) {
 	return function(dispatch) {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`,
@@ -181,7 +181,7 @@ export function quickJoinGame(currentUser, gameId) {
 		fetch(`${BASE_URL}/games/${gameId}/quickjoin`, {
 			headers,
 			method: 'POST',
-			body: JSON.stringify({user: {id: currentUser.id}})
+			body: JSON.stringify({user: {id: currentUserId}})
 		}).then(res => res.json()).then(res => {
 			return dispatch(quickJoinGameSuccess())
 		})
