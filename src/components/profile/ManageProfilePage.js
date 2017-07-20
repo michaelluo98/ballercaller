@@ -1,14 +1,29 @@
-import React, {Component} from 'react'; 
+import React, {Component} from 'react';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 
 import styles from '../styles/profileStyle';
+import FontIcon from 'material-ui/FontIcon';
+import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
 import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 import jersey from '../../icons/jersey.svg';
+
+
+const recentsIcon = <FontIcon className="material-icons" style={{fontSize: '18px', color: 'white'}}>restore</FontIcon>;
+const favoritesIcon = <FontIcon className="material-icons" style={{fontSize: '18px', color: 'white'}}>favorite</FontIcon>;
 
 class ProfilePage extends Component {
 	constructor(props, context) {
-		super(props, context); 
+		super(props, context);
 
+		this.state = {
+			selectedIndex: 0,
+		}
+
+		this.select = this.select.bind(this);
 	}
+
+	select = (index) => this.setState({selectedIndex: index});
 
 	render() {
 		return (
@@ -27,6 +42,19 @@ class ProfilePage extends Component {
 							</div>
 						</div>
 						<div style={styles.lineBreak}></div>
+		        <BottomNavigation selectedIndex={this.state.selectedIndex} style={styles.navBackground}>
+		          <BottomNavigationItem
+		            onTouchTap={() => this.select(0)}
+								icon={recentsIcon}
+								style={{color: 'white'}}
+		          />
+		          <BottomNavigationItem
+		            onTouchTap={() => this.select(1)}
+								icon={favoritesIcon}
+								style={{color: 'white'}}
+		          />
+		        </BottomNavigation>
+
 					</div>
 				</div>
 			</div>
