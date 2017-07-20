@@ -23,6 +23,10 @@ export function getCurrentUserSuccess(user) {
   return {type: types.GET_CURRENT_USER_SUCCESS, user}
 }
 
+export function signUpUserSuccess(newUser) {
+	return {type: types.SIGN_UP_USER_SUCCESS, newUser}
+}
+
 function addCurrentUser(dispatch, credentials) {
   fetch(`${BASE_URL}/users/${credentials.email}`)
     .then(res => res.json()).then(res => {
@@ -48,6 +52,23 @@ export function getFavorites(id) {
 				// console.log('favorites in getFavorites: ', res.favorites)
 				dispatch(getFavoritesSuccess(res.favorites));
 			})
+	}
+}
+
+export function signUpUser(user) {
+	return async (dispatch) => {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+		const newUser = await fetch(`${BASE_URL}/users`, {
+			headers,
+			method: 'POST',
+			body: JSON.stringify({user})
+		})
+
+		console.log('json in signUpUser: ', JSON.stringify({user}));
+		console.log('newUser in signUpUser: ', newUser.json());
+		dispatch(signUpUserSuccess(newUser));
 	}
 }
 

@@ -22,6 +22,12 @@ export default function sessionReducer(state = sessionInitialState, action, disp
       }
       return Object.assign({}, state, loggedOutState)
 
+		case types.SIGN_UP_USER_SUCCESS: 
+			const signedUpUserState = {
+				currentUser: action.newUser
+			}
+			return Object.assign({}, state, signedUpUserState)
+
     case types.GET_CURRENT_USER_SUCCESS:
 			//console.log('user in GET_CURRENT_USER_SUCCESS', action.user);
       return Object.assign({}, state, {currentUser: action.user});
