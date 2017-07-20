@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import SelectProfileView from './selectProfileView';
+import UserProfileFriends from './UserProfileFriends';
+import UserProfileGames from './UserProfileGames';
 
 import styles from '../styles/profileStyle';
 import Paper from 'material-ui/Paper';
@@ -50,6 +52,12 @@ class ProfilePage extends Component {
 						/>
 					</div>
 				</Paper>
+				<div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+					{this.state.selectedProfileView === 'Games' ?
+							<UserProfileGames /> : 
+							<UserProfileFriends /> }
+				</div>
+
 			</div>
 		)
 	}

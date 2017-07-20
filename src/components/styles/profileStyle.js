@@ -59,6 +59,12 @@ const profileStyles = {
 		fontFamily: 'Roboto, sans-serif',
 		paddingRight: '30px'
 	}, 
+	friends: {
+		width: '50%', 
+	}, 
+	games: {
+		width: '50%', 
+	}
 
 }
 
