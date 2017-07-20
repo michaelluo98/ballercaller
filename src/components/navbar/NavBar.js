@@ -21,6 +21,7 @@ const NavBar = () => (
       title={title}
       iconElementRight={<RightButtons />}
 			showMenuIconButton={false}
+			zDepth={0}
     />
 );
 
