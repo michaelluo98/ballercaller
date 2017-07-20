@@ -22,10 +22,11 @@ class RightButtons extends Component {
     if (this.props.logged_in) {
       return (
         <div>
+					<NavLink activeClassName='active' to='/profile'>
+            <FlatButton label="Profile" style={styles.button}/>
+          </NavLink>
           <NavLink activeClassName='active' to='/'>
-        		<div>
         			<FlatButton label="LogOut" onClick={this.logOut} style={styles.button}/>
-        		</div>
         	</NavLink>
         </div>
       );
@@ -49,7 +50,10 @@ RightButtons.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-  return {logged_in: state.session.session};
+	return {
+		logged_in: state.session.session, 
+		currentUserId: state.session.currentUserId
+	};
 }
 
 function mapDispatchToProps(dispatch) {
