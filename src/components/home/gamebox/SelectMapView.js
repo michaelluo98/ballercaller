@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 function SelectMapView(props) {
   var mapViews = ['Map', 'List'];
@@ -20,9 +20,9 @@ function SelectMapView(props) {
   )
 }
 
-SelectMapView.propTypes = {
-	selectedMapView: PropTypes.string.isRequired,
-	onSelect: PropTypes.func.isRequired
-}
+// SelectMapView.propTypes = {
+// 	selectedMapView: PropTypes.string.isRequired,
+// 	onSelect: PropTypes.func.isRequired
+// }
 
 export default SelectMapView;

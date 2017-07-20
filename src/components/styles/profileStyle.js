@@ -1,10 +1,11 @@
 const profileStyles = {
 	jumbotron: {
 		backgroundColor: 'rgb(0, 188, 212)',
-		height: '250px',
+		height: '210px',
 		width: '100%',
 		display: 'flex',
 		justifyContent: 'center',
+		boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px'
 	},
 	profileInfo: {
 		height: '100%',
@@ -43,12 +44,21 @@ const profileStyles = {
 		marginLeft: '0px',
 		marginTop: '25px'
 	},
-	navBackground: {
-		backgroundColor: 'rgb(0, 188, 212)',
-		width: '300px',
-		display: 'flex',
-		justifyContent: 'flex-start'
-	}
+	selectContainer: {
+		paddingLeft: '0px'
+	},
+	selectedProfile: {
+		color: 'white', 
+		display: 'inline', 
+		fontFamily: 'Roboto, sans-serif',
+		paddingRight: '30px'
+	}, 
+	unselectedProfile: {
+		color: 'rgba(255, 255, 255, 0.87)',
+		display: 'inline', 
+		fontFamily: 'Roboto, sans-serif',
+		paddingRight: '30px'
+	}, 
 
 }
 
