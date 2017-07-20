@@ -53,46 +53,54 @@ class SignUpPage extends Component {
 					{ /* rightSide SignUp form */ }
 					<div style={styles.rightSide}>
 						<Paper style={styles.paperStyle} zDepth={2}>
-							<form>
-								<TextField
-									name="email"
-									floatingLabelText="Enter your email"
-									value={this.state.newUser.email}
-									onChange={this.onChange}
-									style={{textAlign: 'center', paddingLeft: '15px'}}/>
+							<form style={{textAlign: 'center'}}>
 								<TextField
 									name="first_name"
-									floatingLabelText="First Name"
+									hintText="First Name"
+									floatingLabelText="Name"
+									floatingLabelFixed={true}
 									type="first_name"
 									value={this.state.newUser.first_name}
 									onChange={this.onChange}
-									style={{textAlign: 'center', paddingLeft: '15px'}}/>
+									style={{textAlign: 'center', marginTop: '0px', width: '150px', marginRight: '10px'}}/>
 								<TextField
 									name="last_name"
-									floatingLabelText="Last Name"
+									hintText="Last Name"
 									type="last_name"
 									value={this.state.newUser.last_name}
 									onChange={this.onChange}
-									style={{textAlign: 'center', paddingLeft: '15px'}}/>
+									style={{textAlign: 'center', marginTop: '0px', width: '150px', marginLeft: '10px'}}/>
+								<TextField
+									name="email"
+									hintValue="Email"
+									floatingLabelText="Enter your email"
+									floatingLabelFixed={true}
+									value={this.state.newUser.email}
+									onChange={this.onChange}
+									style={{textAlign: 'center', marginTop: '0px', width: '320px'}}/>
 								<TextField
 									name="password"
-									floatingLabelText="Enter your password"
+									hintValue="Create a password"
+									floatingLabelText="Create a password"
+									floatingLabelFixed={true}
 									type="password"
 									value={this.state.newUser.password}
 									onChange={this.onChange}
-									style={{textAlign: 'center', paddingLeft: '15px'}}/>
+									style={{textAlign: 'center', marginTop: '0px', width: '320px'}}/>
 								<TextField
 									name="password_confirmation"
-									floatingLabelText="Please confirm your password"
+									hintValue="Confirm your password"
+									floatingLabelText="Confirm your password"
+									floatingLabelFixed={true}
 									type="password"
 									value={this.state.newUser.password_confirmation}
 									onChange={this.onChange}
-									style={{textAlign: 'center', paddingLeft: '15px'}}/>
+									style={{textAlign: 'center', marginTop: '0px', width: '320px'}}/>
 								<RaisedButton
 									onTouchTap={this.onSave}
 									secondary={true}
-									label="Sign in"
-									style={{marginTop: '15px', width: '90%', marginLeft: '15px'}}
+									label="Create Account"
+									style={{width: '70%', marginBottom: '10px', marginTop: '10px'}}
 								/>
 							</form>
 						</Paper>

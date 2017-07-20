@@ -11,7 +11,7 @@ const signUpStyles = {
   },
 	paperStyle: {
 		height: '100%',
-		width: '450px',
+		width: '375px',
 		borderRadius: '10px',
 		display: 'flex',
 		alignItems: 'center',
@@ -54,24 +54,36 @@ const signUpStyles = {
 	},
 	titleStyle: {
 		fontFamily: 'Roboto, sans-serif',
-		fontSize: '16px',
-		marginTop: '8px'
+		fontSize: '20px',
+		marginTop: '8px', 
+		fontWeight: '400'
+	},
+	subTitleStyle: {
+		fontFamily: 'Roboto, sans-serif',
+		fontSize: '14px',
+		marginTop: '8px', 
+		fontWeight: '400'
 	},
   mainTitle: {
     fontFamily: 'Roboto, sans-serif',
     fontSize: '32px',
     margin: '35px',
-    textAlign: 'center'
+		textAlign: 'center', 
+		fontWeight: 'normal'
   },
 	infoRowText: {
 		fontFamily: 'Roboto, sans-serif',
 		fontSize: '16px',
 		display: 'inline',
+		fontWeight: '300',
+		position: 'relative', 
+		bottom: '15px', 
+		left: '5px'
 	},
 	mainInfo: {
 		width: '40%',
 		height: '100%',
-		border: '2px solid red',
+		//border: '3px solid red'
 	},
 	infoRow: {
 		padding: '10px'
@@ -81,8 +93,8 @@ const signUpStyles = {
     justifyContent: 'center',
     width: '40%',
     height: '100%',
-    border: '2px solid red'
-  }
+	}, 
+
 }
 
 export default signUpStyles;
