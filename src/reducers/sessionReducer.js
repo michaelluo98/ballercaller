@@ -24,7 +24,9 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 
 		case types.SIGN_UP_USER_SUCCESS: 
 			const signedUpUserState = {
-				currentUser: action.newUser
+				session: !!sessionStorage.jwt,
+				currentUser: action.newUser, 
+				currentUserId: sessionStorage.currentUserId
 			}
 			return Object.assign({}, state, signedUpUserState)
 

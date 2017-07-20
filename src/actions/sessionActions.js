@@ -58,17 +58,19 @@ export function getFavorites(id) {
 export function signUpUser(user) {
 	return async (dispatch) => {
 		const headers = new Headers({
-			'Authorization':`Apikey ${API_KEY}`
+			'Authorization':`Apikey ${API_KEY}`, 
+			'Accept':'application/json',
+			'Content-Type':'application/json'
 		})
 		const newUser = await fetch(`${BASE_URL}/users`, {
 			headers,
 			method: 'POST',
 			body: JSON.stringify({user})
 		})
-
-		console.log('json in signUpUser: ', JSON.stringify({user}));
-		console.log('newUser in signUpUser: ', newUser.json());
-		dispatch(signUpUserSuccess(newUser));
+		const returnedUser = await newUser.json().then(res => res.user);
+    sessionStorage.setItem('jwt', true);
+		sessionStorage.setItem('currentUserId', returnedUser.id)
+		dispatch(signUpUserSuccess(returnedUser));
 	}
 }
 

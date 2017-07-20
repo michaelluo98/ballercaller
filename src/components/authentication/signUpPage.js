@@ -34,7 +34,6 @@ class SignUpPage extends Component {
     const field = event.target.name;
     const newUser = this.state.newUser;
     newUser[field] = event.target.value;
-    console.log('newUser: ', newUser);
     return this.setState({newUser: newUser});
   }
 
