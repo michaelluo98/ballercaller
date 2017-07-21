@@ -23,6 +23,7 @@ export const sessionInitialState = {
 
 export const profileInitialState = {
 	isCurrentUser: false,
+	friendshipStatus: 'isCurrentUser', 
 	profileUser: {}, 
 	profileFriends: [], 
 	profileRequests: []

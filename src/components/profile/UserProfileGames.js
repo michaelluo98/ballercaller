@@ -6,10 +6,13 @@ import {List, ListItem} from 'material-ui/List';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 
 
-function UserProfileGames({games}) {
+function UserProfileGames({games, isCurrentUser}) {
 	return (
 		<div style={{width: '50%'}}>
-			<p style={styles.listViewTitle}>Your Games: </p>
+			{isCurrentUser ? 
+				<p style={styles.listViewTitle}>Your Games: </p> : 
+				<p style={styles.listViewTitle}>Games: </p>
+			}
 			<Paper zDepth={1} style={styles.games}>
 				<List>
 					{games.map((game) => {

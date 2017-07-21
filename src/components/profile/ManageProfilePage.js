@@ -8,6 +8,7 @@ import sessionApi from '../../api/sessionApi';
 import SelectProfileView from './selectProfileView';
 import UserProfileFriends from './UserProfileFriends';
 import UserProfileGames from './UserProfileGames';
+import ProfileButton from './ProfileButton';
 
 import styles from '../styles/profileStyle';
 import Paper from 'material-ui/Paper';
@@ -50,6 +51,9 @@ class ProfilePage extends Component {
 			this.props.profileActions.getProfileUser(this.props.profileParamsId)
 			const isCurrentUser = (this.props.currentUserId === this.props.profileParamsId);
 			this.props.profileActions.setIsCurrentUser(isCurrentUser);
+			if (!isCurrentUser) {
+				this.props.profileActions.getFriendshipStatus(this.props.currentUserId, this.props.profileParamsId)
+			}
 		}
 	}
 
@@ -61,7 +65,7 @@ class ProfilePage extends Component {
 		this.setState(() => { 
 			return {selectedProfileView: profileView} 
 		});
-	}
+	} 
 
 	render() {
 		return (
@@ -73,13 +77,10 @@ class ProfilePage extends Component {
 								<p style={styles.userTitle}>
 									{this.props.profileUser.first_name} {this.props.profileUser.last_name}
 								</p>
-								{this.props.isCurrentUser ? 
-									<RaisedButton 
-										label="Edit" 
-										style={styles.editButton} 
-										labelColor='rgb(0, 188, 212)'/> : 
-									<h5>Status of friendship ???</h5>
-								}
+								<ProfileButton 
+									isCurrentUser={this.props.isCurrentUser}
+									friendshipStatus={this.props.friendshipStatus}
+								/>
 							</div>
 							<div style={styles.iconContainer}>
 								<svg className={`icon icon-info`} width={150} height={100} fill={'white'}>
@@ -97,7 +98,10 @@ class ProfilePage extends Component {
 				<div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
 					{this.state.selectedProfileView === 'Games' ?
 						/* ??? */ 
-						<UserProfileGames games={this.state.profileGames} /> : 
+						<UserProfileGames
+							games={this.state.profileGames}
+							isCurrentUser={this.props.isCurrentUser}
+						/> : 
 						<UserProfileFriends 
 							friends={this.props.profileFriends}
 							requests={this.props.profileRequests}
@@ -107,14 +111,18 @@ class ProfilePage extends Component {
 			</div>
 		)
 	}
-
 }
 
 function mapStateToProps(state, ownProps) {
 	const profileParamsId = ownProps.match.params.id;
-	console.log('profileParamsId: ', profileParamsId)
 	const {currentUserId, currentUser} = state.session; 
-	const { profileUser, profileFriends, profileRequests, isCurrentUser } = state.profile
+	const { 
+		profileUser, 
+		profileFriends,
+		profileRequests, 
+		isCurrentUser, 
+		friendshipStatus,
+	} = state.profile;
 	return {
 		currentUserId, 
 		currentUser, 
@@ -123,6 +131,7 @@ function mapStateToProps(state, ownProps) {
 		profileFriends, 
 		profileRequests, 
 		isCurrentUser,
+		friendshipStatus,
 	}
 }
 

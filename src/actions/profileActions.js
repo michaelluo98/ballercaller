@@ -16,6 +16,10 @@ export function setIsCurrentUserSuccess(isCurrentUser) {
 	return { type: types.SET_IS_CURRENT_USERS_SUCCESS, isCurrentUser }
 }
 
+export function getFriendshipStatusSuccess(friendshipStatus) {
+	return { type: types.GET_FRIENDSHIP_STATUS_SUCCESS, friendshipStatus }
+}
+
 
 export function getProfileUser(id) {
 	//console.log('id in getProfileUser', id)
@@ -49,5 +53,19 @@ export function getProfileFriends(id) {
 export function setIsCurrentUser(isCurrentUser) {
 	return function (dispatch) {
 		dispatch(setIsCurrentUserSuccess(isCurrentUser));
+	}
+}
+
+export function getFriendshipStatus(currentUserId, profileUserId) {
+	return function (dispatch) {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+		fetch(`${BASE_URL}/users/${currentUserId}/friendships/${profileUserId}/status`
+			, {headers}) 
+			.then(res => res.json())
+			.then(res => {
+				dispatch(getFriendshipStatusSuccess(res.friendship_status));
+			})
 	}
 }

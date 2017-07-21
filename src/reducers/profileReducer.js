@@ -20,8 +20,13 @@ export default function profileReducer(state = profileInitialState, action, disp
 
 		case types.SET_IS_CURRENT_USERS_SUCCESS: 
 			//console.log('isCurrentUser in reducer', action.isCurrentUser)
-			const isCurrentUser = action.isCurrentUser;
+			const {isCurrentUser} = action;
 			return Object.assign({}, state, {isCurrentUser})
+
+		case types.GET_FRIENDSHIP_STATUS_SUCCESS:
+			const {friendshipStatus} = action;
+			console.log('friendshipStatus in reducer: ', friendshipStatus)
+			return Object.assign({}, state, {friendshipStatus})
 
 		default: 
 			return state;
