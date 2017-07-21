@@ -48,6 +48,9 @@ class ProfilePage extends Component {
 				.then(games => {this.setState({profileGames: games})})
 			this.props.profileActions.getProfileFriends(this.props.profileParamsId)
 			this.props.profileActions.getProfileUser(this.props.profileParamsId)
+			const isCurrentUser = (this.props.currentUserId === this.props.profileParamsId);
+			console.log('isCurrentUser in componentWillMount: ', isCurrentUser); 
+			this.props.profileActions.setIsCurrentUser(isCurrentUser);
 		}
 	}
 

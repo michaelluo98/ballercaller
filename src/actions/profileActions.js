@@ -12,6 +12,10 @@ export function getProfileFriendsSuccess(friends, requests) {
 	return { type: types.GET_PROFILE_FRIENDS_SUCCESS, friends, requests}
 }
 
+export function setIsCurrentUserSuccess(isCurrentUser) {
+	return { type: types.SET_IS_CURRENT_USERS_SUCCESS, isCurrentUser }
+}
+
 
 export function getProfileUser(id) {
 	//console.log('id in getProfileUser', id)
@@ -21,7 +25,7 @@ export function getProfileUser(id) {
     })
     fetch(`${BASE_URL}/users/${id}`, {headers})
     .then(res => res.json()).then(res => {
-			console.log('currentUser in getProfileUser', res.user);
+			//console.log('currentUser in getProfileUser', res.user);
       dispatch(getProfileUserSuccess(res.user));
     })
   }
@@ -35,9 +39,15 @@ export function getProfileFriends(id) {
 		fetch(`${BASE_URL}/users/${id}/friendships`, {headers}) 
 			.then(res => res.json())
 			.then(res => {
-				console.log('res friends in getProfileFriends: ', res.friends)
-				console.log('res requests in getProfileFriends: ', res.requests)
+				//console.log('res friends in getProfileFriends: ', res.friends)
+				//console.log('res requests in getProfileFriends: ', res.requests)
 				dispatch(getProfileFriendsSuccess(res.friends, res.requests))
 			})
+	}
+}
+
+export function setIsCurrentUser(isCurrentUser) {
+	return function (dispatch) {
+		dispatch(setIsCurrentUserSuccess(isCurrentUser));
 	}
 }

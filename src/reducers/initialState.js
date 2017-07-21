@@ -22,7 +22,7 @@ export const sessionInitialState = {
 }
 
 export const profileInitialState = {
-	profileId: 0, 
+	isCurrentUser: false,
 	profileUser: {}, 
 	profileFriends: [], 
 	profileRequests: []
