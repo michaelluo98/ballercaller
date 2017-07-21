@@ -1,15 +1,27 @@
-import React from 'react'; 
+import React from 'react';
 
-import styles from '../styles/profileStyle'; 
+import styles from '../styles/profileStyle';
 import Paper from 'material-ui/Paper';
+import Avatar from 'material-ui/Avatar';
+import {List, ListItem} from 'material-ui/List';
+import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+
 
 function UserProfileGames({games}) {
 	return (
-		<Paper zDepth={1} style={styles.games}>
-			{games.map((game) => {
-				return <p>{game.name}</p>
-			})}
-		</Paper>
+		<div style={{width: '50%'}}>
+			<p style={styles.listViewTitle}>Your Games: </p>
+			<Paper zDepth={1} style={styles.games}>
+				<List>
+					{games.map((game) => {
+						return  <ListItem
+											primaryText={game.name}
+											rightIcon={<CommunicationChatBubble />}
+										/>
+					})}
+				</List>
+			</Paper>
+		</div>
 	)
 }
 

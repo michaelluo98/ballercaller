@@ -47,7 +47,7 @@ class ProfilePage extends Component {
 				.then(games => {this.setState({userGames: games})})
 			this.props.sessionActions.getUserFriends(this.props.currentUserId)
 		}
-
+		this.props.sessionActions.getCurrentUser(this.props.currentUserId)
 	}
 
 	componentDidMount() {
@@ -67,7 +67,9 @@ class ProfilePage extends Component {
 					<div style={styles.profileInfo}>
 						<div style={styles.firstRow}>
 							<div style={styles.userInfo}>
-								<p style={styles.userTitle}>Full Name</p>
+								<p style={styles.userTitle}>
+									{this.props.currentUser.first_name} {this.props.currentUser.last_name}
+								</p>
 								<RaisedButton label="Edit" style={styles.editButton} labelColor='rgb(0, 188, 212)'/>
 							</div>
 							<div style={styles.iconContainer}>
@@ -99,12 +101,13 @@ class ProfilePage extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	const {currentUserId} = state.session; 
+	const {currentUserId, currentUser} = state.session; 
 	const {friends, requests} = state.session;
 	return {
 		currentUserId, 
+		currentUser, 
 		friends, 
-		requests
+		requests, 
 	}
 }
 

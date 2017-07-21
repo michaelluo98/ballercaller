@@ -48,22 +48,30 @@ const profileStyles = {
 		paddingLeft: '0px'
 	},
 	selectedProfile: {
-		color: 'white', 
-		display: 'inline', 
+		color: 'white',
+		display: 'inline',
 		fontFamily: 'Roboto, sans-serif',
-		paddingRight: '30px'
-	}, 
+		paddingRight: '30px',
+		cursor: 'pointer'
+	},
 	unselectedProfile: {
 		color: 'rgba(255, 255, 255, 0.87)',
-		display: 'inline', 
+		display: 'inline',
 		fontFamily: 'Roboto, sans-serif',
-		paddingRight: '30px'
-	}, 
+		paddingRight: '30px',
+		cursor: 'pointer'
+	},
 	friends: {
-		width: '50%', 
-	}, 
+		width: '100%', 
+	},
 	games: {
-		width: '50%', 
+		width: '100%',
+	}, 
+	listViewTitle: {
+		fontFamily: 'Roboto, sans-serif',
+		color: 'rgba(0,0,0,.8)',
+		fontSize: '20px', 
+		fontWeight: '500'
 	}
 
 }
