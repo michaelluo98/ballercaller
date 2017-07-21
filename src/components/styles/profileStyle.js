@@ -63,6 +63,7 @@ const profileStyles = {
 	},
 	friends: {
 		width: '100%', 
+		maxHeight: '300px'
 	},
 	games: {
 		width: '100%',

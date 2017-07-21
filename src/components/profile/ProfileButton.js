@@ -15,12 +15,8 @@ class ProfileButton extends Component {
 	}
 
 	async sendRequest() {
-		const newFriendship = profileApi.sendRequest(this.props.currentUserId, 
-																								this.props.profileUserId);
-		const newFriendshipStatus = await newFriendship.then(res => res.status)
+		profileApi.sendRequest(this.props.currentUserId, this.props.profileUserId);
 		this.props.profileActions.updateFriendshipStatus('requested')
-
-		//console.log('newFriendshipStatus: ', newFriendshipStatus);
 	}
 
 	render() {
