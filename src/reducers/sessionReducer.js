@@ -30,6 +30,15 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			}
 			return Object.assign({}, state, signedUpUserState)
 
+		case types.GET_USER_FRIENDS_SUCCESS: 
+			console.log('friends in reducer: ', action.friends) 
+			console.log('requests in reducer: ', action.requests) 
+			const newFriendsState = {
+				friends: action.friends, 
+				requests: action.requests
+			}
+			return Object.assign({}, state, newFriendsState)
+
     case types.GET_CURRENT_USER_SUCCESS:
 			//console.log('user in GET_CURRENT_USER_SUCCESS', action.user);
       return Object.assign({}, state, {currentUser: action.user});

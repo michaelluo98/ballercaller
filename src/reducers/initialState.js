@@ -16,5 +16,7 @@ export const sessionInitialState = {
 	session: !!sessionStorage.jwt,
 	currentUser: {},
 	currentUserId: sessionStorage.currentUserId || 0,
-	favorites: []
+	favorites: [], 
+	friends: [], 
+	requests: []
 }

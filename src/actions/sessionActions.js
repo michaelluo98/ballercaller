@@ -5,7 +5,7 @@ import sessionApi from '../api/sessionApi';
 //import { push } from 'react-router-redux';
 
 const BASE_URL = 'http://localhost:3000/api/v1';
-const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71ae";
+const API_KEY = "ec8c6cb96a1e1457440eda7ffc21a046c6b4c1558adfebef1d1a213b9f0b46da";
 
 export function loginSuccess(currentUser) {
   return {type: types.LOG_IN_SUCCESS, currentUser}
@@ -13,6 +13,10 @@ export function loginSuccess(currentUser) {
 
 export function getFavoritesSuccess(favorites) {
 	return {type: types.GET_FAVORITES_SUCCESS, favorites}
+}
+
+export function getUserFriendsSuccess(friends, requests) {
+	return {type: types.GET_USER_FRIENDS_SUCCESS, friends, requests}
 }
 
 export function removeFromFavoritesSuccess(id) {
@@ -38,6 +42,21 @@ function addCurrentUser(dispatch, credentials) {
 export function removeFromFavorites(player) {
 	return function(dispatch) {
 		dispatch(removeFromFavoritesSuccess(player.id));
+	}
+}
+
+export function getUserFriends(id) {
+	return function(dispatch) {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+		fetch(`${BASE_URL}/users/${id}/friendships`, {headers}) 
+			.then(res => res.json())
+			.then(res => {
+				console.log('res friends in getUserFriends: ', res.friends)
+				console.log('res requests in getUserFriends: ', res.requests)
+				dispatch(getUserFriendsSuccess(res.friends, res.requests))
+			})
 	}
 }
 
