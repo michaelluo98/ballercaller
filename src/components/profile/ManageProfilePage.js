@@ -12,7 +12,6 @@ import ProfileButton from './ProfileButton';
 
 import styles from '../styles/profileStyle';
 import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
 import jersey from '../../icons/jersey.svg';
 
 
@@ -80,6 +79,7 @@ class ProfilePage extends Component {
 								<ProfileButton 
 									isCurrentUser={this.props.isCurrentUser}
 									friendshipStatus={this.props.friendshipStatus}
+									profileUserId={this.props.profileParamsId}
 								/>
 							</div>
 							<div style={styles.iconContainer}>

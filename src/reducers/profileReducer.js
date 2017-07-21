@@ -25,8 +25,12 @@ export default function profileReducer(state = profileInitialState, action, disp
 
 		case types.GET_FRIENDSHIP_STATUS_SUCCESS:
 			const {friendshipStatus} = action;
-			console.log('friendshipStatus in reducer: ', friendshipStatus)
-			return Object.assign({}, state, {friendshipStatus})
+			//console.log('friendshipStatus in reducer: ', friendshipStatus);
+			return Object.assign({}, state, {friendshipStatus});
+
+		case types.UPDATE_FRIENDSHIP_STATUS_SUCCESS: 
+			const newFriendshipStatus = action.friendshipStatus;
+			return Object.assign({}, state, {friendshipStatus: newFriendshipStatus});
 
 		default: 
 			return state;

@@ -20,6 +20,9 @@ export function getFriendshipStatusSuccess(friendshipStatus) {
 	return { type: types.GET_FRIENDSHIP_STATUS_SUCCESS, friendshipStatus }
 }
 
+export function updateFriendshipStatusSuccess(friendshipStatus) {
+	return { type: types.UPDATE_FRIENDSHIP_STATUS_SUCCESS, friendshipStatus }
+}
 
 export function getProfileUser(id) {
 	//console.log('id in getProfileUser', id)
@@ -67,5 +70,11 @@ export function getFriendshipStatus(currentUserId, profileUserId) {
 			.then(res => {
 				dispatch(getFriendshipStatusSuccess(res.friendship_status));
 			})
+	}
+}
+
+export function updateFriendshipStatus(friendshipStatus) {
+	return (dispatch) => {
+		return dispatch(updateFriendshipStatusSuccess(friendshipStatus));
 	}
 }
