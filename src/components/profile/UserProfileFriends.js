@@ -2,15 +2,9 @@ import React from 'react';
 
 import styles from '../styles/profileStyle';
 import Paper from 'material-ui/Paper'
-import Avatar from 'material-ui/Avatar';
 import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
-
-const friendButtons = {
-
-}
-
 
 function UserProfileFriends({friends, requests}) {
 	return (
@@ -20,10 +14,16 @@ function UserProfileFriends({friends, requests}) {
 				<List>
 					{requests.map((request) => {
 						const reqFullName = request.first_name + ' ' + request.last_name;
-						return <ListItem
-											primaryText={reqFullName}
-											rightIcon={<CommunicationChatBubble />}
-										/>
+						return <ListItem innerDivStyle={{display: 'flex', justifyContent: 'space-between'}}>
+											<div style={{display: 'inline'}}>
+												<p>{reqFullName}</p>	
+											</div>
+											<div style={{display: 'inline'}}>
+												<RaisedButton label="Accept" primary={true} style={{marginRight: '10px'}} />
+												<RaisedButton label="Decline" secondary={true} />
+											</div>
+										</ListItem>
+
 					})}
 				</List>
 			</Paper>
