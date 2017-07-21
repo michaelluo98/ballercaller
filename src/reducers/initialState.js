@@ -20,3 +20,8 @@ export const sessionInitialState = {
 	friends: [], 
 	requests: []
 }
+
+export const profileInitialState = {
+	profileId: 0, 
+	profileUser: {}, 
+}

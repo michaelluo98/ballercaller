@@ -31,7 +31,7 @@ class App extends Component {
 						<Switch>
 							<Route exact path="/" component={ManageHomePage} />
               <Route exact path="/login" component={LoginPage} />
-							<Route exact path="/profile" component={ManageProfilePage} />
+							<Route exact path="/profile/:id" component={ManageProfilePage} />
 							<Route exact path="/signup" component={SignUpPage} />
 							<Route exact path="/game"
 								onEnter={this.requireAuth()}

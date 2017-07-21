@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as gameActions from '../../actions/gameActions';
 import * as sessionActions from '../../actions/sessionActions';
+import * as profileActions from '../../actions/profileActions'; 
 import sessionApi from '../../api/sessionApi';
 import SelectProfileView from './selectProfileView';
 import UserProfileFriends from './UserProfileFriends';
@@ -93,7 +94,6 @@ class ProfilePage extends Component {
 							requests={this.props.requests}
 						/> }
 				</div>
-
 			</div>
 		)
 	}
@@ -101,20 +101,25 @@ class ProfilePage extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	const {currentUserId, currentUser} = state.session; 
-	const {friends, requests} = state.session;
+	const profileParamsId = ownProps.match.params.id;
+	console.log('profileParamsId: ', profileParamsId)
+	const {currentUserId, currentUser, friends, requests} = state.session; 
+	const { profileUser } = state.profile
 	return {
 		currentUserId, 
 		currentUser, 
 		friends, 
 		requests, 
+		profileParamsId, 
+		profileUser, 
 	}
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(gameActions, dispatch), 
-		sessionActions: bindActionCreators(sessionActions, dispatch)
+		sessionActions: bindActionCreators(sessionActions, dispatch), 
+		profileActions: bindActionCreators(profileActions, dispatch)
 	}
 }
 

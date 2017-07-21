@@ -53,8 +53,8 @@ export function getUserFriends(id) {
 		fetch(`${BASE_URL}/users/${id}/friendships`, {headers}) 
 			.then(res => res.json())
 			.then(res => {
-				console.log('res friends in getUserFriends: ', res.friends)
-				console.log('res requests in getUserFriends: ', res.requests)
+				//console.log('res friends in getUserFriends: ', res.friends)
+				//console.log('res requests in getUserFriends: ', res.requests)
 				dispatch(getUserFriendsSuccess(res.friends, res.requests))
 			})
 	}
@@ -101,7 +101,7 @@ export function getCurrentUser(id) {
     })
     fetch(`${BASE_URL}/users/${id}`, {headers})
     .then(res => res.json()).then(res => {
-			console.log('currentUser in getCurrentUser', res.user);
+			//console.log('currentUser in getCurrentUser', res.user);
       dispatch(getCurrentUserSuccess(res.user));
     })
   }
