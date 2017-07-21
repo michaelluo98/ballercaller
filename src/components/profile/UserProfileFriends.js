@@ -6,37 +6,43 @@ import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 
-function UserProfileFriends({friends, requests}) {
+function UserProfileFriends({friends, requests, isCurrentUser}) {
 	return (
 		<div style={{width: '50%'}}>
-			<p style={styles.listViewTitle}>Requests: </p>
-			<Paper zDepth={1} style={styles.friends}>
-				<List>
-					{requests.map((request) => {
+			{isCurrentUser ? 
+				<p style={styles.listViewTitle}>Requests: </p> : 
+				null
+			}
+			{isCurrentUser ? 
+				<Paper zDepth={1} style={styles.friends}>
+					<List>
+						{requests.map((request) => {
 						const reqFullName = request.first_name + ' ' + request.last_name;
-						return <ListItem innerDivStyle={styles.listItemStyle}>
-											<div style={{display: 'inline'}}>
-												<p>{reqFullName}</p>	
-											</div>
-											<div style={{display: 'inline', marginTop: '10px'}}>
-												<RaisedButton 
-													label="Accept" 
-													primary={true} 
-													style={{marginRight: '10px', height: '24px'}}
-													buttonStyle={{height: '24px', lineHeight: '24px'}}
-												/>
-												<RaisedButton 
-													label="Decline" 
-													secondary={true} 
-													style={{height: '24px'}}
-													buttonStyle={{height: '24px', lineHeight: '24px'}} 
-												/>
-											</div>
-										</ListItem>
-
-					})}
-				</List>
-			</Paper>
+							return <ListItem innerDivStyle={styles.listItemStyle}>
+												<div style={{display: 'inline'}}>
+													<p>{reqFullName}</p>	
+												</div>
+												<div style={{display: 'inline', marginTop: '10px'}}>
+													<RaisedButton 
+														label="Accept" 
+														primary={true} 
+														style={{marginRight: '10px', height: '24px'}}
+														buttonStyle={{height: '24px', lineHeight: '24px'}}
+													/>
+													<RaisedButton 
+														label="Decline" 
+														secondary={true} 
+														style={{height: '24px'}}
+														buttonStyle={{height: '24px', lineHeight: '24px'}} 
+													/>
+												</div>
+											</ListItem>
+	
+						})}
+					</List>
+				</Paper> : 
+				null
+			}
 			<p style={styles.listViewTitle}>Friends </p>
 			<Paper zDepth={1} style={styles.friends}>
 				<List>

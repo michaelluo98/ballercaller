@@ -2,7 +2,6 @@ import React from 'react';
 
 import styles from '../styles/profileStyle';
 import Paper from 'material-ui/Paper';
-import Avatar from 'material-ui/Avatar';
 import {List, ListItem} from 'material-ui/List';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 

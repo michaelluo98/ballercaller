@@ -20,9 +20,10 @@ class RightButtons extends Component {
 
   render() {
     if (this.props.logged_in) {
+			const profileLink = '/profile/' + this.props.currentUserId
       return (
         <div>
-					<NavLink activeClassName='active' to='/profile'>
+					<NavLink activeClassName='active' to={profileLink}>
             <FlatButton label="Profile" style={styles.button}/>
           </NavLink>
           <NavLink activeClassName='active' to='/'>

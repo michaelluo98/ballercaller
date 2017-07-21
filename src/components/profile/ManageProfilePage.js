@@ -49,7 +49,6 @@ class ProfilePage extends Component {
 			this.props.profileActions.getProfileFriends(this.props.profileParamsId)
 			this.props.profileActions.getProfileUser(this.props.profileParamsId)
 			const isCurrentUser = (this.props.currentUserId === this.props.profileParamsId);
-			console.log('isCurrentUser in componentWillMount: ', isCurrentUser); 
 			this.props.profileActions.setIsCurrentUser(isCurrentUser);
 		}
 	}
@@ -72,10 +71,15 @@ class ProfilePage extends Component {
 						<div style={styles.firstRow}>
 							<div style={styles.userInfo}>
 								<p style={styles.userTitle}>
-									{/* ??? */}
 									{this.props.profileUser.first_name} {this.props.profileUser.last_name}
 								</p>
-								<RaisedButton label="Edit" style={styles.editButton} labelColor='rgb(0, 188, 212)'/>
+								{this.props.isCurrentUser ? 
+									<RaisedButton 
+										label="Edit" 
+										style={styles.editButton} 
+										labelColor='rgb(0, 188, 212)'/> : 
+									<h5>Status of friendship ???</h5>
+								}
 							</div>
 							<div style={styles.iconContainer}>
 								<svg className={`icon icon-info`} width={150} height={100} fill={'white'}>
@@ -97,6 +101,7 @@ class ProfilePage extends Component {
 						<UserProfileFriends 
 							friends={this.props.profileFriends}
 							requests={this.props.profileRequests}
+							isCurrentUser={this.props.isCurrentUser}
 						/> }
 				</div>
 			</div>
@@ -109,7 +114,7 @@ function mapStateToProps(state, ownProps) {
 	const profileParamsId = ownProps.match.params.id;
 	console.log('profileParamsId: ', profileParamsId)
 	const {currentUserId, currentUser} = state.session; 
-	const { profileUser, profileFriends, profileRequests } = state.profile
+	const { profileUser, profileFriends, profileRequests, isCurrentUser } = state.profile
 	return {
 		currentUserId, 
 		currentUser, 
@@ -117,6 +122,7 @@ function mapStateToProps(state, ownProps) {
 		profileUser, 
 		profileFriends, 
 		profileRequests, 
+		isCurrentUser,
 	}
 }
 
