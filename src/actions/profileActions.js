@@ -8,6 +8,11 @@ export function getProfileUserSuccess(profileUser) {
 	return { type: types.GET_PROFILE_USER_SUCCESS, profileUser }
 }
 
+export function getProfileFriendsSuccess(friends, requests) {
+	return { type: types.GET_PROFILE_FRIENDS_SUCCESS, friends, requests}
+}
+
+
 export function getProfileUser(id) {
 	//console.log('id in getProfileUser', id)
   return function (dispatch) {
@@ -20,4 +25,19 @@ export function getProfileUser(id) {
       dispatch(getProfileUserSuccess(res.user));
     })
   }
+}
+
+export function getProfileFriends(id) {
+	return function(dispatch) {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+		fetch(`${BASE_URL}/users/${id}/friendships`, {headers}) 
+			.then(res => res.json())
+			.then(res => {
+				console.log('res friends in getProfileFriends: ', res.friends)
+				console.log('res requests in getProfileFriends: ', res.requests)
+				dispatch(getProfileFriendsSuccess(res.friends, res.requests))
+			})
+	}
 }

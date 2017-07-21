@@ -24,4 +24,6 @@ export const sessionInitialState = {
 export const profileInitialState = {
 	profileId: 0, 
 	profileUser: {}, 
+	profileFriends: [], 
+	profileRequests: []
 }

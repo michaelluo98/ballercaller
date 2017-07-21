@@ -21,34 +21,34 @@ class ProfilePage extends Component {
 
 		this.state = {
 			selectedProfileView: 'Games', 
-			userGames: []
+			profileGames: [],
 		}
 
-		this.getUserGames = this.getUserGames.bind(this);
-		this.getCurrentUserGames = this.getCurrentUserGames.bind(this);
+		this.getProfileGames = this.getProfileGames.bind(this);
+		this.getProfileUserGames = this.getProfileUserGames.bind(this);
 		this.updateProfileView = this.updateProfileView.bind(this);
 	}
 
-	getUserGames(userId) {
+	getProfileGames(userId) {
 		return sessionApi.getUserGames(userId)
 			.then(res => {
 				return res.games;
 			})
 	}
 
-	getCurrentUserGames() {
-		if (!!this.props.currentUserId) {
-			return this.getUserGames(this.props.currentUserId)
+	getProfileUserGames() {
+		if (!!this.props.profileParamsId) {
+			return this.getProfileGames(this.props.profileParamsId)
 		}
 	}
 
 	componentWillMount() {
-		if (!!this.props.currentUserId && this.state.userGames.length === 0) {
-			this.getCurrentUserGames()
-				.then(games => {this.setState({userGames: games})})
-			this.props.sessionActions.getUserFriends(this.props.currentUserId)
+		if (!!this.props.currentUserId && !!this.props.profileParamsId && this.state.profileGames.length === 0) {
+			this.getProfileUserGames()
+				.then(games => {this.setState({profileGames: games})})
+			this.props.profileActions.getProfileFriends(this.props.profileParamsId)
+			this.props.profileActions.getProfileUser(this.props.profileParamsId)
 		}
-		this.props.sessionActions.getCurrentUser(this.props.currentUserId)
 	}
 
 	componentDidMount() {
@@ -69,7 +69,8 @@ class ProfilePage extends Component {
 						<div style={styles.firstRow}>
 							<div style={styles.userInfo}>
 								<p style={styles.userTitle}>
-									{this.props.currentUser.first_name} {this.props.currentUser.last_name}
+									{/* ??? */}
+									{this.props.profileUser.first_name} {this.props.profileUser.last_name}
 								</p>
 								<RaisedButton label="Edit" style={styles.editButton} labelColor='rgb(0, 188, 212)'/>
 							</div>
@@ -88,10 +89,11 @@ class ProfilePage extends Component {
 				</Paper>
 				<div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
 					{this.state.selectedProfileView === 'Games' ?
-						<UserProfileGames games={this.state.userGames} /> : 
+						/* ??? */ 
+						<UserProfileGames games={this.state.profileGames} /> : 
 						<UserProfileFriends 
-							friends={this.props.friends}
-							requests={this.props.requests}
+							friends={this.props.profileFriends}
+							requests={this.props.profileRequests}
 						/> }
 				</div>
 			</div>
@@ -103,15 +105,15 @@ class ProfilePage extends Component {
 function mapStateToProps(state, ownProps) {
 	const profileParamsId = ownProps.match.params.id;
 	console.log('profileParamsId: ', profileParamsId)
-	const {currentUserId, currentUser, friends, requests} = state.session; 
-	const { profileUser } = state.profile
+	const {currentUserId, currentUser} = state.session; 
+	const { profileUser, profileFriends, profileRequests } = state.profile
 	return {
 		currentUserId, 
 		currentUser, 
-		friends, 
-		requests, 
 		profileParamsId, 
 		profileUser, 
+		profileFriends, 
+		profileRequests, 
 	}
 }
 

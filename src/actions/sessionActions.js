@@ -15,9 +15,9 @@ export function getFavoritesSuccess(favorites) {
 	return {type: types.GET_FAVORITES_SUCCESS, favorites}
 }
 
-export function getUserFriendsSuccess(friends, requests) {
+/*export function getUserFriendsSuccess(friends, requests) {
 	return {type: types.GET_USER_FRIENDS_SUCCESS, friends, requests}
-}
+}*/
 
 export function removeFromFavoritesSuccess(id) {
 	return {type: types.REMOVE_FROM_FAVORITES_SUCCESS, id}
@@ -45,7 +45,7 @@ export function removeFromFavorites(player) {
 	}
 }
 
-export function getUserFriends(id) {
+/*export function getUserFriends(id) {
 	return function(dispatch) {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`
@@ -58,7 +58,7 @@ export function getUserFriends(id) {
 				dispatch(getUserFriendsSuccess(res.friends, res.requests))
 			})
 	}
-}
+}*/
 
 export function getFavorites(id) {
 	// console.log('id in getFavorites: ', id)
