@@ -14,13 +14,23 @@ function UserProfileFriends({friends, requests}) {
 				<List>
 					{requests.map((request) => {
 						const reqFullName = request.first_name + ' ' + request.last_name;
-						return <ListItem innerDivStyle={{display: 'flex', justifyContent: 'space-between'}}>
+						return <ListItem innerDivStyle={styles.listItemStyle}>
 											<div style={{display: 'inline'}}>
 												<p>{reqFullName}</p>	
 											</div>
-											<div style={{display: 'inline'}}>
-												<RaisedButton label="Accept" primary={true} style={{marginRight: '10px'}} />
-												<RaisedButton label="Decline" secondary={true} />
+											<div style={{display: 'inline', marginTop: '10px'}}>
+												<RaisedButton 
+													label="Accept" 
+													primary={true} 
+													style={{marginRight: '10px', height: '24px'}}
+													buttonStyle={{height: '24px', lineHeight: '24px'}}
+												/>
+												<RaisedButton 
+													label="Decline" 
+													secondary={true} 
+													style={{height: '24px'}}
+													buttonStyle={{height: '24px', lineHeight: '24px'}} 
+												/>
 											</div>
 										</ListItem>
 

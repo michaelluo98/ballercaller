@@ -72,6 +72,12 @@ const profileStyles = {
 		color: 'rgba(0,0,0,.8)',
 		fontSize: '20px', 
 		fontWeight: '500'
+	}, 
+	listItemStyle: {
+		display: 'flex', 
+		justifyContent: 'space-between', 
+		paddingTop: '0px', 
+		paddingBottom: '0px'
 	}
 
 }
