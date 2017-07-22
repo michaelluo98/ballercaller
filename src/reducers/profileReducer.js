@@ -6,12 +6,9 @@ export default function profileReducer(state = profileInitialState, action, disp
 			 
 		case types.GET_PROFILE_USER_SUCCESS: 
 			const profileUser = action.profileUser; 
-			//console.log('profileUser in profileReducer: ', profileUser)
 			return Object.assign({}, state, { profileUser })
 
 		case types.GET_PROFILE_FRIENDS_SUCCESS: 
-			//console.log('friends in reducer: ', action.friends) 
-			//console.log('requests in reducer: ', action.requests) 
 			const newFriendsState = {
 				profileFriends: action.friends, 
 				profileRequests: action.requests
@@ -19,18 +16,32 @@ export default function profileReducer(state = profileInitialState, action, disp
 			return Object.assign({}, state, newFriendsState);
 
 		case types.SET_IS_CURRENT_USERS_SUCCESS: 
-			//console.log('isCurrentUser in reducer', action.isCurrentUser)
 			const {isCurrentUser} = action;
 			return Object.assign({}, state, {isCurrentUser})
 
 		case types.GET_FRIENDSHIP_STATUS_SUCCESS:
 			const {friendshipStatus} = action;
-			//console.log('friendshipStatus in reducer: ', friendshipStatus);
 			return Object.assign({}, state, {friendshipStatus});
 
 		case types.UPDATE_FRIENDSHIP_STATUS_SUCCESS: 
 			const newFriendshipStatus = action.friendshipStatus;
 			return Object.assign({}, state, {friendshipStatus: newFriendshipStatus});
+
+		case types.GET_UPCOMING_GAMES_SUCCESS: 
+			const newUpcomingStatus = {
+				upcomingGames: action.upcomingGames, 
+				upcomingCourts: action.upcomingCourts, 
+				upcomingCreators: action.upcomingCreators
+			}
+			return Object.assign({}, state, newUpcomingStatus)
+
+		case types.GET_HISTORY_GAMES_SUCCESS: 
+			const newHistoryStatus ={
+				historyGames: action.historyGames, 
+				historyCourts: action.historyCourts, 
+				historyCreators: action.historyCreators
+			}
+			return Object.assign({}, state, newHistoryStatus)
 
 		default: 
 			return state;

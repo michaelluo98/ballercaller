@@ -24,6 +24,25 @@ export function updateFriendshipStatusSuccess(friendshipStatus) {
 	return { type: types.UPDATE_FRIENDSHIP_STATUS_SUCCESS, friendshipStatus }
 }
 
+export function getHistoryGamesSuccess(history) {
+	return { 
+		type: types.GET_HISTORY_GAMES_SUCCESS, 
+		historyGames: history.historyGames, 
+		historyCourts: history.historyCourts, 
+		historyCreators: history.historyCreators
+	}
+}
+
+export function getUpcomingGamesSuccess(upcoming) {
+	return {
+		type: types.GET_UPCOMING_GAMES_SUCCESS, 
+		upcomingGames: upcoming.upcomingGames, 
+		upcomingCourts: upcoming.upcomingCourts, 
+		upcomingCreators: upcoming.upcomingCreators
+	}
+} 
+
+
 export function getProfileUser(id) {
 	//console.log('id in getProfileUser', id)
   return function (dispatch) {
@@ -76,5 +95,35 @@ export function getFriendshipStatus(currentUserId, profileUserId) {
 export function updateFriendshipStatus(friendshipStatus) {
 	return (dispatch) => {
 		return dispatch(updateFriendshipStatusSuccess(friendshipStatus));
+	}
+}
+
+export function getUpcomingGames(profileUserId) {
+	return (dispatch) => {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+		fetch(`${BASE_URL}/users/${profileUserId}/upcomingindex`
+			, {headers}) 
+			.then(res => res.json())
+			.then(res => {
+				console.log('res in getUpcomingGames: ', res)
+				dispatch(getUpcomingGamesSuccess(res));
+			})
+	}
+}
+
+export function getHistoryGames(profileUserId) {
+	return (dispatch) => {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+		fetch(`${BASE_URL}/users/${profileUserId}/historyindex`
+			, {headers}) 
+			.then(res => res.json())
+			.then(res => {
+				console.log('res in getHistoryGames: ', res)
+				dispatch(getHistoryGamesSuccess(res));
+			})
 	}
 }

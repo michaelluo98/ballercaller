@@ -9,13 +9,13 @@ import {List, ListItem} from 'material-ui/List';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 
 
-class UserProfileGames extends Component {
+class UserHistoryGames extends Component {
 	/*constructor(props, context) {
 		super(props, context);
 	}*/
 
 	componentWillMount() {
-		this.props.profileActions.getUpcomingGames(this.props.profileUserId)
+		this.props.profileActions.getHistoryGames(this.props.profileUserId)
 	}
 
 	render() {
@@ -28,7 +28,7 @@ class UserProfileGames extends Component {
 				}
 				<Paper zDepth={1} style={styles.games}>
 					<List>
-						{this.props.upcomingGames.map((game) => {
+						{this.props.historyGames.map((game) => {
 							return (
 								<ListItem
 									primaryText={game.name}
@@ -46,11 +46,11 @@ class UserProfileGames extends Component {
 
 
 function mapStateToProps(state, ownProps) {
-	const { upcomingGames, upcomingCreators, upcomingCourts } = state.profile;
+	const { historyGames, historyCourts, historyCreators } = state.profile;
 	return {
-		upcomingGames, 
-		upcomingCreators, 
-		upcomingCourts
+		historyGames, 
+		historyCourts, 
+		historyCreators
 	}
 }
 
@@ -60,4 +60,4 @@ function mapDispatchToProps(dispatch) {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfileGames);
+export default connect(mapStateToProps, mapDispatchToProps)(UserHistoryGames);

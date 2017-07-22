@@ -26,5 +26,11 @@ export const profileInitialState = {
 	friendshipStatus: 'isCurrentUser', 
 	profileUser: {}, 
 	profileFriends: [], 
-	profileRequests: []
+	profileRequests: [], 
+	upcomingGames: [], 
+	upcomingCourts: [],
+	upcomingCreators: [],
+	historyGames: [], 
+	historyCourts: [], 
+	historyCreators: []
 }

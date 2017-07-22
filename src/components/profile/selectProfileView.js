@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../styles/profileStyle';
 
 function SelectProfileView(props) {
-  var profileViews = ['Games', 'Friends'];
+  var profileViews = ['Games', 'Friends', 'History'];
   return (
 	<ul className="profileViews" style={styles.selectContainer}>
   	{profileViews.map(function(profileView) {

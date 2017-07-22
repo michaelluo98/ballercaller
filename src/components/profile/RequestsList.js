@@ -11,7 +11,10 @@ function RequestsList({requests}) {
 				{requests.map((request) => {
 					const reqFullName = request.first_name + ' ' + request.last_name;
 					return (
-						<ListItem innerDivStyle={styles.listItemStyle}>
+						<ListItem
+							innerDivStyle={styles.listItemStyle}
+							key={request.id}
+						>
 							<div style={{display: 'inline'}}>
 								<p>{reqFullName}</p>	
 							</div>

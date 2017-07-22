@@ -8,6 +8,8 @@ import sessionApi from '../../api/sessionApi';
 import SelectProfileView from './selectProfileView';
 import UserProfileFriends from './UserProfileFriends';
 import UserProfileGames from './UserProfileGames';
+//import UserProfileHistory from './UserProfileHistory';
+import ProfileView from './ProfileView';
 import ProfileButton from './ProfileButton';
 
 import styles from '../styles/profileStyle';
@@ -27,6 +29,7 @@ class ProfilePage extends Component {
 		this.getProfileGames = this.getProfileGames.bind(this);
 		this.getProfileUserGames = this.getProfileUserGames.bind(this);
 		this.updateProfileView = this.updateProfileView.bind(this);
+		this.returnProfileView = this.returnProfileView.bind(this);
 	}
 
 	getProfileGames(userId) {
@@ -66,6 +69,27 @@ class ProfilePage extends Component {
 		});
 	} 
 
+	returnProfileView() {
+		if (this.state.selectedProfileView === 'Games') {
+			return (
+				<UserProfileGames
+					games={this.state.profileGames}
+					isCurrentUser={this.props.isCurrentUser}
+					profileUserId={this.props.profileParamsId}
+				/>
+			)
+		}
+		else { //(this.state.selectedProfileView === 'Friends')
+			return (
+				<UserProfileFriends 
+					friends={this.props.profileFriends}
+					requests={this.props.profileRequests}
+					isCurrentUser={this.props.isCurrentUser}
+				/>
+			)
+		}
+	}
+
 	render() {
 		return (
 			<div>
@@ -96,17 +120,13 @@ class ProfilePage extends Component {
 					</div>
 				</Paper>
 				<div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-					{this.state.selectedProfileView === 'Games' ?
-						/* ??? */ 
-						<UserProfileGames
-							games={this.state.profileGames}
-							isCurrentUser={this.props.isCurrentUser}
-						/> : 
-						<UserProfileFriends 
-							friends={this.props.profileFriends}
-							requests={this.props.profileRequests}
-							isCurrentUser={this.props.isCurrentUser}
-						/> }
+					<ProfileView 
+						selectedProfileView={this.state.selectedProfileView}
+						profileUserId={this.props.profileParamsId}
+						profileFriends={this.props.profileFriends}
+						profileRequests={this.props.profileRequests} 
+						isCurrentUser={this.props.isCurrentUser}
+					/> 
 				</div>
 			</div>
 		)

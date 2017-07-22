@@ -25,6 +25,7 @@ function UserProfileFriends({friends, requests, isCurrentUser}) {
 						return <ListItem
 											primaryText={friendFullName}
 											rightIcon={<CommunicationChatBubble />}
+											key={friend.id}
 										/>
 					})}
 				</List>
