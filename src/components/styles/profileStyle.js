@@ -79,6 +79,24 @@ const profileStyles = {
 		justifyContent: 'space-between', 
 		paddingTop: '0px', 
 		paddingBottom: '0px'
+	}, 
+	emptyText: {
+		fontFamily: 'Roboto, sans-serif',
+		color: 'rgba(0,0,0,.8)',
+		fontSize: '20px', 
+		fontWeight: '500', 
+		textAlign: 'center', 
+		paddingTop: '100px', 
+		paddingBottom: '100px'
+	},
+	emptyTextRequest: {
+		fontFamily: 'Roboto, sans-serif',
+		color: 'rgba(0,0,0,.8)',
+		fontSize: '20px', 
+		fontWeight: '500', 
+		textAlign: 'center', 
+		paddingTop: '50px', 
+		paddingBottom: '50px'
 	}
 
 }

@@ -26,18 +26,20 @@ const GameList = ({games, courts, creators, listGame, handleOpen,
       <List>
 				{listGame && <Subheader> Games Near You: </Subheader>} 
 			{games.map((game, index) => {
-				return <GameListRow
-									key={game.id}
-                  gameId={game.id}
-									name={game.name}
-									time={game.start_time}
-									court={courts[index].name}
-									creator={creators[index]}
-									listGame={listGame}
-									mode={game.mode}
-									handleOpen={handleOpen}
-									handleOpenModal={handleOpenModal}
-								/>;
+				return (
+					<GameListRow
+						key={game.id}
+            gameId={game.id}
+						name={game.name}
+						time={game.start_time}
+						court={courts[index].name}
+						creator={creators[index]}
+						listGame={listGame}
+						mode={game.mode}
+						handleOpen={handleOpen}
+						handleOpenModal={handleOpenModal}
+					/>
+				)
 			})}
       </List>
     </div>

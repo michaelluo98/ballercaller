@@ -2,10 +2,9 @@ import React from 'react';
 import moment from 'moment';
 import {ListItem} from 'material-ui/List'
 import {darkBlack} from 'material-ui/styles/colors';
-import RightIconMenu from './RightIconMenu'
+import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 
-function GameListRow({gameId, name, time, court, mode, handleOpen, 
-											creator, listGame, handleOpenModal}) {
+function GameListRow({gameId, name, time, court, mode, handleOpen, creator}) {
 	const intro = `${name} @ ${court}`;
 	let modeDisplay = ''
 	if (mode === 'threes') {
@@ -18,16 +17,10 @@ function GameListRow({gameId, name, time, court, mode, handleOpen,
 		modeDisplay = '5 on 5'
 	}
 	const creatorName = `${creator.first_name} ${creator.last_name}`
-	const lineNum = listGame ? 1 : 2
   return (
     <ListItem
       primaryText={intro}
-			rightIconButton={<RightIconMenu 
-												gameId={gameId}
-												handleOpen={handleOpen}
-												handleOpenModal={handleOpenModal}
-												listGame={listGame}
-											 />}
+			rightIconButton={<CommunicationChatBubble />}
       secondaryText={
 				<p>
 					<span style={{color: darkBlack}}>
@@ -37,7 +30,7 @@ function GameListRow({gameId, name, time, court, mode, handleOpen,
 					</span> 
 				</p>
       }
-      secondaryTextLines={lineNum}
+			key={gameId}
     />
   )
 }

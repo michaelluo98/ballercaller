@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 
 import * as profileActions from '../../actions/profileActions'; 
+import GameListRow from './GameListRow';
 import styles from '../styles/profileStyle';
 import Paper from 'material-ui/Paper';
-import {List, ListItem} from 'material-ui/List';
-import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+import {List} from 'material-ui/List';
 
 
 class UserProfileGames extends Component {
@@ -23,21 +23,28 @@ class UserProfileGames extends Component {
 		return (
 			<div style={{width: '50%'}}>
 				{this.props.isCurrentUser ? 
-					<p style={styles.listViewTitle}>Your Games: </p> : 
+					<p style={styles.listViewTitle}>Your Upcoming Games: </p> : 
 					<p style={styles.listViewTitle}>Games: </p>
 				}
 				<Paper zDepth={1} style={styles.games}>
-					<List>
-						{this.props.upcomingGames.map((game) => {
-							return (
-								<ListItem
-									primaryText={game.name}
-									rightIcon={<CommunicationChatBubble />}
-									key={game.id}
-								/>
-							) 
-						})}
-					</List>
+					{this.props.upcomingGames.length === 0 ? 
+						<p style={styles.emptyText}>You have no upcoming games.</p> :
+						<List>
+							{this.props.upcomingGames.map((game, index) => {
+								return (
+									<GameListRow
+										key={game.id}
+										gameId={game.id}
+										name={game.name}
+										time={game.start_time}
+										court={this.props.upcomingCourts[index].name}
+										creator={this.props.upcomingCreators[index]}
+										mode={game.mode}
+									/>
+								) 
+							})}
+						</List>
+					}
 				</Paper>
 			</div>
 		)

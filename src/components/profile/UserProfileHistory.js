@@ -22,22 +22,22 @@ class UserHistoryGames extends Component {
 		
 		return (
 			<div style={{width: '50%'}}>
-				{this.props.isCurrentUser ? 
-					<p style={styles.listViewTitle}>Your Games: </p> : 
-					<p style={styles.listViewTitle}>Games: </p>
-				}
+				<div style={{height: '30px'}}></div>
 				<Paper zDepth={1} style={styles.games}>
-					<List>
-						{this.props.historyGames.map((game) => {
-							return (
-								<ListItem
-									primaryText={game.name}
-									rightIcon={<CommunicationChatBubble />}
-									key={game.id}
-								/>
-							) 
-						})}
-					</List>
+					{this.props.historyGames.length === 0 ?
+						<p style={styles.emptyText}>You have no past games.</p> :
+						<List>
+							{this.props.historyGames.map((game) => {
+								return (
+									<ListItem
+										primaryText={game.name}
+										rightIcon={<CommunicationChatBubble />}
+										key={game.id}
+									/>
+								) 
+							})}
+						</List>
+					}
 				</Paper>
 			</div>
 		)
