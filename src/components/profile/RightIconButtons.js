@@ -25,14 +25,18 @@ const iconButtonElement = (
   </IconMenu>
 );*/
 
-function RightIconMenu() {
+function RightIconMenu({handleOpenModal}) {
 	return (
 		<IconMenu 
 			iconButtonElement={iconButtonElement}
 			style={styles.rightIconButton}
 		>
 			<MenuItem>Quick Join</MenuItem>
-			<MenuItem>Quick View</MenuItem>
+			<MenuItem
+				onTouchTap={handleOpenModal}
+			>
+				Quick View
+			</MenuItem>
 			<MenuItem>Message Creator</MenuItem>
 		</IconMenu>
 	)

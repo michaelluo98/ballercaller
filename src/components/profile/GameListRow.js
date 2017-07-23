@@ -6,7 +6,7 @@ import {ListItem} from 'material-ui/List'
 import {darkBlack} from 'material-ui/styles/colors';
 
 
-function GameListRow({gameId, name, time, court, mode, handleOpen, creator}) {
+function GameListRow({gameId, name, time, court, mode, handleOpenModal, creator}) {
 	const intro = `${name} @ ${court}`;
 	let modeDisplay = ''
 	if (mode === 'threes') {
@@ -22,7 +22,9 @@ function GameListRow({gameId, name, time, court, mode, handleOpen, creator}) {
   return (
     <ListItem
       primaryText={intro}
-			rightIconButton={<RightIconMenu />}
+			rightIconButton={<RightIconMenu 
+												handleOpenModal={handleOpenModal}
+												/>}
       secondaryText={
 				<p>
 					<span style={{color: darkBlack}}>
