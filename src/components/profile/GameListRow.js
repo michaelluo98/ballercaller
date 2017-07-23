@@ -2,7 +2,6 @@ import React from 'react';
 import RightIconMenu from './RightIconButtons';
 import moment from 'moment';
 import {ListItem} from 'material-ui/List'
-//import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import {darkBlack} from 'material-ui/styles/colors';
 
 
@@ -24,6 +23,7 @@ function GameListRow({gameId, name, time, court, mode, handleOpenModal, creator}
       primaryText={intro}
 			rightIconButton={<RightIconMenu 
 												handleOpenModal={handleOpenModal}
+												gameId={gameId}
 												/>}
       secondaryText={
 				<p>

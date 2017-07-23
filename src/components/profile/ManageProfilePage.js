@@ -10,6 +10,7 @@ import ProfileView from './ProfileView';
 import ProfileButton from './ProfileButton';
 
 import styles from '../styles/profileStyle';
+import moment from 'moment'
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -24,6 +25,13 @@ class ProfilePage extends Component {
 			selectedProfileView: 'Games', 
 			profileGames: [],
 			modalOpen: false,
+			showGame: {},
+			showCourt: {},
+			showCreator: {},
+			teamOne: [],
+			teamTwo: [],
+			teamOneName: '',
+			teamTwoName: ''
 		}
 
 		this.getProfileGames = this.getProfileGames.bind(this);
@@ -31,9 +39,101 @@ class ProfilePage extends Component {
 		this.updateProfileView = this.updateProfileView.bind(this);
 		this.handleOpenModal = this.handleOpenModal.bind(this);
 		this.handleCloseModal = this.handleCloseModal.bind(this);
+		this.displayGame = this.displayGame.bind(this);
+		
+		this.showCreatorName = this.showCreatorName.bind(this);
+		this.showCourtInfo = this.showCourtInfo.bind(this);
+		this.showTeamInfo = this.showTeamInfo.bind(this);
+		this.showSettingInfo = this.showSettingInfo.bind(this);
 	}
 
-	handleOpenModal() {
+	displayGame() {
+		return (
+		<div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'space-between'}}>
+			<div style={{width: '50%'}}>
+				<p style={{fontSize: '14px'}}>GameTime: {moment(this.state.showGame.start_time).format('MMMM Do [@] h:mm:ss a')}	</p>
+				{this.showSettingInfo(this.state.showGame)}
+				{this.showCourtInfo(this.state.showCourt)}
+				<h4 style={{fontSize: '14px', marginBottom: '0px'}}>Extra Information: </h4>
+				<p style={{fontSize: '12px', marginTop: '5px'}}>{this.state.showGame.extra_info}</p>
+				{this.showCreatorName(this.state.showCreator)}
+			</div>
+			<div style={{width: '45%'}}>
+				<h3 style={{marginBottom: '0px', marginTop: '12px'}}>Teams: </h3>
+				<div style={{display: 'flex', justifyContent: 'space-between'}}>
+					{this.showTeamInfo(this.props.teamOne, this.state.teamOneName)}
+					<h4>VS</h4>
+					{this.showTeamInfo(this.props.teamTwo, this.state.teamTwoName)}
+				</div>
+			</div>
+		</div>
+		)
+	}
+
+	showCreatorName = (creator) => {
+		return <p>Creator: {creator.first_name} {creator.last_name}</p>
+	}
+
+	showCourtInfo = (court) => {
+		return <div>
+				<h4 style={{marginBottom: '2px'}}>{court.name}</h4>
+				<p style={{fontSize: '14px', marginTop: '0px'}}>
+					{court.address}, {court.city}, {court.province} {court.postal_code}
+				</p>
+			</div>
+	}
+
+	showTeamInfo = (team, teamName) => {
+		return <div>
+			<h4>{teamName}</h4>
+			{team.map((player, index) => {
+				return <p style={{fontSize: '14px'}}>{index + 1}.  {player.first_name} {player.last_name}</p>
+			})}
+			</div>
+	}
+
+	showSettingInfo = (game) => {
+		const gameSetting = game.setting ? `Indoor` : `Outdoor`
+		let modeDisplay = ''
+		if (game.mode === 'threes') {
+			modeDisplay = '3 on 3'
+		}
+		else if (game.mode === 'fours') {
+			modeDisplay = '4 on 4'
+		}
+		else {
+			modeDisplay = '5 on 5'
+		}
+		return <p style={{fontSize: '14px'}}>{gameSetting} {modeDisplay}</p>
+	}
+
+	async handleOpenModal(gameId) {
+		console.log('gameId in handleOpenModal: ', gameId)
+		const showGameArr = this.props.upcomingGames.filter((game) => {
+			return game.id === gameId
+		})
+		const showGame = showGameArr[0];
+		console.log('showGame in handleOpenModal: ', showGame)
+		const teamOneName = this.props.teams.filter((team) => {
+			return team.id === ((showGame.id * 2) - 2) 
+		})
+		const teamTwoName = this.props.teams.filter((team) => {
+			return team.id === (showGame.id * 2)
+		})
+		this.setState({teamOneName: teamOneName[0].name})
+		this.setState({teamTwoName: teamTwoName[0].name})
+
+		const showCourtArr = this.props.upcomingCourts.filter((court) => {
+			return court.id === showGame.court_id
+		})
+		const showCreatorArr = this.props.upcomingCreators.filter((creator) => {
+			return creator.id === showGame.game_mod_id
+		})
+		this.setState({showGame})
+		this.setState({showCourt: showCourtArr[0]})
+		await this.setState({showCreator: showCreatorArr[0]})
+		await this.props.gameActions.loadPlayers(showGame.id)
+
 		this.setState({modalOpen: true})
 	}
 
@@ -133,7 +233,7 @@ class ProfilePage extends Component {
 					paperProps={{circle: true}}
 					titleStyle={styles.dialogTitle}
 				>
-					<p>TEST TEST</p>
+					{this.displayGame()}
 				</Dialog>
 			</div>
 		)
@@ -143,12 +243,16 @@ class ProfilePage extends Component {
 function mapStateToProps(state, ownProps) {
 	const profileParamsId = ownProps.match.params.id;
 	const {currentUserId, currentUser} = state.session; 
+	const {teams, playersOne, playersTwo} = state.games;
 	const { 
 		profileUser, 
 		profileFriends,
 		profileRequests, 
 		isCurrentUser, 
 		friendshipStatus,
+		upcomingGames, 
+		upcomingCourts,
+		upcomingCreators, 
 	} = state.profile;
 	return {
 		currentUserId, 
@@ -159,12 +263,18 @@ function mapStateToProps(state, ownProps) {
 		profileRequests, 
 		isCurrentUser,
 		friendshipStatus,
+		upcomingGames, 
+		upcomingCourts,
+		upcomingCreators, 
+		teams, 
+		teamOne: playersOne, 
+		teamTwo: playersTwo
 	}
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		actions: bindActionCreators(gameActions, dispatch), 
+		gameActions: bindActionCreators(gameActions, dispatch), 
 		sessionActions: bindActionCreators(sessionActions, dispatch), 
 		profileActions: bindActionCreators(profileActions, dispatch)
 	}
