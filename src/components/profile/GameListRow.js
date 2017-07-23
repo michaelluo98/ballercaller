@@ -1,8 +1,10 @@
 import React from 'react';
+import RightIconMenu from './RightIconButtons';
 import moment from 'moment';
 import {ListItem} from 'material-ui/List'
+//import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import {darkBlack} from 'material-ui/styles/colors';
-import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+
 
 function GameListRow({gameId, name, time, court, mode, handleOpen, creator}) {
 	const intro = `${name} @ ${court}`;
@@ -20,7 +22,7 @@ function GameListRow({gameId, name, time, court, mode, handleOpen, creator}) {
   return (
     <ListItem
       primaryText={intro}
-			rightIconButton={<CommunicationChatBubble />}
+			rightIconButton={<RightIconMenu />}
       secondaryText={
 				<p>
 					<span style={{color: darkBlack}}>

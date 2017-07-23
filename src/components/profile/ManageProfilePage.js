@@ -11,6 +11,8 @@ import ProfileButton from './ProfileButton';
 
 import styles from '../styles/profileStyle';
 import Paper from 'material-ui/Paper';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import jersey from '../../icons/jersey.svg';
 
 
@@ -21,11 +23,22 @@ class ProfilePage extends Component {
 		this.state = {
 			selectedProfileView: 'Games', 
 			profileGames: [],
+			modalOpen: false,
 		}
 
 		this.getProfileGames = this.getProfileGames.bind(this);
 		this.getProfileUserGames = this.getProfileUserGames.bind(this);
 		this.updateProfileView = this.updateProfileView.bind(this);
+		this.handleOpenModal = this.handleOpenModal.bind(this);
+		this.handleCloseModal = this.handleCloseModal.bind(this);
+	}
+
+	handleOpenModal() {
+		this.setState({modalOpen: true})
+	}
+
+	handleCloseModal() {
+		this.setState({modalOpen: false})
 	}
 
 	getProfileGames(userId) {
@@ -66,6 +79,13 @@ class ProfilePage extends Component {
 	} 
 
 	render() {
+		const actions = [
+		  <FlatButton
+		     label="Cancel"
+		     primary={true}
+		     onTouchTap={this.handleCloseModal}
+	    />,
+		]
 		return (
 			<div>
 				<Paper zDepth={1} style={styles.jumbotron}>
@@ -101,8 +121,20 @@ class ProfilePage extends Component {
 						profileFriends={this.props.profileFriends}
 						profileRequests={this.props.profileRequests} 
 						isCurrentUser={this.props.isCurrentUser}
+						handleOpenModal={this.handleOpenModal}
 					/> 
 				</div>
+
+				<Dialog
+					title={"test"}
+					actions={actions}
+					modal={true}
+					open={this.state.modalOpen}
+					paperProps={{circle: true}}
+					titleStyle={styles.dialogTitle}
+				>
+					<p>TEST TEST</p>
+				</Dialog>
 			</div>
 		)
 	}

@@ -8,7 +8,7 @@ import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 
-
+// remember receiving props: handleOpenModal
 class UserHistoryGames extends Component {
 	/*constructor(props, context) {
 		super(props, context);

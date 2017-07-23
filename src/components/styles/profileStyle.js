@@ -97,6 +97,16 @@ const profileStyles = {
 		textAlign: 'center', 
 		paddingTop: '50px', 
 		paddingBottom: '50px'
+	},
+  dialogTitle: {
+    color: 'rgb(33, 150, 243)',
+    fontSize: '36px'
+  },
+	rightIconButton: {
+		position: 'absolute',
+		display: 'block',
+		top: '12px',
+		right: '4px'
 	}
 
 }

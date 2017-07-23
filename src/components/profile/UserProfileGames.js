@@ -40,6 +40,7 @@ class UserProfileGames extends Component {
 										court={this.props.upcomingCourts[index].name}
 										creator={this.props.upcomingCreators[index]}
 										mode={game.mode}
+										handleOpenModal={this.props.handleOpenModal}
 									/>
 								) 
 							})}

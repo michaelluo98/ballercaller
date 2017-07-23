@@ -3,14 +3,15 @@ import UserProfileFriends from './UserProfileFriends';
 import UserProfileGames from './UserProfileGames';
 import UserProfileHistory from './UserProfileHistory';
 
-function ProfileView({
-	selectedProfileView, isCurrentUser, profileUserId, profileFriends, profileRequests
+function ProfileView({ selectedProfileView, isCurrentUser, profileUserId, 
+	profileFriends, profileRequests, handleOpenModal
 }) {
 	if (selectedProfileView === 'Games') {
 		return (
 			<UserProfileGames
 				isCurrentUser={isCurrentUser}
 				profileUserId={profileUserId}
+				handleOpenModal={handleOpenModal}
 			/>
 		)
 	}
@@ -28,6 +29,7 @@ function ProfileView({
 			<UserProfileHistory 
 				isCurrentUser={isCurrentUser}
 				profileUserId={profileUserId}
+				handleOpenModal={handleOpenModal}
 			/>
 		)
 	}
