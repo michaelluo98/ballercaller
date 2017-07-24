@@ -9,12 +9,11 @@ export default class ChatSidebar extends Component {
   }
 
   render() {
-    console.log('this.props.users:', this.props.users)
     return (
       <div className="chat-sidebar" style={styles.chatSidebar}>
-        <ul>
+        <ul style={styles.chatSidebarList}>
           {this.props.users.map((user, i) =>
-            <li key={i} style={styles.chatSidebarButton}>
+            <li key={i} style={styles.chatSidebarList}>
               <button
                 onClick={() => this.props.onClickUser(user.id)}
                 style={styles.chatSidebarButton}>
@@ -23,7 +22,7 @@ export default class ChatSidebar extends Component {
                 </span>
                 <span
                   className={`chat-status ${user.online ? "online" : "offline"}`}
-                  style={styles.chatStatus}>
+                  style={styles.chatStatusOnline}>
                 </span>
               </button>
             </li>
