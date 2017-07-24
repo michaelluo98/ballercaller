@@ -5,16 +5,15 @@ import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
 
 const bottomRight = {
 	position: 'fixed', 
-	width: 475,
-	top: 100,
-	right: 50
+	width: '470px',
+	top: '100px',
+	right: '45px'
 }
 
 
 const CalendarMessengerTab = () => (
 	  <Tabs style={bottomRight}>
 	    <Tab
-	      icon={<FontIcon className="material-icons">favorite</FontIcon>}
 	      label="FAVORITES"
 	    >
 			<div>
@@ -22,7 +21,6 @@ const CalendarMessengerTab = () => (
 			</div>
 		  </Tab>
 	    <Tab
-	      icon={<MapsPersonPin />}
 	      label="NEARBY"
 	    />
 	  </Tabs>

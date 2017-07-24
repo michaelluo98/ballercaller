@@ -51,7 +51,9 @@ class ProfilePage extends Component {
 		return (
 		<div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'space-between'}}>
 			<div style={{width: '50%'}}>
-				<p style={{fontSize: '14px'}}>GameTime: {moment(this.state.showGame.start_time).format('MMMM Do [@] h:mm:ss a')}	</p>
+				<p style={{fontSize: '14px'}}>
+					GameTime: {moment(this.state.showGame.start_time).format('MMMM Do [@] h:mm:ss a')}	
+				</p>
 				{this.showSettingInfo(this.state.showGame)}
 				{this.showCourtInfo(this.state.showCourt)}
 				<h4 style={{fontSize: '14px', marginBottom: '0px'}}>Extra Information: </h4>
