@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {findDOMNode} from "react-dom";
-import styles from '../styles/chatStyles';
-
+// import styles from '../styles/chatStyles';
+import styles from '../../styles/chatStyles.css'
 
 export default class ChatSidebar extends Component {
   constructor(props) {

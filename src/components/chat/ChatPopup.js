@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {findDOMNode} from "react-dom";
 
-export default class ChatPopup extends React.Component {
+export default class ChatPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {};
