@@ -1,5 +1,6 @@
 import React from 'react';
 import ChatSidebar from './chat/ChatSidebar';
+import ChatClient from './chat/ChatClient';
 
 //id, username, online
 const testUsers = [
@@ -10,11 +11,12 @@ const testUsers = [
 ]
 
 // ChatSidebar defaultProps: onClickUser, users
+// <ChatSidebar users={testUsers} />
 
 function TestPage() {
   return (
     <div>
-      <ChatSidebar users={testUsers} />
+      <ChatClient />
     </div>
   )
 }
