@@ -15,7 +15,10 @@ export default class ChatSidebar extends Component {
           {this.props.users.map((user, i) =>
             <li key={i} style={styles.chatSidebarList}>
               <button
-                onClick={() => this.props.onClickUser(user.id)}
+								onClick={() => {
+									console.log('user in onClick button: ', user);
+									this.props.onClickUser(user.id)
+								}}
                 style={styles.chatSidebarButton}>
                 <span
                   className="chat-sidebar--username">{user.username}
