@@ -147,6 +147,8 @@ export default class ChatClient extends Component {
 
     const users = this.state.users.slice();
     const user = this.getUser(userID);
+		console.log('users gotten from getUser(userID) in openChat: ', user);
+		console.log('openChats openChat(userID): ', openChats);
     user.minimized = false;
 
     this.setState({openChats, users}, () => {
@@ -198,7 +200,8 @@ export default class ChatClient extends Component {
 
     return (
       <div className="chat-client">
-        <ChatSidebar users={testUsers} onClickUser={this.openChat} />
+				{/* users should be this.state.users*/}
+        <ChatSidebar users={this.state.users} onClickUser={this.openChat} />
         {chatPopups}
       </div>
     );
