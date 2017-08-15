@@ -5,10 +5,10 @@ import ChatSidebar from "./ChatSidebar";
 import styles from '../../styles/chatStyles.css'
 
 const testUsers = [
-  {id: '1', username: "test1", online: true, minimized: true},
-  {id: '2', username: "test2", online: false, minimized: true},
-  {id: '3', username: "test3", online: true, minimized: false},
-  {id: '4', username: "test4", online: false, minimized: false},
+  {id: 1, username: "test1", online: "online"},
+  {id: 2, username: "test2", online: "offline"},
+  {id: 3, username: "test3", online: "online"},
+  {id: 4, username: "test4", online: "offline"},
 ]
 
 export default class ChatClient extends Component {
@@ -17,7 +17,7 @@ export default class ChatClient extends Component {
 
     // Initial state
     this.state = {
-      users: testUsers,
+      users: [],
       openChats: [],
       messageHistory: {},
       messagesTyped: {},
@@ -147,8 +147,6 @@ export default class ChatClient extends Component {
 
     const users = this.state.users.slice();
     const user = this.getUser(userID);
-		console.log('users gotten from getUser(userID) in openChat: ', user);
-		console.log('openChats openChat(userID): ', openChats);
     user.minimized = false;
 
     this.setState({openChats, users}, () => {
@@ -200,8 +198,7 @@ export default class ChatClient extends Component {
 
     return (
       <div className="chat-client">
-				{/* users should be this.state.users*/}
-        <ChatSidebar users={this.state.users} onClickUser={this.openChat} />
+        <ChatSidebar users={testUsers} onClickUser={this.openChat} />
         {chatPopups}
       </div>
     );
