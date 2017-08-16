@@ -174,6 +174,10 @@ received: (data) => {
    * @param {string} userID
    */
   openChat(userID) {
+		// may be needed because the comments says so, but then would need to 
+		//		convert the original data 
+		// const stringUserId = userID.toString();
+
     const chatIdx = this.state.openChats.indexOf(userID);
     const openChats = this.state.openChats.slice();
 
@@ -218,14 +222,16 @@ received: (data) => {
       const user = this.getUser(userID);
       const styles = {right: 250 + (275 * i) + 'px'}
       return (
-        <ChatPopup key={i} name={user.username}
+				<ChatPopup 
+					key={i} 
+					name={user.first_name + ' ' + user.last_name}
           onType={(e) => this.updateMessage(userID, e.target.value)}
           onSend={() => this.sendMessage(userID)}
           onClose={() => this.closeChat(userID)}
           onMinimize={() => this.toggleChat(userID)}
           message={this.state.messagesTyped[userID]}
           history={this.state.messageHistory[userID]}
-          online={user.online}
+          online={user.status}
           minimized={user.minimized}
           style={styles}
           ref={(chat) => {this.chats[userID] = chat;}}
@@ -236,10 +242,6 @@ received: (data) => {
       <div className="chat-client">
         <ChatSidebar users={this.state.users} onClickUser={this.openChat} />
         {chatPopups}
-				{this.props.friends.map(friend => {
-					console.log(friend);
-					return <p>{friend.first_name}</p>
-				})}
       </div>
     );
   }

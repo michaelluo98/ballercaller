@@ -50,7 +50,9 @@ export default class ChatPopup extends Component {
   render() {
     const messageIsEmpty = (this.props.message == "");
 
-    let messageHistory = this.props.history.map((msg, i) =>
+		const receivedMessageHistory = this.props.history || [] 
+
+    let messageHistory = receivedMessageHistory.map((msg, i) =>
       <li key={i} className={`${msg.sender ? "received" : "sent"}`}>
         <span className="chat-popup--message">
           {msg.content}
