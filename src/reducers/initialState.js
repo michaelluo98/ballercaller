@@ -34,3 +34,7 @@ export const profileInitialState = {
 	historyCourts: [], 
 	historyCreators: []
 }
+
+export const messagesInitialState = {
+	messages: {}
+}
