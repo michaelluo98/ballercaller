@@ -51,6 +51,14 @@ class ChatClient extends Component {
 		this.props.messageActions.loadAllMessages(this.props.currentUserId);
 		this.setUpSubscription();
 	}
+	
+	componentWillReceiveProps(nextProps) {
+		if (this.props.friends.length !== nextProps.friends.length) {
+			console.log('in componentWillReceiveProps BOOL: ', this.props.friends.length !== nextProps.friends.length);
+			console.log('nextProps.friends', nextProps.friends);
+			this.setState({users: nextProps.friends})
+		}
+	}
 
 	setUpSubscription() {
 		ACApp.cable.subscriptions.create('MessagesChannel', {
@@ -63,8 +71,7 @@ class ChatClient extends Component {
 			disconnected: () => {
 				// Called when the subscription has been terminated by the server
 			},
-
-			received: (data) => {
+received: (data) => {
 				// Called when theres incoming data on the websocket for this channel
 				console.log('received data from subscription: ', data);
 				//data is still a wrapper object
@@ -229,6 +236,10 @@ class ChatClient extends Component {
       <div className="chat-client">
         <ChatSidebar users={this.state.users} onClickUser={this.openChat} />
         {chatPopups}
+				{this.props.friends.map(friend => {
+					console.log(friend);
+					return <p>{friend.first_name}</p>
+				})}
       </div>
     );
   }

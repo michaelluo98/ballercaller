@@ -18,10 +18,12 @@ export default class ChatSidebar extends Component {
                 onClick={() => this.props.onClickUser(user.id)}
                 style={styles.chatSidebarButton}>
                 <span
-                  className="chat-sidebar--username">{user.username}
+									className="chat-sidebar--username">
+									{user.first_name} {user.last_name}
                 </span>
                 <span
-                  className={`chat-status ${user.online ? "online" : "offline"}`}
+									/* changed from user.online to user.status */
+                  className={`chat-status ${user.status ? "online" : "offline"}`}
                   style={styles.chatStatusOnline}>
                 </span>
               </button>
