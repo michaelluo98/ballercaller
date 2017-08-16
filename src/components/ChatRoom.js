@@ -41,6 +41,7 @@ class ChatRoom extends Component {
 			received: (data) => {
 				// Called when theres incoming data on the websocket for this channel
 				console.log('received data from subscription: ', data);
+				//data is still a wrapper object
 			}
 
 		});

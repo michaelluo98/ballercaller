@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as gameActions from '../../actions/gameActions';
+import * as sessionActions from '../../actions/sessionActions';
 import SearchForm from './searchform/SearchForm';
 import GameBox from './gamebox/GameBox';
 import Calendar from './tabs/ManageCalendarPage';
@@ -44,6 +45,12 @@ class ManageHomePage extends Component {
 		this.showCreatorName = this.showCreatorName.bind(this);
 		this.showTeamInfo = this.showTeamInfo.bind(this);
 		this.showSettingInfo = this.showSettingInfo.bind(this);
+	}
+
+	componentDidMount() {
+		if (this.props.currentUserId) {
+			this.props.sessionActions.getUserFriends(this.props.currentUserId);
+		}
 	}
 
 	handleOpenBar() {
@@ -295,6 +302,8 @@ function mapStateToProps(state, ownProps) {
 	const {allCourts, foundGames, foundCourts, foundCreators} = state.games;
 	const {games, courts, creators, teams} = state.games;
 	const {playersOne, playersTwo} = state.games;
+	const {currentUserId} = state.session;
+	console.log('currentUserId: ', currentUserId);
 	return {
 		game: game,
 		allCourts,
@@ -306,13 +315,15 @@ function mapStateToProps(state, ownProps) {
 		creators,
 		teamOne: playersOne,
 		teamTwo: playersTwo,
-		teams
+		teams, 
+		currentUserId
 	}
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		actions: bindActionCreators(gameActions, dispatch)
+		actions: bindActionCreators(gameActions, dispatch), 
+		sessionActions: bindActionCreators(sessionActions, dispatch)
 	}
 }
 

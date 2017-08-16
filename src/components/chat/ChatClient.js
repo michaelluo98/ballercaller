@@ -1,23 +1,25 @@
 import React, {Component} from "react";
+import {connect} from 'react-redux'; 
+import {bindActionCreators} from 'redux';
 
+import * as messageActions from '../../actions/messageActions';
+import * as sessionActions from '../../actions/sessionActions';
 import ChatPopup from "./ChatPopup";
 import ChatSidebar from "./ChatSidebar";
 import styles from '../../styles/chatStyles.css'
 
-const testUsers = [
-  {id: 1, username: "test1", online: "online"},
-  {id: 2, username: "test2", online: "offline"},
-  {id: 3, username: "test3", online: "online"},
-  {id: 4, username: "test4", online: "offline"},
-]
+const ActionCable = require('actioncable');
+const ACApp = {}; 
+ACApp.cable = ActionCable.createConsumer('ws://localhost:3000/cable')
 
-export default class ChatClient extends Component {
+
+class ChatClient extends Component {
   constructor(props) {
     super(props);
 
     // Initial state
     this.state = {
-      users: [],
+      users: this.props.friends || [],
       openChats: [],
       messageHistory: {},
       messagesTyped: {},
@@ -33,6 +35,7 @@ export default class ChatClient extends Component {
     this.openChat = this.openChat.bind(this);
     this.closeChat = this.closeChat.bind(this);
 
+		this.setUpSubscription = this.setUpSubscription.bind(this);
     // Initialize API with event callbacks
     // this.API = new ChatAPI({
     //   onReceiveMessage: this.addMessage,
@@ -42,6 +45,32 @@ export default class ChatClient extends Component {
     //
     // this.API.connect();
   }
+
+	componentDidMount() {
+		this.props.sessionActions.getUserFriends(this.props.currentUserId);
+		this.props.messageActions.loadAllMessages(this.props.currentUserId);
+		this.setUpSubscription();
+	}
+
+	setUpSubscription() {
+		ACApp.cable.subscriptions.create('MessagesChannel', {
+			message_id: this.state.message_id, 
+			connected: function () {
+				//Called when the subscription is ready for use on the server
+				console.log('successfully established subscription connection');
+			},
+
+			disconnected: () => {
+				// Called when the subscription has been terminated by the server
+			},
+
+			received: (data) => {
+				// Called when theres incoming data on the websocket for this channel
+				console.log('received data from subscription: ', data);
+				//data is still a wrapper object
+			}
+		});
+	}
 
   /**
    * Add a new user to the chat list.
@@ -198,9 +227,28 @@ export default class ChatClient extends Component {
 
     return (
       <div className="chat-client">
-        <ChatSidebar users={testUsers} onClickUser={this.openChat} />
+        <ChatSidebar users={this.state.users} onClickUser={this.openChat} />
         {chatPopups}
       </div>
     );
   }
 }
+
+function mapStateToProps (state, ownProps) {
+	const {currentUserId, friends} = state.session; 
+	const {messages} = state.messages;
+	return {
+		currentUserId, 
+		friends,
+		messages, 
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		messageActions: bindActionCreators(messageActions, dispatch), 
+		sessionActions: bindActionCreators(sessionActions, dispatch)
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatClient)

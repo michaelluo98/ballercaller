@@ -15,10 +15,6 @@ export function getFavoritesSuccess(favorites) {
 	return {type: types.GET_FAVORITES_SUCCESS, favorites}
 }
 
-/*export function getUserFriendsSuccess(friends, requests) {
-	return {type: types.GET_USER_FRIENDS_SUCCESS, friends, requests}
-}*/
-
 export function removeFromFavoritesSuccess(id) {
 	return {type: types.REMOVE_FROM_FAVORITES_SUCCESS, id}
 }
@@ -30,6 +26,11 @@ export function getCurrentUserSuccess(user) {
 export function signUpUserSuccess(newUser) {
 	return {type: types.SIGN_UP_USER_SUCCESS, newUser}
 }
+
+export function getUserFriendsSuccess(friends) {
+	return {type: types.GET_USER_FRIENDS_SUCCESS, friends}
+}
+
 
 function addCurrentUser(dispatch, credentials) {
   fetch(`${BASE_URL}/users/${credentials.email}`)
@@ -129,9 +130,21 @@ export function logInUser(credentials) {
   };
 }
 
-
 export function logOutUser() {
   sessionStorage.removeItem('jwt');
   sessionStorage.removeItem('currentUserId')
   return {type: types.LOG_OUT}
+}
+
+export function getUserFriends(currentUserId) {
+  return function (dispatch) {
+    const headers = new Headers({
+      'Authorization':`Apikey ${API_KEY}`
+    })
+		fetch(`${BASE_URL}/users/${currentUserId}/friends`, {headers})
+    .then(res => res.json()).then(res => {
+			console.log('currentUserFriends: ', res);
+      dispatch(getUserFriendsSuccess(res.friends));
+    })
+  }
 }
