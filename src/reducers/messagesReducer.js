@@ -9,6 +9,10 @@ export default function messagesReducer(state = messagesInitialState, action) {
 			console.log('newState in LOAD_ALL_MESSAGES_SUCCESS: ', newState); 
 			return newState; 
 
+		case types.SEND_MESSAGE_SUCCESS: 
+			const newHistory = action.returnedHistory;
+			return Object.assign({}, state, {messages: newHistory})
+
 		default: 
 			return state; 
 	}

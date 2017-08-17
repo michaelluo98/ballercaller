@@ -68,6 +68,7 @@ class ChatClient extends Component {
 			connected: function () {
 				//Called when the subscription is ready for use on the server
 				console.log('successfully established subscription connection');
+				
 			},
 
 			disconnected: () => {
@@ -133,11 +134,14 @@ class ChatClient extends Component {
     chat.push({sender, recipient, content, timestamp});
     newHistory[chatID] = chat;
 
+		if (!sender) { // sending message 
+			this.props.messagesActions.sendMessage(history, this.props.currentUserId, recipient, content);
+		}
+
     const users = this.state.users.slice();
     const openChats = this.state.openChats.slice();
 
-		// if receiving data from API, sender will be null, unless coming from 
-		//    database
+		// unless receiving data from API, sender will be null
 		if (sender) { 
 			if (!this.getUser(sender)) { // receiving message from non-friend
         users.push(sender);
@@ -148,11 +152,11 @@ class ChatClient extends Component {
       }
     }
 
-    this.setState({
-      messageHistory: Object.assign({}, history, newHistory),
-      openChats,
-      users,
-    });
+		this.setState({ // sending/receiving from new user  
+			openChats,
+			users,
+		});
+
   }
 
   /**
