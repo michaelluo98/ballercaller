@@ -20,8 +20,8 @@ class ChatClient extends Component {
     // Initial state
     this.state = {
       users: this.props.friends || [],
-      openChats: [],
-      messageHistory: {},
+			openChats: [], // arr of chatIDs
+			messageHistory: this.props.messages || {}, // obj w/ chatID keys, and arr of msg objs 
       messagesTyped: {},
     };
     this.chats = {};
@@ -54,10 +54,12 @@ class ChatClient extends Component {
 	
 	componentWillReceiveProps(nextProps) {
 		if (this.props.friends.length !== nextProps.friends.length) {
-			console.log('in componentWillReceiveProps BOOL: ', this.props.friends.length !== nextProps.friends.length);
-			console.log('nextProps.friends', nextProps.friends);
 			this.setState({users: nextProps.friends})
 		}
+		console.log('nextProps.messages.length BOOL VAL: ', nextProps.messages.length);
+		console.log('nextProps.messages:', nextProps.messages);
+		console.log('--------in this.props.messages.length');
+		this.setState({messageHistory: nextProps.messages})
 	}
 
 	setUpSubscription() {
@@ -71,7 +73,8 @@ class ChatClient extends Component {
 			disconnected: () => {
 				// Called when the subscription has been terminated by the server
 			},
-received: (data) => {
+
+			received: (data) => {
 				// Called when theres incoming data on the websocket for this channel
 				console.log('received data from subscription: ', data);
 				//data is still a wrapper object
@@ -120,8 +123,12 @@ received: (data) => {
    */
   addMessage(sender, recipient, content, timestamp) {
     const history = this.state.messageHistory;
+		// history, newHistory: objects for each chat, with key of 
+		//     recipient (chatID)
+		// chat: array of messages
     const newHistory = {};
     const chatID = (!sender) ? recipient : sender;
+		// either creating a new chat or appending to old chat
     const chat = history[chatID] ? history[chatID].slice() : [];
     chat.push({sender, recipient, content, timestamp});
     newHistory[chatID] = chat;
@@ -129,11 +136,14 @@ received: (data) => {
     const users = this.state.users.slice();
     const openChats = this.state.openChats.slice();
 
-    if (sender) {
-      if (!this.getUser(sender)) {
+		// if receiving data from API, sender will be null, unless coming from 
+		//    database
+		if (sender) { 
+			if (!this.getUser(sender)) { // receiving message from non-friend
         users.push(sender);
       }
-      if (this.state.openChats.indexOf(sender) == -1) {
+			// add new message from nonfriend to openChats
+			if (this.state.openChats.indexOf(sender) == -1) { 
         openChats.push(sender);
       }
     }
@@ -163,6 +173,7 @@ received: (data) => {
    */
   sendMessage(chatID) {
     const message = this.state.messagesTyped[chatID];
+		console.log('message in sendMessage', message);
     if (!message) return;
     this.API.sendMessage(chatID, message); ///???
     this.addMessage(null, chatID, message, Date.now());
@@ -225,6 +236,7 @@ received: (data) => {
 				<ChatPopup 
 					key={i} 
 					name={user.first_name + ' ' + user.last_name}
+					currentUserId={this.props.currentUserId}
           onType={(e) => this.updateMessage(userID, e.target.value)}
           onSend={() => this.sendMessage(userID)}
           onClose={() => this.closeChat(userID)}

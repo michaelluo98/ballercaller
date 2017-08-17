@@ -4,7 +4,7 @@ import {messagesInitialState} from './initialState';
 export default function messagesReducer(state = messagesInitialState, action) {
 	switch (action.type) {
 		case types.LOAD_ALL_MESSAGES_SUCCESS: 
-			const {messages} = action; 
+			const {messages} = action.messages; 
 			const newState = Object.assign({}, state, {messages})
 			console.log('newState in LOAD_ALL_MESSAGES_SUCCESS: ', newState); 
 			return newState; 

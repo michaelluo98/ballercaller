@@ -53,9 +53,11 @@ export default class ChatPopup extends Component {
 		const receivedMessageHistory = this.props.history || [] 
 
     let messageHistory = receivedMessageHistory.map((msg, i) =>
-      <li key={i} className={`${msg.sender ? "received" : "sent"}`}>
+      <li key={i} className={`${msg.recipient_id === parseInt(this.props.currentUserId) ? "received" : "sent"}`}>
         <span className="chat-popup--message">
-          {msg.content}
+          {msg.message}
+					{msg.sender_id}
+					{msg.recipient_id}
         </span>
       </li>
     );
@@ -109,6 +111,7 @@ export default class ChatPopup extends Component {
 //   name: React.PropTypes.string,
 //   history: React.PropTypes.array,
 //   message: React.PropTypes.string,
+//??   currentUserId: React.PropTypes.number?,
 //   online: React.PropTypes.bool,
 //   onType: React.PropTypes.func,
 //   onSend: React.PropTypes.func,
