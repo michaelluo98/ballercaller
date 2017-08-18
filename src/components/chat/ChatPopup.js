@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {findDOMNode} from "react-dom";
 import styles from '../../styles/chatStyles.css'
 
+//todo: onupdate of new message need to be able to scroll to the bottom 
+
 export default class ChatPopup extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,6 @@ export default class ChatPopup extends Component {
   }
 
   handleFocus() {
-		console.log('in handleFocus'); 
     this.setState({focus: true}, () => {
       const node = findDOMNode(this.refs.messageInput);
       if (node) {
@@ -25,17 +26,14 @@ export default class ChatPopup extends Component {
 
   handleBlur() {
     this.setState({focus: false});
-		console.log('in handleBlur');
   }
 
   handleClose(e) {
     e.stopPropagation();
-		console.log('in handleClose');
     this.props.onClose();
   }
 
   handleMinimize(e) {
-		console.log('---------------in handleMinimize');
     e.stopPropagation();
     this.props.onMinimize();
 

@@ -11,6 +11,11 @@ const ActionCable = require('actioncable');
 const ACApp = {}; 
 ACApp.cable = ActionCable.createConsumer('ws://localhost:3000/cable')
 
+const BASE_URL = 'http://localhost:3000/api/v1';
+const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71ae";
+// todo: 
+// 1. need to seperate API calls? loadAllMessages, sendMessageAPI?
+// 2. why is the created_at being received from the API undefined? 
 
 class ChatClient extends Component {
   constructor(props) {
@@ -21,7 +26,7 @@ class ChatClient extends Component {
       users: this.props.friends || [],
 			openChats: [], // arr of chatIDs
 			messageHistory: {}, // obj w/ chatID keys, and arr of msg objs 
-      messagesTyped: {35: 'fuck you'},
+      messagesTyped: {},
     };
     this.chats = {};
 
@@ -36,6 +41,7 @@ class ChatClient extends Component {
 
 		this.setUpSubscription = this.setUpSubscription.bind(this);
 		this.loadAllMessages = this.loadAllMessages.bind(this);
+		this.sendMessageAPI = this.sendMessageAPI.bind(this);
     // Initialize API with event callbacks
     // this.API = new ChatAPI({
     //   onReceiveMessage: this.addMessage,
@@ -62,8 +68,6 @@ class ChatClient extends Component {
 	}
 
 	loadAllMessages() {
-		const BASE_URL = 'http://localhost:3000/api/v1';
-		const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71ae";
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`
 		})
@@ -73,9 +77,28 @@ class ChatClient extends Component {
 			})	
 			.then(res => {
 				console.log('messages in loadAllMessages: ', res.messages);
-				this.setState({messages: res.messages});
+				this.setState({messageHistory: res.messages});
 			})
 	}
+
+	sendMessageAPI(currentUserId, recipientId, message) {
+		console.log('--------- in sendMessageAPI');
+			const headers = new Headers({
+				'Authorization':`Apikey ${API_KEY}`,
+				'Accept':'application/json',
+				'Content-Type':'application/json'
+			})
+		fetch(`${BASE_URL}/friendships/${currentUserId}/${recipientId}/directmessages/send`, {
+			headers,
+			method: 'POST',
+			body: JSON.stringify({message: message})
+		})
+		.then(res => res.json()).then(res => {
+			console.log('res in sendMessageAPI: ', res.message)
+			this.addMessage(res.message.sender_id, res.message.recipient_id, res.message.message, res.created_at);
+		})
+	}
+
 
 	setUpSubscription() {
 		ACApp.cable.subscriptions.create('MessagesChannel', {
@@ -138,37 +161,33 @@ class ChatClient extends Component {
    * @param {string} content - the message itself
    * @param {number} timestamp - the unix time of the message
    */
-  addMessage(sender, recipient, content, timestamp) {
-		console.log('in addMessage');
+  addMessage(sender_id, recipient_id, message, created_at) {
+		console.log('in addMessage, created_at: ', created_at);
     const history = this.state.messageHistory;
 		// history, newHistory: objects for each chat, with key of 
 		//     recipient (chatID)
 		// chat: array of messages
     const newHistory = {};
-    const chatID = (!sender) ? recipient : sender;
+    const chatID = (sender_id !== this.props.currentUserId) ? recipient_id : sender_id;
 		// either creating a new chat or appending to old chat
     const chat = history[chatID] ? history[chatID].slice() : [];
-    chat.push({sender, recipient, content, timestamp});
+    chat.push({sender_id, recipient_id, message, created_at});
     newHistory[chatID] = chat;
-
-		/* ??? if (!sender) { // sending message 
-			[>console.log('--------sending message in addMessage');
-			console.log('history: ', this.props.currentUserId);
-			console.log('recipient: ', this.props.)<]
-			this.props.messageActions.sendMessage(history, this.props.currentUserId, recipient, content);
-		}*/
+		/*console.log('oldHistory in addMessage', history);
+		console.log('history to add in addMessage: ', newHistory);
+		console.log('newHistory in addMessage', Object.assign({}, history, newHistory));*/
 
     const users = this.state.users.slice();
     const openChats = this.state.openChats.slice();
 
-		// unless receiving data from API, sender will be null
-		if (sender) { 
-			if (!this.getUser(sender)) { // receiving message from non-friend
-        users.push(sender);
+		// unless receiving data from API, sender will not be equal to currentUser
+		if (sender_id.toString() !== this.props.currentUserId) {
+			if (!this.getUser(sender_id)) { // receiving message from non-friend
+        users.push(sender_id);
       }
 			// add new message from nonfriend to openChats
-			if (this.state.openChats.indexOf(sender) == -1) { 
-        openChats.push(sender);
+			if (this.state.openChats.indexOf(sender_id) == -1) { 
+        openChats.push(sender_id);
       }
     }
 
@@ -185,14 +204,13 @@ class ChatClient extends Component {
    * @param {string} chatID
    * @param {string} message
    */
-  updateMessage(chatID, message, cancel = null) {
+  updateMessage(chatID, message) {
     const messagesTyped = this.state.messagesTyped;
     const newMessages = {};
     newMessages[chatID] = message;
-		console.log('updateMessage triggered: ', chatID, message);
-		if (cancel) return; 
+		console.log('message being receiving from updateMessage: ', message);
+		console.log('newMessages in updateMessage: ', newMessages);
     this.setState({messagesTyped: Object.assign({}, messagesTyped, newMessages)});
-		console.log('this.state after ?? ', this.state);
   }
 
   /**
@@ -202,8 +220,7 @@ class ChatClient extends Component {
   sendMessage(chatID) {
     const message = this.state.messagesTyped[chatID];
     if (!message) return;
-		// ??? this.API.sendMessage(currentUserId, chatID, message)
-    this.addMessage(null, chatID, message, Date.now());
+		this.sendMessageAPI(this.props.currentUserId, chatID, message)
     this.updateMessage(chatID, "", true);
   }
 
@@ -212,9 +229,6 @@ class ChatClient extends Component {
    * @param {string} userID
    */
   openChat(userID) {
-		// may be needed because the comments says so, but then would need to 
-		//		convert the original data 
-		// const stringUserId = userID.toString();
 
     const chatIdx = this.state.openChats.indexOf(userID);
     const openChats = this.state.openChats.slice();
