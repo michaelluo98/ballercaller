@@ -14,6 +14,7 @@ export default class ChatPopup extends Component {
   }
 
   handleFocus() {
+		console.log('in handleFocus'); 
     this.setState({focus: true}, () => {
       const node = findDOMNode(this.refs.messageInput);
       if (node) {
@@ -24,14 +25,17 @@ export default class ChatPopup extends Component {
 
   handleBlur() {
     this.setState({focus: false});
+		console.log('in handleBlur');
   }
 
   handleClose(e) {
     e.stopPropagation();
+		console.log('in handleClose');
     this.props.onClose();
   }
 
   handleMinimize(e) {
+		console.log('---------------in handleMinimize');
     e.stopPropagation();
     this.props.onMinimize();
 
@@ -44,6 +48,7 @@ export default class ChatPopup extends Component {
 
   handleSend(e) {
     e.preventDefault();
+		e.stopPropagation();
     this.props.onSend();
   }
 
@@ -88,7 +93,7 @@ export default class ChatPopup extends Component {
               {messageIsEmpty && <span className="chat-popup--placeholder">Type your message</span>}
               <button
                 type="submit"
-                onClick={this.props.onSend}
+                onClick={this.handleSend}
                 disabled={messageIsEmpty}>
                   Send
               </button>

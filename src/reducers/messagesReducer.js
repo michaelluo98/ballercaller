@@ -6,11 +6,11 @@ export default function messagesReducer(state = messagesInitialState, action) {
 		case types.LOAD_ALL_MESSAGES_SUCCESS: 
 			const {messages} = action.messages; 
 			const newState = Object.assign({}, state, {messages})
-			console.log('newState in LOAD_ALL_MESSAGES_SUCCESS: ', newState); 
 			return newState; 
 
 		case types.SEND_MESSAGE_SUCCESS: 
-			const newHistory = action.returnedHistory;
+			const newHistory = action.message;
+			console.log('in sendMessageSuccess in reducer: ', newHistory);
 			return Object.assign({}, state, {messages: newHistory})
 
 		default: 

@@ -35,6 +35,3 @@ export const profileInitialState = {
 	historyCreators: []
 }
 
-export const messagesInitialState = {
-	messages: {}
-}

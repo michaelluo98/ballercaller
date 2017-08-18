@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {connect} from 'react-redux'; 
 import {bindActionCreators} from 'redux';
 
-import * as messageActions from '../../actions/messageActions';
 import * as sessionActions from '../../actions/sessionActions';
 import ChatPopup from "./ChatPopup";
 import ChatSidebar from "./ChatSidebar";
@@ -21,8 +20,8 @@ class ChatClient extends Component {
     this.state = {
       users: this.props.friends || [],
 			openChats: [], // arr of chatIDs
-			messageHistory: this.props.messages || {}, // obj w/ chatID keys, and arr of msg objs 
-      messagesTyped: {},
+			messageHistory: {}, // obj w/ chatID keys, and arr of msg objs 
+      messagesTyped: {35: 'fuck you'},
     };
     this.chats = {};
 
@@ -36,6 +35,7 @@ class ChatClient extends Component {
     this.closeChat = this.closeChat.bind(this);
 
 		this.setUpSubscription = this.setUpSubscription.bind(this);
+		this.loadAllMessages = this.loadAllMessages.bind(this);
     // Initialize API with event callbacks
     // this.API = new ChatAPI({
     //   onReceiveMessage: this.addMessage,
@@ -48,18 +48,33 @@ class ChatClient extends Component {
 
 	componentDidMount() {
 		this.props.sessionActions.getUserFriends(this.props.currentUserId);
-		this.props.messageActions.loadAllMessages(this.props.currentUserId);
+		this.loadAllMessages();
 		this.setUpSubscription();
 	}
 	
 	componentWillReceiveProps(nextProps) {
 		if (this.props.friends.length !== nextProps.friends.length) {
+			//console.log('changing the state of the users !!!');
 			this.setState({users: nextProps.friends})
 		}
-		console.log('nextProps.messages.length BOOL VAL: ', nextProps.messages.length);
-		console.log('nextProps.messages:', nextProps.messages);
-		console.log('--------in this.props.messages.length');
-		this.setState({messageHistory: nextProps.messages})
+		// ??? this.setState({messageHistory: nextProps.messages})
+		//console.log('cahnging the state of the messageHistory!!!');
+	}
+
+	loadAllMessages() {
+		const BASE_URL = 'http://localhost:3000/api/v1';
+		const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71ae";
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+		fetch(`${BASE_URL}/friendships/${this.props.currentUserId}/directmessages`, {headers})
+			.then(res => {
+				return res.json();
+			})	
+			.then(res => {
+				console.log('messages in loadAllMessages: ', res.messages);
+				this.setState({messages: res.messages});
+			})
 	}
 
 	setUpSubscription() {
@@ -77,7 +92,8 @@ class ChatClient extends Component {
 
 			received: (data) => {
 				// Called when theres incoming data on the websocket for this channel
-				console.log('received data from subscription: ', data);
+				//console.log('received data from subscription: ', data);
+				//console.log('state after: ', this.state);
 				//data is still a wrapper object
 			}
 		});
@@ -123,6 +139,7 @@ class ChatClient extends Component {
    * @param {number} timestamp - the unix time of the message
    */
   addMessage(sender, recipient, content, timestamp) {
+		console.log('in addMessage');
     const history = this.state.messageHistory;
 		// history, newHistory: objects for each chat, with key of 
 		//     recipient (chatID)
@@ -134,9 +151,12 @@ class ChatClient extends Component {
     chat.push({sender, recipient, content, timestamp});
     newHistory[chatID] = chat;
 
-		if (!sender) { // sending message 
-			this.props.messagesActions.sendMessage(history, this.props.currentUserId, recipient, content);
-		}
+		/* ??? if (!sender) { // sending message 
+			[>console.log('--------sending message in addMessage');
+			console.log('history: ', this.props.currentUserId);
+			console.log('recipient: ', this.props.)<]
+			this.props.messageActions.sendMessage(history, this.props.currentUserId, recipient, content);
+		}*/
 
     const users = this.state.users.slice();
     const openChats = this.state.openChats.slice();
@@ -153,6 +173,7 @@ class ChatClient extends Component {
     }
 
 		this.setState({ // sending/receiving from new user  
+			messageHistory: Object.assign({}, history, newHistory), 
 			openChats,
 			users,
 		});
@@ -164,11 +185,14 @@ class ChatClient extends Component {
    * @param {string} chatID
    * @param {string} message
    */
-  updateMessage(chatID, message) {
+  updateMessage(chatID, message, cancel = null) {
     const messagesTyped = this.state.messagesTyped;
     const newMessages = {};
     newMessages[chatID] = message;
+		console.log('updateMessage triggered: ', chatID, message);
+		if (cancel) return; 
     this.setState({messagesTyped: Object.assign({}, messagesTyped, newMessages)});
+		console.log('this.state after ?? ', this.state);
   }
 
   /**
@@ -177,11 +201,10 @@ class ChatClient extends Component {
    */
   sendMessage(chatID) {
     const message = this.state.messagesTyped[chatID];
-		console.log('message in sendMessage', message);
     if (!message) return;
-    this.API.sendMessage(chatID, message); ///???
+		// ??? this.API.sendMessage(currentUserId, chatID, message)
     this.addMessage(null, chatID, message, Date.now());
-    this.updateMessage(chatID, "");
+    this.updateMessage(chatID, "", true);
   }
 
   /**
@@ -265,17 +288,14 @@ class ChatClient extends Component {
 
 function mapStateToProps (state, ownProps) {
 	const {currentUserId, friends} = state.session; 
-	const {messages} = state.messages;
 	return {
 		currentUserId, 
 		friends,
-		messages, 
 	}
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		messageActions: bindActionCreators(messageActions, dispatch), 
 		sessionActions: bindActionCreators(sessionActions, dispatch)
 	};
 }
