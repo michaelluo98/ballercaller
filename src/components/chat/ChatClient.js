@@ -174,14 +174,14 @@ class ChatClient extends Component {
 		//     recipient (chatID)
 		// chat: array of messages
     const newHistory = {};
-    const chatID = (sender_id !== this.props.currentUserId) ? recipient_id : sender_id;
+    const chatID = (sender_id.toString() === this.props.currentUserId) ? recipient_id : sender_id;
 		// either creating a new chat or appending to old chat
     const chat = history[chatID] ? history[chatID].slice() : [];
     chat.push({sender_id, recipient_id, message, created_at});
     newHistory[chatID] = chat;
-		console.log('oldHistory in addMessage', history);
+		/*console.log('oldHistory in addMessage', history);
 		console.log('history to add in addMessage: ', newHistory);
-		console.log('newHistory in addMessage', Object.assign({}, history, newHistory));
+		console.log('newHistory in addMessage', Object.assign({}, history, newHistory));*/
 
     const users = this.state.users.slice();
     const openChats = this.state.openChats.slice();
