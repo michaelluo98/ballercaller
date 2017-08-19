@@ -16,6 +16,8 @@ const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71a
 // todo: 
 // 1. need to seperate API calls? loadAllMessages, sendMessageAPI?
 // 2. why is the created_at being received from the API undefined? 
+// 3. is it too slow to wait for the data that comes back from the API? any way
+//    to just update once in a while? e.g. replace the data at with API loadedMessages
 
 class ChatClient extends Component {
   constructor(props) {
@@ -42,14 +44,6 @@ class ChatClient extends Component {
 		this.setUpSubscription = this.setUpSubscription.bind(this);
 		this.loadAllMessages = this.loadAllMessages.bind(this);
 		this.sendMessageAPI = this.sendMessageAPI.bind(this);
-    // Initialize API with event callbacks
-    // this.API = new ChatAPI({
-    //   onReceiveMessage: this.addMessage,
-    //   onNewConnection: this.addUser,
-    //   onDisconnect: this.setUserOffline,
-    // });
-    //
-    // this.API.connect();
   }
 
 	componentDidMount() {
@@ -100,26 +94,38 @@ class ChatClient extends Component {
 	}
 
 
+    // Initialize API with event callbacks
+    // this.API = new ChatAPI({
+    //   onReceiveMessage: this.addMessage,
+    //   onNewConnection: this.addUser,
+    //   onDisconnect: this.setUserOffline,
+    // });
+    //
+    // this.API.connect();
 	setUpSubscription() {
-		ACApp.cable.subscriptions.create('MessagesChannel', {
-			message_id: this.state.message_id, 
-			connected: function () {
-				//Called when the subscription is ready for use on the server
-				console.log('successfully established subscription connection');
-				
-			},
-
-			disconnected: () => {
-				// Called when the subscription has been terminated by the server
-			},
-
-			received: (data) => {
-				// Called when theres incoming data on the websocket for this channel
-				//console.log('received data from subscription: ', data);
-				//console.log('state after: ', this.state);
-				//data is still a wrapper object
-			}
-		});
+		ACApp.cable.subscriptions.create({channel: 'MessagesChannel', 
+			room_id: this.props.currentUserId}, {
+				message_id: this.state.message_id, 
+				connected: function () {
+					//Called when the subscription is ready for use on the server
+					console.log('successfully established subscription connection');
+					
+				},
+	
+				disconnected: () => {
+					// Called when the subscription has been terminated by the server
+				},
+	
+				received: (data) => {
+					// Called when theres incoming data on the websocket for this channel
+					console.log('received data from subscription: ', data);
+					const {new_message} = data;
+					this.addMessage(new_message.sender_id, new_message.recipient_id, 
+													new_message.message, new_message.created_at)
+					//console.log('state after: ', this.state);
+					//data is still a wrapper object
+				}
+			});
 	}
 
   /**
@@ -173,9 +179,9 @@ class ChatClient extends Component {
     const chat = history[chatID] ? history[chatID].slice() : [];
     chat.push({sender_id, recipient_id, message, created_at});
     newHistory[chatID] = chat;
-		/*console.log('oldHistory in addMessage', history);
+		console.log('oldHistory in addMessage', history);
 		console.log('history to add in addMessage: ', newHistory);
-		console.log('newHistory in addMessage', Object.assign({}, history, newHistory));*/
+		console.log('newHistory in addMessage', Object.assign({}, history, newHistory));
 
     const users = this.state.users.slice();
     const openChats = this.state.openChats.slice();
@@ -208,8 +214,6 @@ class ChatClient extends Component {
     const messagesTyped = this.state.messagesTyped;
     const newMessages = {};
     newMessages[chatID] = message;
-		console.log('message being receiving from updateMessage: ', message);
-		console.log('newMessages in updateMessage: ', newMessages);
     this.setState({messagesTyped: Object.assign({}, messagesTyped, newMessages)});
   }
 
