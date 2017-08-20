@@ -1,21 +1,23 @@
 import React, {Component} from "react";
-import {connect} from 'react-redux'; 
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as sessionActions from '../../actions/sessionActions';
 import ChatPopup from "./ChatPopup";
 import ChatSidebar from "./ChatSidebar";
 import styles from '../../styles/chatStyles.css'
+import Popover from 'material-ui/Popover/Popover';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const ActionCable = require('actioncable');
-const ACApp = {}; 
+const ACApp = {};
 ACApp.cable = ActionCable.createConsumer('ws://localhost:3000/cable')
 
 const BASE_URL = 'http://localhost:3000/api/v1';
 const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71ae";
-// todo: 
+// todo:
 // 1. need to seperate API calls? loadAllMessages, sendMessageAPI?
-// 2. why is the created_at being received from the API undefined? 
+// 2. why is the created_at being received from the API undefined?
 // 3. is it too slow to wait for the data that comes back from the API? any way
 //    to just update once in a while? e.g. replace the data at with API loadedMessages
 
@@ -27,8 +29,9 @@ class ChatClient extends Component {
     this.state = {
       users: this.props.friends || [],
 			openChats: [], // arr of chatIDs
-			messageHistory: {}, // obj w/ chatID keys, and arr of msg objs 
+			messageHistory: {}, // obj w/ chatID keys, and arr of msg objs
       messagesTyped: {},
+      open: false,
     };
     this.chats = {};
 
@@ -44,6 +47,7 @@ class ChatClient extends Component {
 		this.setUpSubscription = this.setUpSubscription.bind(this);
 		this.loadAllMessages = this.loadAllMessages.bind(this);
 		this.sendMessageAPI = this.sendMessageAPI.bind(this);
+    this.handleMessengerToggle = this.handleMessengerToggle.bind(this);
   }
 
 	componentDidMount() {
@@ -51,7 +55,7 @@ class ChatClient extends Component {
 		this.loadAllMessages();
 		this.setUpSubscription();
 	}
-	
+
 	componentWillReceiveProps(nextProps) {
 		if (this.props.friends.length !== nextProps.friends.length) {
 			//console.log('changing the state of the users !!!');
@@ -68,7 +72,7 @@ class ChatClient extends Component {
 		fetch(`${BASE_URL}/friendships/${this.props.currentUserId}/directmessages`, {headers})
 			.then(res => {
 				return res.json();
-			})	
+			})
 			.then(res => {
 				console.log('messages in loadAllMessages: ', res.messages);
 				this.setState({messageHistory: res.messages});
@@ -103,30 +107,34 @@ class ChatClient extends Component {
     //
     // this.API.connect();
 	setUpSubscription() {
-		ACApp.cable.subscriptions.create({channel: 'MessagesChannel', 
+		ACApp.cable.subscriptions.create({channel: 'MessagesChannel',
 			room_id: this.props.currentUserId}, {
-				message_id: this.state.message_id, 
+				message_id: this.state.message_id,
 				connected: function () {
 					//Called when the subscription is ready for use on the server
 					console.log('successfully established subscription connection');
-					
+
 				},
-	
+
 				disconnected: () => {
 					// Called when the subscription has been terminated by the server
 				},
-	
+
 				received: (data) => {
 					// Called when theres incoming data on the websocket for this channel
 					console.log('received data from subscription: ', data);
 					const {new_message} = data;
-					this.addMessage(new_message.sender_id, new_message.recipient_id, 
+					this.addMessage(new_message.sender_id, new_message.recipient_id,
 													new_message.message, new_message.created_at)
 					//console.log('state after: ', this.state);
 					//data is still a wrapper object
 				}
 			});
 	}
+
+  handleMessengerToggle = (event) => {
+    this.setState({ open: !this.state.open });
+  }
 
   /**
    * Add a new user to the chat list.
@@ -170,7 +178,7 @@ class ChatClient extends Component {
   addMessage(sender_id, recipient_id, message, created_at) {
 		console.log('in addMessage, created_at: ', created_at);
     const history = this.state.messageHistory;
-		// history, newHistory: objects for each chat, with key of 
+		// history, newHistory: objects for each chat, with key of
 		//     recipient (chatID)
 		// chat: array of messages
     const newHistory = {};
@@ -192,13 +200,13 @@ class ChatClient extends Component {
         users.push(sender_id);
       }
 			// add new message from nonfriend to openChats
-			if (this.state.openChats.indexOf(sender_id) == -1) { 
+			if (this.state.openChats.indexOf(sender_id) == -1) {
         openChats.push(sender_id);
       }
     }
 
-		this.setState({ // sending/receiving from new user  
-			messageHistory: Object.assign({}, history, newHistory), 
+		this.setState({ // sending/receiving from new user
+			messageHistory: Object.assign({}, history, newHistory),
 			openChats,
 			users,
 		});
@@ -278,8 +286,8 @@ class ChatClient extends Component {
       const user = this.getUser(userID);
       const styles = {right: 250 + (275 * i) + 'px'}
       return (
-				<ChatPopup 
-					key={i} 
+				<ChatPopup
+					key={i}
 					name={user.first_name + ' ' + user.last_name}
 					currentUserId={this.props.currentUserId}
           onType={(e) => this.updateMessage(userID, e.target.value)}
@@ -297,7 +305,15 @@ class ChatClient extends Component {
 
     return (
       <div className="chat-client">
-        <ChatSidebar users={this.state.users} onClickUser={this.openChat} />
+        <RaisedButton
+          onClick={this.handleMessengerToggle}
+          label="Chat"
+          style={{position: 'fixed', right: '10px', bottom: '0px', height: '25px', width: '225px'}}
+        />
+        {this.state.open ?
+          <ChatSidebar users={this.state.users} onClickUser={this.openChat} /> :
+          <div></div>
+        }
         {chatPopups}
       </div>
     );
@@ -305,9 +321,9 @@ class ChatClient extends Component {
 }
 
 function mapStateToProps (state, ownProps) {
-	const {currentUserId, friends} = state.session; 
+	const {currentUserId, friends} = state.session;
 	return {
-		currentUserId, 
+		currentUserId,
 		friends,
 	}
 }
