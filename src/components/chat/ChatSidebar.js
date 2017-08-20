@@ -11,6 +11,11 @@ export default class ChatSidebar extends Component {
   render() {
     return (
       <div className="chat-sidebar" style={styles.chatSidebar}>
+        <button
+          style={{backgroundColor: '#7f47f5', width: '100%', height: '25px'}}
+          onClick={this.props.handleMessengerToggle}>
+          <p style={{color: 'white', fontWeight: 'bold', marginRight: '180px', marginBottom: '10px', verticalAlign: 'middle', fontSize: '12px'}}>Chat</p>
+        </button>
         <ul style={styles.chatSidebarList}>
           {this.props.users.map((user, i) =>
             <li key={i} style={styles.chatSidebarList}>

@@ -302,16 +302,33 @@ class ChatClient extends Component {
           ref={(chat) => {this.chats[userID] = chat;}}
         />);
     });
+    const onlineIcon = (
+      <span
+        style={{display: 'inline-block',
+                height: '8px',
+                width: '8px',
+                borderRadius: '20px',
+                backgroundColor: '#37da30',
+                border: 'none',
+                marginLeft: '-140px'
+               }}
+      />
+    );
 
     return (
       <div className="chat-client">
         <RaisedButton
           onClick={this.handleMessengerToggle}
           label="Chat"
+          icon={onlineIcon}
           style={{position: 'fixed', right: '10px', bottom: '0px', height: '25px', width: '225px'}}
+          labelStyle={{textTransform: 'capitalize'}}
         />
         {this.state.open ?
-          <ChatSidebar users={this.state.users} onClickUser={this.openChat} /> :
+          <ChatSidebar
+            users={this.state.users}
+            onClickUser={this.openChat}
+            handleMessengerToggle={this.handleMessengerToggle} /> :
           <div></div>
         }
         {chatPopups}
