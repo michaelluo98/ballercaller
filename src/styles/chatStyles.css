@@ -44,11 +44,11 @@
   background: #ccc;
 }
 .chat-popup header.active {
-  background: #7f47f5;
+  background: rgb(0, 188, 212);
   border-top: 1px solid transparent;
 }
 .chat-popup header.active:hover {
-  background: #6531d2;
+  background: rgb(0, 188, 212);
 }
 .chat-popup header:hover .chat-popup--close {
   opacity: 0.7;
@@ -98,14 +98,14 @@
 .chat-popup form button[type='submit'] {
   float: right;
   border: 0;
-  color: #7f47f5;
+  color: rgb(0, 188, 212);
   font-weight: 700;
   background: transparent;
   cursor: pointer;
   font-size: 13px;
 }
 .chat-popup form button[type='submit']:hover {
-  color: #6531d2;
+  color: rgb(0, 188, 212);
 }
 .chat-popup form button[type='submit']:disabled {
   color: #ccc;
@@ -122,6 +122,7 @@
   height: 235px;
   background: #fff;
   overflow-y: scroll;
+	overflow: auto;
 }
 .chat-popup--messages ul {
   margin: 8px 0;
@@ -151,7 +152,7 @@
   display: inline-block;
   min-height: 25px;
   max-width: 200px;
-  background: #7f47f5;
+  background: rgb(0, 188, 212);
   color: #fff;
   border-radius: 15px;
   font-size: 13px;
@@ -180,4 +181,23 @@
 .chat-sidebar .chat-status {
   float: right;
   margin: 5px;
+}
+
+.chat-sidebar-header-name {
+  color: white;
+  font-weight: bold;
+  margin-right: 180px;
+  display: inline;
+  vertical-align: middle;
+  font-size: 12px;
+}
+
+.chat-sidebar-header {
+  background-color: rgb(0, 188, 212) !important;
+  width: 100%;
+  height: 25px;
+}
+
+.chat-sidebar-list {
+  overflow-y: scroll;
 }

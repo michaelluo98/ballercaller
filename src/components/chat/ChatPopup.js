@@ -13,7 +13,12 @@ export default class ChatPopup extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleSend = this.handleSend.bind(this);
     this.handleMinimize = this.handleMinimize.bind(this);
+		this.scrollToBottom = this.scrollToBottom.bind(this);
   }
+
+	componentDidUpdate() {
+		this.scrollToBottom();
+	}
 
   handleFocus() {
     this.setState({focus: true}, () => {
@@ -50,6 +55,18 @@ export default class ChatPopup extends Component {
     this.props.onSend();
   }
 
+	scrollToBottom() {
+		// this way is preferable to using findDOMNode, which attaches to 
+		//		underlying DOM nodeand pierces component abstraction & 
+		//		it must already be mounted
+		if (!this.props.minimized) {
+			const scrollHeight = this.messagesContainer.scrollHeight;
+			const height = this.messagesContainer.clientHeight;
+			const maxScrollTop = scrollHeight - height;
+			this.messagesContainer.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+		}
+	}
+
   render() {
     const messageIsEmpty = (this.props.message == "");
 
@@ -77,7 +94,7 @@ export default class ChatPopup extends Component {
         </header>
         {!this.props.minimized &&
           <div>
-            <div className="chat-popup--messages">
+						<div className="chat-popup--messages" ref={(el) => { this.messagesContainer = el; }}>
               <ul>{messageHistory}</ul>
             </div>
             <form>
