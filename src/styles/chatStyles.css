@@ -57,7 +57,7 @@
   float: right;
   height: 14px;
   width: 14px;
-  /*background: url("close.svg") no-repeat;*/
+  background: url("close.svg") no-repeat;
   background-size: 10px 10px;
   background-position: center;
   opacity: 0;
