@@ -54,6 +54,11 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			})
 			return Object.assign({}, state, {favorites: newFavorites})
 
+		case types.LOAD_ALL_MESSAGES_SUCCESS: 
+			const messageHistory = action.messages;
+			console.log('messageHistory object in loadAllMessagesReducer: ', messageHistory);
+			return Object.assign({}, state, {messageHistory});
+
     default:
       return state;
   }

@@ -33,7 +33,7 @@ class ChatClient extends Component {
       messagesTyped: {},
       open: false,
     };
-    this.chats = {};
+		this.chats = {}; // ??? what is this.chats
 
     // Bind class functions
     this.addUser = this.addUser.bind(this);
@@ -52,20 +52,20 @@ class ChatClient extends Component {
 
 	componentDidMount() {
 		this.props.sessionActions.getUserFriends(this.props.currentUserId);
-		this.loadAllMessages();
+		this.props.sessionActions.loadAllMessages(this.props.currentUserId);
 		this.setUpSubscription();
 	}
 
+	// ??? do not need because no need to coordinate redux state to component state
 	componentWillReceiveProps(nextProps) {
 		if (this.props.friends.length !== nextProps.friends.length) {
 			//console.log('changing the state of the users !!!');
 			this.setState({users: nextProps.friends})
 		}
-		// ??? this.setState({messageHistory: nextProps.messages})
-		//console.log('cahnging the state of the messageHistory!!!');
 	}
 
-	loadAllMessages() {
+	// this.props.sessionActions.loadAllMessages(currentUserId);
+	/*loadAllMessages() {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`
 		})
@@ -77,7 +77,7 @@ class ChatClient extends Component {
 				console.log('messages in loadAllMessages: ', res.messages);
 				this.setState({messageHistory: res.messages});
 			})
-	}
+	}*/
 
 	sendMessageAPI(currentUserId, recipientId, message) {
 		console.log('--------- in sendMessageAPI');
@@ -282,7 +282,7 @@ class ChatClient extends Component {
   }
 
   render() {
-    const chatPopups = this.state.openChats.map((userID, i) => {
+    const chatPopups = this.props.openChats.map((userID, i) => {
       const user = this.getUser(userID);
       const styles = {right: 250 + (275 * i) + 'px'}
       return (
@@ -294,8 +294,8 @@ class ChatClient extends Component {
           onSend={() => this.sendMessage(userID)}
           onClose={() => this.closeChat(userID)}
           onMinimize={() => this.toggleChat(userID)}
-          message={this.state.messagesTyped[userID]}
-          history={this.state.messageHistory[userID]}
+          message={this.props.messagesTyped[userID]}
+          history={this.props.messageHistory[userID]}
           online={user.status}
           minimized={user.minimized}
           style={styles}
@@ -326,7 +326,7 @@ class ChatClient extends Component {
         />
         {this.state.open ?
           <ChatSidebar
-            users={this.state.users}
+            users={this.props.friends}
             onClickUser={this.openChat}
 						handleMessengerToggle={this.handleMessengerToggle} 
 						minimized={this.state.open} /> :
@@ -339,10 +339,19 @@ class ChatClient extends Component {
 }
 
 function mapStateToProps (state, ownProps) {
-	const {currentUserId, friends} = state.session;
+	const {
+		currentUserId, 
+		friends, 
+		openChats, 
+		messageHistory, 
+		messagesTyped
+	} = state.session;
 	return {
 		currentUserId,
 		friends,
+		openChats, 
+		messageHistory, 
+		messagesTyped
 	}
 }
 

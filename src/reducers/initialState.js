@@ -18,6 +18,9 @@ export const sessionInitialState = {
 	currentUserId: sessionStorage.currentUserId || 0,
 	favorites: [], 
 	friends: [], 
+	openChats: [], 
+	messageHistory: {}, 
+	messagesTyped: {},
 	requests: []
 }
 

@@ -8,7 +8,6 @@ import ManageGamePage from './game/ManageGamePage';
 import ManageProfilePage from './profile/ManageProfilePage';
 import LoginPage from './authentication/logInPage';
 import SignUpPage from './authentication/signUpPage';
-import TestPage from './TestPage';
 import history from './history';
 
 class App extends Component {
@@ -34,7 +33,6 @@ class App extends Component {
               <Route exact path="/login" component={LoginPage} />
 							<Route exact path="/profile/:id" component={ManageProfilePage} />
 							<Route exact path="/signup" component={SignUpPage} />
-							<Route exact path="/test" component={TestPage} />
 							<Route exact path="/game"
 								onEnter={this.requireAuth()}
                 component={ManageGamePage}

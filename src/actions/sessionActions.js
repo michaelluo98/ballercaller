@@ -31,6 +31,10 @@ export function getUserFriendsSuccess(friends) {
 	return {type: types.GET_USER_FRIENDS_SUCCESS, friends}
 }
 
+export function loadAllMessagesSuccess(messages) {
+	return {type: types.LOAD_ALL_MESSAGES_SUCCESS, messages}
+}
+
 
 function addCurrentUser(dispatch, credentials) {
   fetch(`${BASE_URL}/users/${credentials.email}`)
@@ -46,20 +50,6 @@ export function removeFromFavorites(player) {
 	}
 }
 
-/*export function getUserFriends(id) {
-	return function(dispatch) {
-		const headers = new Headers({
-			'Authorization':`Apikey ${API_KEY}`
-		})
-		fetch(`${BASE_URL}/users/${id}/friendships`, {headers}) 
-			.then(res => res.json())
-			.then(res => {
-				//console.log('res friends in getUserFriends: ', res.friends)
-				//console.log('res requests in getUserFriends: ', res.requests)
-				dispatch(getUserFriendsSuccess(res.friends, res.requests))
-			})
-	}
-}*/
 
 export function getFavorites(id) {
 	// console.log('id in getFavorites: ', id)
@@ -136,6 +126,7 @@ export function logOutUser() {
   return {type: types.LOG_OUT}
 }
 
+
 export function getUserFriends(currentUserId) {
   return function (dispatch) {
     const headers = new Headers({
@@ -148,3 +139,18 @@ export function getUserFriends(currentUserId) {
     })
   }
 }
+
+export function loadAllMessages(currentUserId) {
+	return function (dispatch) {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`
+		})
+		fetch(`${BASE_URL}/friendships/${currentUserId}/directmessages`, {headers})
+			.then(res => res.json())
+			.then(res => {
+				console.log('messages in loadAllMessages: ', res.messages); 
+				dispatch(loadAllMessagesSuccess(res.messages));
+			})
+	}
+}
+
