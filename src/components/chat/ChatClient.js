@@ -45,7 +45,7 @@ class ChatClient extends Component {
     this.closeChat = this.closeChat.bind(this);
 
 		this.setUpSubscription = this.setUpSubscription.bind(this);
-		this.loadAllMessages = this.loadAllMessages.bind(this);
+		//this.loadAllMessages = this.loadAllMessages.bind(this);
 		this.sendMessageAPI = this.sendMessageAPI.bind(this);
     this.handleMessengerToggle = this.handleMessengerToggle.bind(this);
   }
@@ -54,6 +54,7 @@ class ChatClient extends Component {
 		this.props.sessionActions.getUserFriends(this.props.currentUserId);
 		this.props.sessionActions.loadAllMessages(this.props.currentUserId);
 		this.setUpSubscription();
+		console.log('this.chats: ', this.chats);
 	}
 
 	// ??? do not need because no need to coordinate redux state to component state
@@ -164,7 +165,7 @@ class ChatClient extends Component {
    * @returns {object|null}
    */
   getUser(userID) {
-    const users = this.state.users.filter((u) => u.id === userID);
+    const users = this.props.friends.filter((u) => u.id === userID);
     return users.length ? users[0] : null;
   }
 
@@ -240,22 +241,25 @@ class ChatClient extends Component {
    * Opens a chat popup for a given user
    * @param {string} userID
    */
-  openChat(userID) {
+  async openChat(userID) {
 
-    const chatIdx = this.state.openChats.indexOf(userID);
-    const openChats = this.state.openChats.slice();
+    /*const chatIdx = this.props.openChats.indexOf(userID);
+    const openChats = this.props.openChats.slice();
 
     if (chatIdx === -1) {
       openChats.push(userID);
     }
 
-    const users = this.state.users.slice();
+    const users = this.props.friends.slice();
     const user = this.getUser(userID);
-    user.minimized = false;
+    user.minimized = false;*/
 
-    this.setState({openChats, users}, () => {
+		await this.props.sessionActions.openChat(this.props.openChats, this.props.friends, userID);
+
+    this.chats[userID].handleFocus();
+    /*this.setState({openChats, users}, () => {
       this.chats[userID].handleFocus();
-    });
+    });*/
   }
 
   /**
@@ -299,7 +303,7 @@ class ChatClient extends Component {
           online={user.status}
           minimized={user.minimized}
           style={styles}
-          ref={(chat) => {this.chats[userID] = chat;}}
+					ref={(chat) => { this.chats[userID] = chat; }}
         />);
     });
     const onlineIcon = (

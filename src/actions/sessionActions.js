@@ -35,6 +35,10 @@ export function loadAllMessagesSuccess(messages) {
 	return {type: types.LOAD_ALL_MESSAGES_SUCCESS, messages}
 }
 
+export function openChatSuccess(openChats, friends) {
+	return {type: types.OPEN_CHAT_SUCCESS, openChats, friends}
+}
+
 
 function addCurrentUser(dispatch, credentials) {
   fetch(`${BASE_URL}/users/${credentials.email}`)
@@ -151,6 +155,37 @@ export function loadAllMessages(currentUserId) {
 				console.log('messages in loadAllMessages: ', res.messages); 
 				dispatch(loadAllMessagesSuccess(res.messages));
 			})
+	}
+}
+
+// getUser(str, arr) gets a user from the arr of users by userId str
+// returns user object or null
+function getUser(userID, users) {
+	const friends = users.filter((u) => u.id === userID);
+	return friends.length ? Object.assign({}, friends[0]) : null;
+}
+
+export function openChat(openChats, friends, userID) {
+	return function (dispatch) {
+    const chatIdx = openChats.indexOf(userID);
+    const newOpenChats = openChats.slice();
+
+    if (chatIdx === -1) {
+      newOpenChats.push(userID);
+    }
+
+		const newUsers = friends.map((u) => {
+			if (u.id === userID) {
+				const newUser = Object.assign({}, u);
+				newUser.minimized = false; 
+				return newUser;
+			} 
+			else {
+				return u;
+			}
+		})
+
+		dispatch(openChatSuccess(newOpenChats, newUsers));
 	}
 }
 

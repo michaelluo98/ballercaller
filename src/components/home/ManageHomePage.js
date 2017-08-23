@@ -306,7 +306,6 @@ function mapStateToProps(state, ownProps) {
 	const {games, courts, creators, teams} = state.games;
 	const {playersOne, playersTwo} = state.games;
 	const {currentUserId} = state.session;
-	console.log('currentUserId: ', currentUserId);
 	return {
 		game: game,
 		allCourts,

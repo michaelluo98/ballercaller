@@ -59,6 +59,10 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			console.log('messageHistory object in loadAllMessagesReducer: ', messageHistory);
 			return Object.assign({}, state, {messageHistory});
 
+		case types.OPEN_CHAT_SUCCESS: 
+			const {openChats, friends} = action;
+			return Object.assign({}, state, {openChats, friends});
+
     default:
       return state;
   }
