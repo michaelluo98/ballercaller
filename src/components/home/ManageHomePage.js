@@ -7,6 +7,7 @@ import SearchForm from './searchform/SearchForm';
 import GameBox from './gamebox/GameBox';
 import Calendar from './tabs/ManageCalendarPage';
 import GameList from './gamebox/GameList';
+import ChatClient from '../chat/ChatClient';
 import Paper from 'material-ui/Paper';
 //import {NavLink} from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
@@ -48,9 +49,9 @@ class ManageHomePage extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.currentUserId) {
+		/*if (this.props.currentUserId) {
 			this.props.sessionActions.getUserFriends(this.props.currentUserId);
-		}
+		}*/
 	}
 
 	handleOpenBar() {
@@ -291,6 +292,8 @@ class ManageHomePage extends Component {
 				>
 					{this.displayGame()}
 				</Dialog>
+
+				<ChatClient />	
 			</div>
 		)
 	}

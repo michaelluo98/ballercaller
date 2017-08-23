@@ -8,6 +8,7 @@ import sessionApi from '../../api/sessionApi';
 import SelectProfileView from './selectProfileView';
 import ProfileView from './ProfileView';
 import ProfileButton from './ProfileButton';
+import ChatClient from '../chat/ChatClient';
 
 import styles from '../styles/profileStyle';
 import moment from 'moment'
@@ -237,6 +238,8 @@ class ProfilePage extends Component {
 				>
 					{this.displayGame()}
 				</Dialog>
+
+				<ChatClient />
 			</div>
 		)
 	}

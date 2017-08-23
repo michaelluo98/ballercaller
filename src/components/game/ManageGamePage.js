@@ -6,6 +6,7 @@ import * as gameActions from '../../actions/gameActions';
 import * as sessionActions from '../../actions/sessionActions';
 import GameForm from './GameForm';
 import ShowGame from './ShowGame';
+import ChatClient from '../chat/ChatClient';
 import AddPlayerButtons from './AddPlayerButtons';
 import gameStyles from '../styles/gameStyles';
 
@@ -146,6 +147,8 @@ class ManageGamePage extends Component {
 					playersTwo={this.state.playersTwo}
 					handleChange={this.updateTeamState}
 					favorites={this.props.favorites} />
+
+				<ChatClient />
 			</div>
 		);
 	}
