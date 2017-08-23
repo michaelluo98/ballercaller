@@ -328,7 +328,8 @@ class ChatClient extends Component {
           <ChatSidebar
             users={this.state.users}
             onClickUser={this.openChat}
-            handleMessengerToggle={this.handleMessengerToggle} /> :
+						handleMessengerToggle={this.handleMessengerToggle} 
+						minimized={this.state.open} /> :
           <div></div>
         }
         {chatPopups}

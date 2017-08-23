@@ -10,10 +10,13 @@ export default class ChatSidebar extends Component {
 
   render() {
     return (
-      <div className="chat-sidebar" style={styles.chatSidebar}>
-        <button className="chat-sidebar-header" onClick={this.props.handleMessengerToggle}>
+			<div
+				className="chat-sidebar" style={styles.chatSidebar}
+			>
+				<header 
+					onClick={this.props.handleMessengerToggle}>
           <p className='chat-sidebar-header-name'>Chat</p>
-        </button>
+        </header>
         <div className="chat-sidebar-list">
           <ul style={styles.chatSidebarList}>
             {this.props.users.map((user, i) =>
