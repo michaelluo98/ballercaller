@@ -39,6 +39,14 @@ export function openChatSuccess(openChats, friends) {
 	return {type: types.OPEN_CHAT_SUCCESS, openChats, friends}
 }
 
+export function closeChatSuccess(openChats) {
+	return {type: types.CLOSE_CHAT_SUCCESS, openChats} 
+}
+
+export function toggleChatSuccess(friends) {
+	return {type: types.TOGGLE_CHAT_SUCCESS, friends};
+}
+
 
 function addCurrentUser(dispatch, credentials) {
   fetch(`${BASE_URL}/users/${credentials.email}`)
@@ -165,6 +173,21 @@ function getUser(userID, users) {
 	return friends.length ? Object.assign({}, friends[0]) : null;
 }
 
+function handleMinimize(userID, users, toggle) {
+	const newUsers = users.map((u) => {
+		if (u.id === userID) {
+			const newUser = Object.assign({}, u);
+			// if not toggle, then it is openChat
+			newUser.minimized = toggle ? !newUser.minimized : false;
+			return newUser;
+		}
+		else {
+			return u;
+		}
+	})
+	return newUsers;
+}
+
 export function openChat(openChats, friends, userID) {
 	return function (dispatch) {
     const chatIdx = openChats.indexOf(userID);
@@ -173,8 +196,9 @@ export function openChat(openChats, friends, userID) {
     if (chatIdx === -1) {
       newOpenChats.push(userID);
     }
+		const newUsers = handleMinimize(userID, friends, false);
 
-		const newUsers = friends.map((u) => {
+		/*const newUsers = friends.map((u) => {
 			if (u.id === userID) {
 				const newUser = Object.assign({}, u);
 				newUser.minimized = false; 
@@ -183,9 +207,32 @@ export function openChat(openChats, friends, userID) {
 			else {
 				return u;
 			}
-		})
+		})*/
 
 		dispatch(openChatSuccess(newOpenChats, newUsers));
+	}
+}
+
+export function closeChat(openChats, userID) {
+	return function (dispatch) {
+    const chatIdx = openChats.indexOf(userID);
+    if (chatIdx == -1) return;
+    const newOpenChats = openChats.slice();
+    newOpenChats.splice(chatIdx, 1);
+		dispatch(closeChatSuccess(newOpenChats));
+	}
+}
+
+export function toggleChat(users, userID) {
+	return function (dispatch) {
+		const newUsers = handleMinimize(userID, users, true);
+		dispatch(toggleChatSuccess(newUsers));
+		
+    /*const user = this.getUser(userID);
+    const users = this.state.users.slice();
+    user.minimized = !user.minimized;
+    this.setState({users});*/
+
 	}
 }
 

@@ -63,6 +63,14 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			const {openChats, friends} = action;
 			return Object.assign({}, state, {openChats, friends});
 
+		case types.CLOSE_CHAT_SUCCESS: 
+			const newOpenChats = action.openChats; 
+			return Object.assign({}, state, {openChats: newOpenChats});
+
+		case types.TOGGLE_CHAT_SUCCESS: 
+			const newToggledFriends = action.friends;
+			return Object.assign({}, state, {friends: newToggledFriends});
+
     default:
       return state;
   }

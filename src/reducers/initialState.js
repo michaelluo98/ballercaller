@@ -20,7 +20,6 @@ export const sessionInitialState = {
 	friends: [], 
 	openChats: [], 
 	messageHistory: {}, 
-	messagesTyped: {},
 	requests: []
 }
 

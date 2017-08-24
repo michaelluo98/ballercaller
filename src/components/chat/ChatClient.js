@@ -45,7 +45,6 @@ class ChatClient extends Component {
     this.closeChat = this.closeChat.bind(this);
 
 		this.setUpSubscription = this.setUpSubscription.bind(this);
-		//this.loadAllMessages = this.loadAllMessages.bind(this);
 		this.sendMessageAPI = this.sendMessageAPI.bind(this);
     this.handleMessengerToggle = this.handleMessengerToggle.bind(this);
   }
@@ -54,7 +53,6 @@ class ChatClient extends Component {
 		this.props.sessionActions.getUserFriends(this.props.currentUserId);
 		this.props.sessionActions.loadAllMessages(this.props.currentUserId);
 		this.setUpSubscription();
-		console.log('this.chats: ', this.chats);
 	}
 
 	// ??? do not need because no need to coordinate redux state to component state
@@ -65,21 +63,7 @@ class ChatClient extends Component {
 		}
 	}
 
-	// this.props.sessionActions.loadAllMessages(currentUserId);
-	/*loadAllMessages() {
-		const headers = new Headers({
-			'Authorization':`Apikey ${API_KEY}`
-		})
-		fetch(`${BASE_URL}/friendships/${this.props.currentUserId}/directmessages`, {headers})
-			.then(res => {
-				return res.json();
-			})
-			.then(res => {
-				console.log('messages in loadAllMessages: ', res.messages);
-				this.setState({messageHistory: res.messages});
-			})
-	}*/
-
+	// handling inside component because need to call addMessage as a callback
 	sendMessageAPI(currentUserId, recipientId, message) {
 		console.log('--------- in sendMessageAPI');
 			const headers = new Headers({
@@ -127,7 +111,6 @@ class ChatClient extends Component {
 					const {new_message} = data;
 					this.addMessage(new_message.sender_id, new_message.recipient_id,
 													new_message.message, new_message.created_at)
-					//console.log('state after: ', this.state);
 					//data is still a wrapper object
 				}
 			});
@@ -242,24 +225,8 @@ class ChatClient extends Component {
    * @param {string} userID
    */
   async openChat(userID) {
-
-    /*const chatIdx = this.props.openChats.indexOf(userID);
-    const openChats = this.props.openChats.slice();
-
-    if (chatIdx === -1) {
-      openChats.push(userID);
-    }
-
-    const users = this.props.friends.slice();
-    const user = this.getUser(userID);
-    user.minimized = false;*/
-
 		await this.props.sessionActions.openChat(this.props.openChats, this.props.friends, userID);
-
     this.chats[userID].handleFocus();
-    /*this.setState({openChats, users}, () => {
-      this.chats[userID].handleFocus();
-    });*/
   }
 
   /**
@@ -267,11 +234,7 @@ class ChatClient extends Component {
    * @param {string} userID
    */
   closeChat(userID) {
-    const chatIdx = this.state.openChats.indexOf(userID);
-    if (chatIdx == -1) return;
-    const openChats = this.state.openChats.slice();
-    openChats.splice(chatIdx, 1);
-    this.setState({openChats});
+		this.props.sessionActions.closeChat(this.props.openChats, userID);
   }
 
   /**
@@ -279,10 +242,7 @@ class ChatClient extends Component {
    * @param {string} userID
    */
   toggleChat(userID) {
-    const user = this.getUser(userID);
-    const users = this.state.users.slice();
-    user.minimized = !user.minimized;
-    this.setState({users});
+		this.props.sessionActions.toggleChat(this.props.friends, userID);
   }
 
   render() {
@@ -298,7 +258,7 @@ class ChatClient extends Component {
           onSend={() => this.sendMessage(userID)}
           onClose={() => this.closeChat(userID)}
           onMinimize={() => this.toggleChat(userID)}
-          message={this.props.messagesTyped[userID]}
+          message={this.state.messagesTyped[userID]}
           history={this.props.messageHistory[userID]}
           online={user.status}
           minimized={user.minimized}
