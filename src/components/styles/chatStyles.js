@@ -44,6 +44,15 @@ const chatStyles = {
 		background: '#37da30', 
 		border: 'none'
 	}, 
+	chatOnlineIcon: {
+    display: 'inline-block',
+    height: '8px',
+    width: '8px',
+    borderRadius: '20px',
+    backgroundColor: '#37da30',
+    border: 'none',
+    marginLeft: '-140px'
+	}
 }
 
 export default chatStyles;

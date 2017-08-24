@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as sessionActions from '../../actions/sessionActions';
 import ChatPopup from "./ChatPopup";
 import ChatSidebar from "./ChatSidebar";
-import styles from '../../styles/chatStyles.css'
+import chatStyles from '../styles/chatStyles';
 import Popover from 'material-ui/Popover/Popover';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -21,6 +21,7 @@ const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71a
 // 3. is it too slow to wait for the data that comes back from the API? any way
 //    to just update once in a while? e.g. replace the data at with API loadedMessages
 
+// a lot of the implementation is hidden in sessionActions
 class ChatClient extends Component {
   constructor(props) {
     super(props);
@@ -38,14 +39,12 @@ class ChatClient extends Component {
     // Bind class functions
     this.addUser = this.addUser.bind(this);
     this.setUserOffline = this.setUserOffline.bind(this);
-    this.addMessage = this.addMessage.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
     this.openChat = this.openChat.bind(this);
     this.closeChat = this.closeChat.bind(this);
 
 		this.setUpSubscription = this.setUpSubscription.bind(this);
-		this.sendMessageAPI = this.sendMessageAPI.bind(this);
     this.handleMessengerToggle = this.handleMessengerToggle.bind(this);
   }
 
@@ -63,34 +62,8 @@ class ChatClient extends Component {
 		}
 	}
 
-	// handling inside component because need to call addMessage as a callback
-	sendMessageAPI(currentUserId, recipientId, message) {
-		console.log('--------- in sendMessageAPI');
-			const headers = new Headers({
-				'Authorization':`Apikey ${API_KEY}`,
-				'Accept':'application/json',
-				'Content-Type':'application/json'
-			})
-		fetch(`${BASE_URL}/friendships/${currentUserId}/${recipientId}/directmessages/send`, {
-			headers,
-			method: 'POST',
-			body: JSON.stringify({message: message})
-		})
-		.then(res => res.json()).then(res => {
-			console.log('res in sendMessageAPI: ', res.message)
-			this.addMessage(res.message.sender_id, res.message.recipient_id, res.message.message, res.created_at);
-		})
-	}
-
-
-    // Initialize API with event callbacks
-    // this.API = new ChatAPI({
-    //   onReceiveMessage: this.addMessage,
-    //   onNewConnection: this.addUser,
-    //   onDisconnect: this.setUserOffline,
-    // });
-    //
-    // this.API.connect();
+	// need to add onNewConnection: this.addUser 
+	// onDisonnect: this.setUserOffline
 	setUpSubscription() {
 		ACApp.cable.subscriptions.create({channel: 'MessagesChannel',
 			room_id: this.props.currentUserId}, {
@@ -109,8 +82,14 @@ class ChatClient extends Component {
 					// Called when theres incoming data on the websocket for this channel
 					console.log('received data from subscription: ', data);
 					const {new_message} = data;
-					this.addMessage(new_message.sender_id, new_message.recipient_id,
-													new_message.message, new_message.created_at)
+					this.props.sessionActions.addMessage(
+						new_message.sender_id, new_message.recipient_id, 
+						new_message.message, new_message.created_at, 
+						this.props.currentUserId, this.props.messageHistory, 
+						this.props.friends, this.props.openChats
+					)
+					/*this.addMessage(new_message.sender_id, new_message.recipient_id,
+													new_message.message, new_message.created_at)*/
 					//data is still a wrapper object
 				}
 			});
@@ -153,51 +132,6 @@ class ChatClient extends Component {
   }
 
   /**
-   * Adds a message to the chat history
-   * @param {string} sender - the userID of the message's sender
-   * @param {string} recipient - the userID of the message's recipient
-   * @param {string} content - the message itself
-   * @param {number} timestamp - the unix time of the message
-   */
-  addMessage(sender_id, recipient_id, message, created_at) {
-		console.log('in addMessage, created_at: ', created_at);
-    const history = this.state.messageHistory;
-		// history, newHistory: objects for each chat, with key of
-		//     recipient (chatID)
-		// chat: array of messages
-    const newHistory = {};
-    const chatID = (sender_id.toString() === this.props.currentUserId) ? recipient_id : sender_id;
-		// either creating a new chat or appending to old chat
-    const chat = history[chatID] ? history[chatID].slice() : [];
-    chat.push({sender_id, recipient_id, message, created_at});
-    newHistory[chatID] = chat;
-		/*console.log('oldHistory in addMessage', history);
-		console.log('history to add in addMessage: ', newHistory);
-		console.log('newHistory in addMessage', Object.assign({}, history, newHistory));*/
-
-    const users = this.state.users.slice();
-    const openChats = this.state.openChats.slice();
-
-		// unless receiving data from API, sender will not be equal to currentUser
-		if (sender_id.toString() !== this.props.currentUserId) {
-			if (!this.getUser(sender_id)) { // receiving message from non-friend
-        users.push(sender_id);
-      }
-			// add new message from nonfriend to openChats
-			if (this.state.openChats.indexOf(sender_id) == -1) {
-        openChats.push(sender_id);
-      }
-    }
-
-		this.setState({ // sending/receiving from new user
-			messageHistory: Object.assign({}, history, newHistory),
-			openChats,
-			users,
-		});
-
-  }
-
-  /**
    * Update the current message being typed for a given chat
    * @param {string} chatID
    * @param {string} message
@@ -216,7 +150,10 @@ class ChatClient extends Component {
   sendMessage(chatID) {
     const message = this.state.messagesTyped[chatID];
     if (!message) return;
-		this.sendMessageAPI(this.props.currentUserId, chatID, message)
+		this.props.sessionActions.sendMessage(
+			this.props.currentUserId, chatID, message, this.props.messageHistory,
+			this.props.friends, this.props.openChats
+		);
     this.updateMessage(chatID, "", true);
   }
 
@@ -267,16 +204,7 @@ class ChatClient extends Component {
         />);
     });
     const onlineIcon = (
-      <span
-        style={{display: 'inline-block',
-                height: '8px',
-                width: '8px',
-                borderRadius: '20px',
-                backgroundColor: '#37da30',
-                border: 'none',
-                marginLeft: '-140px'
-               }}
-      />
+      <span style={chatStyles.chatOnlineIcon} />
     );
 
     return (
@@ -308,14 +236,12 @@ function mapStateToProps (state, ownProps) {
 		friends, 
 		openChats, 
 		messageHistory, 
-		messagesTyped
 	} = state.session;
 	return {
 		currentUserId,
 		friends,
 		openChats, 
 		messageHistory, 
-		messagesTyped
 	}
 }
 

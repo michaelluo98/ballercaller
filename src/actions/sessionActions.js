@@ -47,6 +47,15 @@ export function toggleChatSuccess(friends) {
 	return {type: types.TOGGLE_CHAT_SUCCESS, friends};
 }
 
+export function addMessageSuccess(newMessageHistory, newUsers, newOpenChats) {
+	return {
+		type: types.ADD_MESSAGE_SUCCESS, 
+		newMessageHistory, 
+		newUsers, 
+		newOpenChats
+	}
+}
+
 
 function addCurrentUser(dispatch, credentials) {
   fetch(`${BASE_URL}/users/${credentials.email}`)
@@ -198,17 +207,6 @@ export function openChat(openChats, friends, userID) {
     }
 		const newUsers = handleMinimize(userID, friends, false);
 
-		/*const newUsers = friends.map((u) => {
-			if (u.id === userID) {
-				const newUser = Object.assign({}, u);
-				newUser.minimized = false; 
-				return newUser;
-			} 
-			else {
-				return u;
-			}
-		})*/
-
 		dispatch(openChatSuccess(newOpenChats, newUsers));
 	}
 }
@@ -227,12 +225,60 @@ export function toggleChat(users, userID) {
 	return function (dispatch) {
 		const newUsers = handleMinimize(userID, users, true);
 		dispatch(toggleChatSuccess(newUsers));
-		
-    /*const user = this.getUser(userID);
-    const users = this.state.users.slice();
-    user.minimized = !user.minimized;
-    this.setState({users});*/
+	}
+}
 
+// still need to find a way to get all users and pull from it 
+export function addMessage(sender_id, recipient_id, message, created_at,
+													currentUserId, messageHistory, users, openChats) {
+	return function (dispatch) {
+		const newMessageHistory = {}; 
+		const chatID = (sender_id.toString() === currentUserId) ? recipient_id : sender_id;
+		// either creating a new chat or appending to old chat
+		const chat = messageHistory[chatID] ? messageHistory[chatID].slice() : []; 
+		chat.push({sender_id, recipient_id, message, created_at}); 
+		newMessageHistory[chatID] = chat; 
+		
+		console.log('in addMessage!!!');
+	
+		const newUsers = users.slice(); 
+		const newOpenChats = openChats.slice(); 
+		// unless receiving data from API, sender will not be equal to currentUser
+		if (sender_id.toString() !== currentUserId) {
+			if (!getUser(sender_id, users)) { // receiving message from non-friend
+				// ??? need to find and push an entirely new user
+        newUsers.push(sender_id);
+      }
+			// add new message from nonfriend to openChats
+			if (openChats.indexOf(sender_id) == -1) {
+        newOpenChats.push(sender_id);
+      }
+    }
+		dispatch(addMessageSuccess(newMessageHistory, newUsers, newOpenChats));
+	}
+}
+
+export function sendMessage(currentUserId, recipientId, message, 
+														messageHistory, users, openChats) {
+	return function (dispatch) {
+		const headers = new Headers({
+			'Authorization':`Apikey ${API_KEY}`,
+			'Accept':'application/json',
+			'Content-Type':'application/json'
+		})
+		fetch(`${BASE_URL}/friendships/${currentUserId}/${recipientId}/directmessages/send`, {
+			headers,
+			method: 'POST',
+			body: JSON.stringify({message: message})
+		})
+		.then(res => res.json()).then(res => {
+			console.log('res in sendMessage action: ', res.message)
+			dispatch(addMessage(
+					res.message.sender_id, res.message.recipient_id, 
+					res.message.message, res.created_at, currentUserId,
+					messageHistory, users, openChats
+				));
+		})
 	}
 }
 
