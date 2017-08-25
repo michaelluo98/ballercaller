@@ -133,6 +133,8 @@ export function logInUser(credentials) {
         sessionStorage.setItem('jwt', response.jwt);
         // dispatch(push('/'));
         addCurrentUser(dispatch, credentials);
+				// ??? need to broadcast to all other users onNewConnection
+				// change status of the user
         // dispatch(loginSuccess(credentials));
       }
     }).catch(error => {
@@ -144,6 +146,7 @@ export function logInUser(credentials) {
 export function logOutUser() {
   sessionStorage.removeItem('jwt');
   sessionStorage.removeItem('currentUserId')
+	// ??? need to broadcast onDisconnect
   return {type: types.LOG_OUT}
 }
 
@@ -247,7 +250,8 @@ export function addMessage(sender_id, recipient_id, message, created_at,
 		if (sender_id.toString() !== currentUserId) {
 			if (!getUser(sender_id, users)) { // receiving message from non-friend
 				// ??? need to find and push an entirely new user
-        newUsers.push(sender_id);
+				const newUser = findUser(sender_id);
+        newUsers.push(newUser);
       }
 			// add new message from nonfriend to openChats
 			if (openChats.indexOf(sender_id) == -1) {
@@ -282,3 +286,13 @@ export function sendMessage(currentUserId, recipientId, message,
 	}
 }
 
+function findUser(userID) {
+	const headers = new Headers({
+		'Authorization':`Apikey ${API_KEY}`
+	})
+	fetch(`${BASE_URL}/users/find/${userID}`, {headers})
+		.then(res => {
+			console.log('res in findUser actions: ', res);
+			return res.user;
+		})
+}

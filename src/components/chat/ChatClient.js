@@ -15,26 +15,17 @@ ACApp.cable = ActionCable.createConsumer('ws://localhost:3000/cable')
 
 const BASE_URL = 'http://localhost:3000/api/v1';
 const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71ae";
-// todo:
-// 1. need to seperate API calls? loadAllMessages, sendMessageAPI?
-// 2. why is the created_at being received from the API undefined?
-// 3. is it too slow to wait for the data that comes back from the API? any way
-//    to just update once in a while? e.g. replace the data at with API loadedMessages
 
-// a lot of the implementation is hidden in sessionActions
+// Implementation is hidden in sessionActions
 class ChatClient extends Component {
   constructor(props) {
     super(props);
 
-    // Initial state
     this.state = {
-      users: this.props.friends || [],
-			openChats: [], // arr of chatIDs
-			messageHistory: {}, // obj w/ chatID keys, and arr of msg objs
       messagesTyped: {},
       open: false,
     };
-		this.chats = {}; // ??? what is this.chats
+		this.chats = {}; 
 
     // Bind class functions
     this.addUser = this.addUser.bind(this);
@@ -52,14 +43,6 @@ class ChatClient extends Component {
 		this.props.sessionActions.getUserFriends(this.props.currentUserId);
 		this.props.sessionActions.loadAllMessages(this.props.currentUserId);
 		this.setUpSubscription();
-	}
-
-	// ??? do not need because no need to coordinate redux state to component state
-	componentWillReceiveProps(nextProps) {
-		if (this.props.friends.length !== nextProps.friends.length) {
-			//console.log('changing the state of the users !!!');
-			this.setState({users: nextProps.friends})
-		}
 	}
 
 	// need to add onNewConnection: this.addUser 
@@ -80,7 +63,6 @@ class ChatClient extends Component {
 
 				received: (data) => {
 					// Called when theres incoming data on the websocket for this channel
-					console.log('received data from subscription: ', data);
 					const {new_message} = data;
 					this.props.sessionActions.addMessage(
 						new_message.sender_id, new_message.recipient_id, 
@@ -88,8 +70,6 @@ class ChatClient extends Component {
 						this.props.currentUserId, this.props.messageHistory, 
 						this.props.friends, this.props.openChats
 					)
-					/*this.addMessage(new_message.sender_id, new_message.recipient_id,
-													new_message.message, new_message.created_at)*/
 					//data is still a wrapper object
 				}
 			});
@@ -103,8 +83,10 @@ class ChatClient extends Component {
    * Add a new user to the chat list.
    * @param {object} user - A user object containing `username` and `id`
    */
+	// ??? make sure to connect the dots on the addUser 
   addUser(user) {
-    const users = this.state.users.slice();
+		this.props.sessionActions.addUser(user)
+    const users = this.props.users.slice();
     user.online = true;
     users.push(user);
     this.setState({users});
