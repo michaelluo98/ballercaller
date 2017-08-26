@@ -63,6 +63,10 @@ export function addUserSuccess(newUsers) {
 	}
 }
 
+export function setUserOfflineSuccess(newUsers) {
+	return { type: types.SET_USER_OFFLINE_SUCCESS, newUsers }
+}
+
 
 function addCurrentUser(dispatch, credentials) {
   fetch(`${BASE_URL}/users/${credentials.email}`)
@@ -130,7 +134,6 @@ export function getCurrentUser(id) {
 export function logInUser(credentials) {
   return function(dispatch) {
     return sessionApi.login(credentials).then(response => {
-			console.log('response jwt', response.jwt);
       if (response.jwt === undefined) {
         // history.push('/');
         // dispatch(push('/game'));
@@ -151,9 +154,19 @@ export function logInUser(credentials) {
 }
 
 export function logOutUser() {
+	const headers = new Headers({
+		'Authorization':`Apikey ${API_KEY}`, 
+		'Accept':'application/json',
+		'Content-Type':'application/json'
+	})
+	fetch(`${BASE_URL}/logout/${sessionStorage.currentUserId}`, {
+		headers, 
+		method: 'PATCH'
+	}) 
+
   sessionStorage.removeItem('jwt');
   sessionStorage.removeItem('currentUserId')
-	// ??? need to broadcast onDisconnect
+	// ??? need to completely clear the store
   return {type: types.LOG_OUT}
 }
 
@@ -238,7 +251,18 @@ export function toggleChat(users, userID) {
 	}
 }
 
-// still need to find a way to get all users and pull from it 
+// for when a non-friend sends message
+function findUser(userID) {
+	const headers = new Headers({
+		'Authorization':`Apikey ${API_KEY}`
+	})
+	fetch(`${BASE_URL}/users/find/${userID}`, {headers})
+		.then(res => {
+			console.log('res in findUser actions: ', res);
+			return res.user;
+		})
+}
+
 export function addMessage(sender_id, recipient_id, message, created_at,
 													currentUserId, messageHistory, users, openChats) {
 	return function (dispatch) {
@@ -291,7 +315,7 @@ export function sendMessage(currentUserId, recipientId, message,
 	}
 }
 
-/*function updateUserAPI(userID, status) {
+function updateUserAPI(userID, status) {
 	const headers = new Headers({
 		'Authorization':`Apikey ${API_KEY}`,
 		'Accept':'application/json',
@@ -299,7 +323,7 @@ export function sendMessage(currentUserId, recipientId, message,
 	})
 	fetch(`${BASE_URL}/users/${userID}/${status}`, { headers, method: 'POST' })
 	
-}*/
+}
 
 export function addUser(user, friends) {
 	return function (dispatch) {
@@ -320,17 +344,16 @@ export function addUser(user, friends) {
 			dispatch(addUserSuccess(newUsers));
 		}
 	}
-
 }
 
-// for when a non-friend sends message
-function findUser(userID) {
-	const headers = new Headers({
-		'Authorization':`Apikey ${API_KEY}`
-	})
-	fetch(`${BASE_URL}/users/find/${userID}`, {headers})
-		.then(res => {
-			console.log('res in findUser actions: ', res);
-			return res.user;
+export function setUserOffline(user, friends) {
+	return function(dispatch) {
+		const newFriends = friends.slice().filter((u) => {
+			return u.id !== user.id
 		})
+		newFriends.push(user);
+		dispatch(setUserOfflineSuccess(newFriends));
+	}
+
 }
+

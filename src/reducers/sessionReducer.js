@@ -81,6 +81,10 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			const usersWithAdded = action.newUsers; 
 			return Object.assign({}, state, {friends: usersWithAdded});
 
+		case types.SET_USER_OFFLINE_SUCCESS: 
+			const usersWithOffline = action.newUsers;
+			return Object.assign({}, state, {friends: usersWithOffline});
+
     default:
       return state;
   }

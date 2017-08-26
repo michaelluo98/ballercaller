@@ -28,7 +28,6 @@ class ChatClient extends Component {
 		this.chats = {}; 
 
     // Bind class functions
-    this.setUserOffline = this.setUserOffline.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
     this.openChat = this.openChat.bind(this);
@@ -44,25 +43,15 @@ class ChatClient extends Component {
 		this.setUpSubscription();
 	}
 
-	// need to add onNewConnection: this.addUser 
-	// onDisonnect: this.setUserOffline
 	setUpSubscription() {
 		ACApp.cable.subscriptions.create({channel: 'MessagesChannel',
 			room_id: this.props.currentUserId}, {
 				message_id: this.state.message_id,
 				connected: function () {
-					//Called when the subscription is ready for use on the server
-					console.log('successfully established subscription connection');
-
-				},
-
-				disconnected: () => {
-					// Called when the subscription has been terminated by the server
+					console.log('successfully connected to personal chatroom');
 				},
 
 				received: (data) => {
-					// Called when theres incoming data on the websocket for this channel
-					console.log('--------------- data received: ', data);
 					const {new_message} = data;
 					this.props.sessionActions.addMessage(
 						new_message.sender_id, new_message.recipient_id, 
@@ -70,18 +59,21 @@ class ChatClient extends Component {
 						this.props.currentUserId, this.props.messageHistory, 
 						this.props.friends, this.props.openChats
 					)
-					//data is still a wrapper object
 				}
 			});
 
 		ACApp.cable.subscriptions.create({channel: 'GeneralChannel'}, {
 			connected: () => {
-
+				console.log('successfully connected to general channel');
 			}, 
+
 			received: (data) => {
-				console.log('-----------data received in general channel', data);
-				if (data.user) {
+				console.log('--------------- data received: ', data);
+				if (data.status) {
 					this.props.sessionActions.addUser(data.user, this.props.friends);
+				}
+				else {
+					this.props.sessionActions.setUserOffline(data.user, this.props.friends);
 				}
 			}
 		})
@@ -93,16 +85,6 @@ class ChatClient extends Component {
     this.setState({ open: !this.state.open });
   }
 
-  /**
-   * Set a user's status to offline.
-   * @param {string} userID
-   */
-  setUserOffline(userID) {
-    const user = Object.assign({}, this.getUser(userID), {online: false});
-    const users = this.state.users.filter(u => u.id !== userID);
-    users.push(user);
-    this.setState({users});
-  }
 
   /**
    * Get a user from the list
