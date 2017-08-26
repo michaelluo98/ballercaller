@@ -84,14 +84,12 @@ export function removeFromFavorites(player) {
 
 
 export function getFavorites(id) {
-	// console.log('id in getFavorites: ', id)
 	return function(dispatch) {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`
 		})
 		fetch(`${BASE_URL}/users/${id}/favorites`, {headers})
 			.then(res => res.json()).then(res => {
-				// console.log('favorites in getFavorites: ', res.favorites)
 				dispatch(getFavoritesSuccess(res.favorites));
 			})
 	}
@@ -143,7 +141,6 @@ export function logInUser(credentials) {
         sessionStorage.setItem('jwt', response.jwt);
         // dispatch(push('/'));
         addCurrentUser(dispatch, credentials);
-				// ??? need to broadcast to all other users onNewConnection
 				// change status of the user
         // dispatch(loginSuccess(credentials));
       }

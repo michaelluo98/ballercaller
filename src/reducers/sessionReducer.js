@@ -2,7 +2,7 @@ import * as types from '../actions/actionTypes';
 import {sessionInitialState} from './initialState';
 
 export default function sessionReducer(state = sessionInitialState, action, dispatch) {
-  switch(action.type) {
+  switch (action.type) {
 
     case types.LOG_IN_SUCCESS:
 			const currentUser = action.currentUser;
@@ -20,7 +20,8 @@ export default function sessionReducer(state = sessionInitialState, action, disp
         currentUser: {},
         currentUserId: 0
       }
-      return Object.assign({}, state, loggedOutState)
+			//return Object.assign({}, state, loggedOutState)
+			return Object.assign({}, sessionInitialState, loggedOutState);
 
 		case types.SIGN_UP_USER_SUCCESS: 
 			const signedUpUserState = {

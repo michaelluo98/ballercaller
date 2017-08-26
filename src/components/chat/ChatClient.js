@@ -38,9 +38,19 @@ class ChatClient extends Component {
   }
 
 	componentDidMount() {
-		this.props.sessionActions.getUserFriends(this.props.currentUserId);
-		this.props.sessionActions.loadAllMessages(this.props.currentUserId);
 		this.setUpSubscription();
+		if (this.props.currentUserId !== 0) {
+			this.props.sessionActions.getUserFriends(this.props.currentUserId);
+			this.props.sessionActions.loadAllMessages(this.props.currentUserId);
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.currentUserId.toString() !== nextProps.currentUserId) {
+			this.props.sessionActions.getUserFriends(nextProps.currentUserId);
+			this.props.sessionActions.loadAllMessages(nextProps.currentUserId);
+		}
+
 	}
 
 	setUpSubscription() {
