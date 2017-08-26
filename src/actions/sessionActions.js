@@ -260,14 +260,14 @@ function findUser(userID) {
 		})
 }
 
-export function addMessage(sender_id, recipient_id, message, created_at,
-													currentUserId, messageHistory, users, openChats) {
-	return function (dispatch) {
-		const newMessageHistory = {}; 
+export function addMessage(id, sender_id, recipient_id, message, created_at,
+													currentUserId, messageHistory, users, openChats, dispatch) {
+		const newMessageHistory = Object.assign({}, messageHistory);
 		const chatID = (sender_id.toString() === currentUserId) ? recipient_id : sender_id;
+		delete newMessageHistory[recipient_id]
 		// either creating a new chat or appending to old chat
-		const chat = messageHistory[chatID] ? messageHistory[chatID].slice() : []; 
-		chat.push({sender_id, recipient_id, message, created_at}); 
+		const chat = messageHistory[chatID] ? messageHistory[recipient_id].slice() : [];
+		chat.push({id, sender_id, recipient_id, message, created_at}); 
 		newMessageHistory[chatID] = chat; 
 		
 		const newUsers = users.slice(); 
@@ -285,7 +285,6 @@ export function addMessage(sender_id, recipient_id, message, created_at,
       }
     }
 		dispatch(addMessageSuccess(newMessageHistory, newUsers, newOpenChats));
-	}
 }
 
 export function sendMessage(currentUserId, recipientId, message, 
@@ -303,11 +302,11 @@ export function sendMessage(currentUserId, recipientId, message,
 		})
 		.then(res => res.json()).then(res => {
 			console.log('res in sendMessage action: ', res.message)
-			dispatch(addMessage(
-					res.message.sender_id, res.message.recipient_id, 
+			addMessage(
+					res.id, res.message.sender_id, res.message.recipient_id, 
 					res.message.message, res.created_at, currentUserId,
-					messageHistory, users, openChats
-				));
+					messageHistory, users, openChats, dispatch
+				);
 		})
 	}
 }
