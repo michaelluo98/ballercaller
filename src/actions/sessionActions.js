@@ -56,6 +56,13 @@ export function addMessageSuccess(newMessageHistory, newUsers, newOpenChats) {
 	}
 }
 
+export function addUserSuccess(newUsers) {
+	return {
+		type: types.ADD_USER_SUCCESS, 
+		newUsers
+	}
+}
+
 
 function addCurrentUser(dispatch, credentials) {
   fetch(`${BASE_URL}/users/${credentials.email}`)
@@ -119,11 +126,11 @@ export function getCurrentUser(id) {
   }
 }
 
-
+// ??? findUser is duplicate of getCurrentUser 
 export function logInUser(credentials) {
   return function(dispatch) {
     return sessionApi.login(credentials).then(response => {
-			//console.log('response jwt', response.jwt);
+			console.log('response jwt', response.jwt);
       if (response.jwt === undefined) {
         // history.push('/');
         // dispatch(push('/game'));
@@ -242,8 +249,6 @@ export function addMessage(sender_id, recipient_id, message, created_at,
 		chat.push({sender_id, recipient_id, message, created_at}); 
 		newMessageHistory[chatID] = chat; 
 		
-		console.log('in addMessage!!!');
-	
 		const newUsers = users.slice(); 
 		const newOpenChats = openChats.slice(); 
 		// unless receiving data from API, sender will not be equal to currentUser
@@ -286,6 +291,39 @@ export function sendMessage(currentUserId, recipientId, message,
 	}
 }
 
+/*function updateUserAPI(userID, status) {
+	const headers = new Headers({
+		'Authorization':`Apikey ${API_KEY}`,
+		'Accept':'application/json',
+		'Content-Type':'application/json'
+	})
+	fetch(`${BASE_URL}/users/${userID}/${status}`, { headers, method: 'POST' })
+	
+}*/
+
+export function addUser(user, friends) {
+	return function (dispatch) {
+		const checkIfFriend = friends.filter((u) => {
+			return u.id === user.id
+		});
+		if (checkIfFriend.length) {
+			const updatedFriend = Object.assign({}, checkIfFriend[0]);
+			updatedFriend.status = true; 
+			const updatedFriends = friends.slice().filter((u) => u.id !== user.id);
+			updatedFriends.push(updatedFriend);
+			dispatch(addUserSuccess(updatedFriends));
+		}
+		else {
+			const newUsers = friends.slice(); 
+			user.status = true; 
+			newUsers.push(user);
+			dispatch(addUserSuccess(newUsers));
+		}
+	}
+
+}
+
+// for when a non-friend sends message
 function findUser(userID) {
 	const headers = new Headers({
 		'Authorization':`Apikey ${API_KEY}`

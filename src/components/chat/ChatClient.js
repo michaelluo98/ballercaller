@@ -28,7 +28,6 @@ class ChatClient extends Component {
 		this.chats = {}; 
 
     // Bind class functions
-    this.addUser = this.addUser.bind(this);
     this.setUserOffline = this.setUserOffline.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
@@ -63,6 +62,7 @@ class ChatClient extends Component {
 
 				received: (data) => {
 					// Called when theres incoming data on the websocket for this channel
+					console.log('--------------- data received: ', data);
 					const {new_message} = data;
 					this.props.sessionActions.addMessage(
 						new_message.sender_id, new_message.recipient_id, 
@@ -73,23 +73,24 @@ class ChatClient extends Component {
 					//data is still a wrapper object
 				}
 			});
+
+		ACApp.cable.subscriptions.create({channel: 'GeneralChannel'}, {
+			connected: () => {
+
+			}, 
+			received: (data) => {
+				console.log('-----------data received in general channel', data);
+				if (data.user) {
+					this.props.sessionActions.addUser(data.user, this.props.friends);
+				}
+			}
+		})
+
 	}
+
 
   handleMessengerToggle = (event) => {
     this.setState({ open: !this.state.open });
-  }
-
-  /**
-   * Add a new user to the chat list.
-   * @param {object} user - A user object containing `username` and `id`
-   */
-	// ??? make sure to connect the dots on the addUser 
-  addUser(user) {
-		this.props.sessionActions.addUser(user)
-    const users = this.props.users.slice();
-    user.online = true;
-    users.push(user);
-    this.setState({users});
   }
 
   /**

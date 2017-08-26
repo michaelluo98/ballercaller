@@ -77,6 +77,10 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 																			 friends: newUsers, 
 																			 openChats: newOpenChats});
 
+		case types.ADD_USER_SUCCESS: 
+			const usersWithAdded = action.newUsers; 
+			return Object.assign({}, state, {friends: usersWithAdded});
+
     default:
       return state;
   }
