@@ -6,15 +6,11 @@ import * as sessionActions from '../../actions/sessionActions';
 import ChatPopup from "./ChatPopup";
 import ChatSidebar from "./ChatSidebar";
 import chatStyles from '../styles/chatStyles';
-import Popover from 'material-ui/Popover/Popover';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const ActionCable = require('actioncable');
 const ACApp = {};
-ACApp.cable = ActionCable.createConsumer('ws://localhost:3000/cable')
-
-const BASE_URL = 'http://localhost:3000/api/v1';
-const API_KEY = "472ae3d392ae9778f4d7601948113dad046ce1a9fbe6d539ef341a16742d71ae";
+ACApp.cable = ActionCable.createConsumer('wss://ballercaller-api.herokuapp.com/cable')
 
 // Implementation is hidden in sessionActions
 class ChatClient extends Component {
@@ -25,7 +21,7 @@ class ChatClient extends Component {
       messagesTyped: {},
       open: false,
     };
-		this.chats = {}; 
+		this.chats = {};
 
     // Bind class functions
     this.sendMessage = this.sendMessage.bind(this);
@@ -64,9 +60,9 @@ class ChatClient extends Component {
 				received: (data) => {
 					const {new_message} = data;
 					this.props.sessionActions.addMessage(
-						new_message.sender_id, new_message.recipient_id, 
-						new_message.message, new_message.created_at, 
-						this.props.currentUserId, this.props.messageHistory, 
+						new_message.sender_id, new_message.recipient_id,
+						new_message.message, new_message.created_at,
+						this.props.currentUserId, this.props.messageHistory,
 						this.props.friends, this.props.openChats
 					)
 				}
@@ -75,10 +71,9 @@ class ChatClient extends Component {
 		ACApp.cable.subscriptions.create({channel: 'GeneralChannel'}, {
 			connected: () => {
 				console.log('successfully connected to general channel');
-			}, 
+			},
 
 			received: (data) => {
-				console.log('--------------- data received: ', data);
 				if (data.status) {
 					this.props.sessionActions.addUser(data.user, this.props.friends);
 				}
@@ -135,8 +130,8 @@ class ChatClient extends Component {
   /**
    * Opens a chat popup for a given user
    * @param {string} userID
-   */
-  async openChat(userID) {
+	 */
+	async openChat(userID) {
 		await this.props.sessionActions.openChat(this.props.openChats, this.props.friends, userID);
     this.chats[userID].handleFocus();
   }
@@ -195,7 +190,7 @@ class ChatClient extends Component {
           <ChatSidebar
             users={this.props.friends}
             onClickUser={this.openChat}
-						handleMessengerToggle={this.handleMessengerToggle} 
+						handleMessengerToggle={this.handleMessengerToggle}
 						minimized={this.state.open} /> :
           <div></div>
         }
@@ -207,16 +202,16 @@ class ChatClient extends Component {
 
 function mapStateToProps (state, ownProps) {
 	const {
-		currentUserId, 
-		friends, 
-		openChats, 
-		messageHistory, 
+		currentUserId,
+		friends,
+		openChats,
+		messageHistory,
 	} = state.session;
 	return {
 		currentUserId,
 		friends,
-		openChats, 
-		messageHistory, 
+		openChats,
+		messageHistory,
 	}
 }
 

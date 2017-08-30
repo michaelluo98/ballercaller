@@ -1,8 +1,8 @@
-const BASE_URL = "http://localhost:3000/api/v1";
+const BASE_URL = "https://ballercaller-api.herokuapp.com/api/v1";
 
 class SessionApi {
   static login(credentials) {
-    const request = new Request('http://localhost:3000/api/v1/login', {
+    const request = new Request(`${BASE_URL}/login`, {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -19,13 +19,13 @@ class SessionApi {
   }
 
   static getCurrentUser(credentials) {
-    console.log('getCurrentUser credentials:', credentials);
+		// console.log('getCurrentUser credentials:', credentials);
     fetch(`${BASE_URL}/users/${credentials.email}`)
       .then(res => res.json())
   }
 
 	static getUserGames(userId) {
-		return fetch(`http://localhost:3000/api/v1/users/${userId}/history`)
+		return fetch(`${BASE_URL}/users/${userId}/history`)
 			.then(res => {
 				/*console.log(res.json());*/
 				return res.json();

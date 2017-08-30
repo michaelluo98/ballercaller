@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {findDOMNode} from "react-dom";
+// eslint-disable-next-line
 import styles from '../../styles/chatStyles.css'
 
 //todo: onupdate of new message need to be able to scroll to the bottom 
@@ -68,12 +69,12 @@ export default class ChatPopup extends Component {
 	}
 
   render() {
-    const messageIsEmpty = (this.props.message == "");
+    const messageIsEmpty = (this.props.message === "");
 
 		const receivedMessageHistory = this.props.history || [] 
 
     let messageHistory = receivedMessageHistory.map((msg, i) =>
-			<li key={i} className={`${msg.recipient_id === parseInt(this.props.currentUserId) 
+			<li key={i} className={`${msg.recipient_id === parseInt(this.props.currentUserId, 10) 
 					? "received" : "sent"}`}>
         <span className="chat-popup--message">
           {msg.message}
@@ -82,7 +83,7 @@ export default class ChatPopup extends Component {
     );
 
     return (
-      <div className={`chat-popup ${this.props.minimized ? "minimized" : ""}`}
+      <div className={`chat-popup ${!this.props.minimized ? "minimized" : ""}`}
         style={this.props.style}
         onClick={this.handleFocus}
         onBlur={this.handleBlur}

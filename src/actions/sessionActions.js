@@ -4,7 +4,7 @@ import sessionApi from '../api/sessionApi';
 //import {PropTypes} from 'prop-types';
 //import { push } from 'react-router-redux';
 
-const BASE_URL = 'http://localhost:3000/api/v1';
+const BASE_URL = 'https://ballercaller-api.herokuapp.com/api/v1';
 const API_KEY = "ec8c6cb96a1e1457440eda7ffc21a046c6b4c1558adfebef1d1a213b9f0b46da";
 
 export function loginSuccess(currentUser) {
@@ -234,7 +234,7 @@ export function openChat(openChats, friends, userID) {
 export function closeChat(openChats, userID) {
 	return function (dispatch) {
     const chatIdx = openChats.indexOf(userID);
-    if (chatIdx == -1) return;
+    if (chatIdx === -1) return;
     const newOpenChats = openChats.slice();
     newOpenChats.splice(chatIdx, 1);
 		dispatch(closeChatSuccess(newOpenChats));
@@ -280,7 +280,7 @@ export function addMessage(id, sender_id, recipient_id, message, created_at,
         newUsers.push(newUser);
       }
 			// add new message from nonfriend to openChats
-			if (openChats.indexOf(sender_id) == -1) {
+			if (openChats.indexOf(sender_id) === -1) {
         newOpenChats.push(sender_id);
       }
     }
@@ -311,15 +311,14 @@ export function sendMessage(currentUserId, recipientId, message,
 	}
 }
 
-function updateUserAPI(userID, status) {
+/*function updateUserAPI(userID, status) {
 	const headers = new Headers({
 		'Authorization':`Apikey ${API_KEY}`,
 		'Accept':'application/json',
 		'Content-Type':'application/json'
 	})
 	fetch(`${BASE_URL}/users/${userID}/${status}`, { headers, method: 'POST' })
-	
-}
+}*/
 
 export function addUser(user, friends) {
 	return function (dispatch) {

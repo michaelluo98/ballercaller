@@ -15,10 +15,6 @@ import {
 
 injectTapEventPlugin();
 
-//const initialState = {
-//	games: []
-//}
-
 const store = configureStore();
 store.dispatch(loadCourts());
 store.dispatch(loadGames());

@@ -6,7 +6,6 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 
     case types.LOG_IN_SUCCESS:
 			const currentUser = action.currentUser;
-			//console.log('sessionStorage.currentUserId', sessionStorage.currentUserId);
       const loggedInState = {
         session: !!sessionStorage.jwt,
         currentUser,
@@ -20,7 +19,6 @@ export default function sessionReducer(state = sessionInitialState, action, disp
         currentUser: {},
         currentUserId: 0
       }
-			//return Object.assign({}, state, loggedOutState)
 			return Object.assign({}, sessionInitialState, loggedOutState);
 
 		case types.SIGN_UP_USER_SUCCESS: 
@@ -32,8 +30,6 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			return Object.assign({}, state, signedUpUserState)
 
 		case types.GET_USER_FRIENDS_SUCCESS: 
-			//console.log('friends in reducer: ', action.friends) 
-			//console.log('requests in reducer: ', action.requests) 
 			const newFriendsState = {
 				friends: action.friends, 
 				requests: action.requests
@@ -41,7 +37,6 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			return Object.assign({}, state, newFriendsState)
 
     case types.GET_CURRENT_USER_SUCCESS:
-			//console.log('user in GET_CURRENT_USER_SUCCESS', action.user);
       return Object.assign({}, state, {currentUser: action.user});
 
 		case types.GET_FAVORITES_SUCCESS:
