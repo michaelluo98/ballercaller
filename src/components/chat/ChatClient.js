@@ -42,7 +42,10 @@ class ChatClient extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.props.currentUserId.toString() !== nextProps.currentUserId) {
+		if (nextProps.currentUserId &&
+      this.props.currentUserId.toString() !== nextProps.currentUserId) {
+			console.log(this.props.currentUserId); 
+			console.log(nextProps.currentUserId);
 			this.props.sessionActions.getUserFriends(nextProps.currentUserId);
 			this.props.sessionActions.loadAllMessages(nextProps.currentUserId);
 		}

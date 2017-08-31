@@ -21,17 +21,17 @@ export default function sessionReducer(state = sessionInitialState, action, disp
       }
 			return Object.assign({}, sessionInitialState, loggedOutState);
 
-		case types.SIGN_UP_USER_SUCCESS: 
+		case types.SIGN_UP_USER_SUCCESS:
 			const signedUpUserState = {
 				session: !!sessionStorage.jwt,
-				currentUser: action.newUser, 
+				currentUser: action.newUser,
 				currentUserId: sessionStorage.currentUserId
 			}
 			return Object.assign({}, state, signedUpUserState)
 
-		case types.GET_USER_FRIENDS_SUCCESS: 
+		case types.GET_USER_FRIENDS_SUCCESS:
 			const newFriendsState = {
-				friends: action.friends, 
+				friends: action.friends,
 				requests: action.requests
 			}
 			return Object.assign({}, state, newFriendsState)
@@ -41,6 +41,7 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 
 		case types.GET_FAVORITES_SUCCESS:
 			const {favorites} = action;
+      console.log('favorites in reducer: ', favorites);
 			return Object.assign({}, state, {favorites})
 
 		case types.REMOVE_FROM_FAVORITES_SUCCESS:
@@ -50,34 +51,34 @@ export default function sessionReducer(state = sessionInitialState, action, disp
 			})
 			return Object.assign({}, state, {favorites: newFavorites})
 
-		case types.LOAD_ALL_MESSAGES_SUCCESS: 
+		case types.LOAD_ALL_MESSAGES_SUCCESS:
 			const messageHistory = action.messages;
 			console.log('messageHistory object in loadAllMessagesReducer: ', messageHistory);
 			return Object.assign({}, state, {messageHistory});
 
-		case types.OPEN_CHAT_SUCCESS: 
+		case types.OPEN_CHAT_SUCCESS:
 			const {openChats, friends} = action;
 			return Object.assign({}, state, {openChats, friends});
 
-		case types.CLOSE_CHAT_SUCCESS: 
-			const newClosedOpenChats = action.openChats; 
+		case types.CLOSE_CHAT_SUCCESS:
+			const newClosedOpenChats = action.openChats;
 			return Object.assign({}, state, {openChats: newClosedOpenChats});
 
-		case types.TOGGLE_CHAT_SUCCESS: 
+		case types.TOGGLE_CHAT_SUCCESS:
 			const newToggledFriends = action.friends;
 			return Object.assign({}, state, {friends: newToggledFriends});
 
-		case types.ADD_MESSAGE_SUCCESS: 
+		case types.ADD_MESSAGE_SUCCESS:
 			const {newMessageHistory, newUsers, newOpenChats} = action;
-			return Object.assign({}, state, {messageHistory: newMessageHistory, 
-																			 friends: newUsers, 
+			return Object.assign({}, state, {messageHistory: newMessageHistory,
+																			 friends: newUsers,
 																			 openChats: newOpenChats});
 
-		case types.ADD_USER_SUCCESS: 
-			const usersWithAdded = action.newUsers; 
+		case types.ADD_USER_SUCCESS:
+			const usersWithAdded = action.newUsers;
 			return Object.assign({}, state, {friends: usersWithAdded});
 
-		case types.SET_USER_OFFLINE_SUCCESS: 
+		case types.SET_USER_OFFLINE_SUCCESS:
 			const usersWithOffline = action.newUsers;
 			return Object.assign({}, state, {friends: usersWithOffline});
 

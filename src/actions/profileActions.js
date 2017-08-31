@@ -1,6 +1,6 @@
-import * as types from './actionTypes'; 
+import * as types from './actionTypes';
 
-const BASE_URL = 'https://ballercaller-api.herokuapp.com/api/v1';
+const BASE_URL = "http://localhost:3000/api/v1";
 const API_KEY = "ec8c6cb96a1e1457440eda7ffc21a046c6b4c1558adfebef1d1a213b9f0b46da";
 
 export function getProfileUserSuccess(profileUser) {
@@ -24,22 +24,22 @@ export function updateFriendshipStatusSuccess(friendshipStatus) {
 }
 
 export function getHistoryGamesSuccess(history) {
-	return { 
-		type: types.GET_HISTORY_GAMES_SUCCESS, 
-		historyGames: history.historyGames, 
-		historyCourts: history.historyCourts, 
+	return {
+		type: types.GET_HISTORY_GAMES_SUCCESS,
+		historyGames: history.historyGames,
+		historyCourts: history.historyCourts,
 		historyCreators: history.historyCreators
 	}
 }
 
 export function getUpcomingGamesSuccess(upcoming) {
 	return {
-		type: types.GET_UPCOMING_GAMES_SUCCESS, 
-		upcomingGames: upcoming.upcomingGames, 
-		upcomingCourts: upcoming.upcomingCourts, 
+		type: types.GET_UPCOMING_GAMES_SUCCESS,
+		upcomingGames: upcoming.upcomingGames,
+		upcomingCourts: upcoming.upcomingCourts,
 		upcomingCreators: upcoming.upcomingCreators
 	}
-} 
+}
 
 
 export function getProfileUser(id) {
@@ -59,7 +59,7 @@ export function getProfileFriends(id) {
 		const headers = new Headers({
 			'Authorization':`Apikey ${API_KEY}`
 		})
-		fetch(`${BASE_URL}/users/${id}/friendships`, {headers}) 
+		fetch(`${BASE_URL}/users/${id}/friendships`, {headers})
 			.then(res => res.json())
 			.then(res => {
 				dispatch(getProfileFriendsSuccess(res.friends, res.requests))
@@ -79,7 +79,7 @@ export function getFriendshipStatus(currentUserId, profileUserId) {
 			'Authorization':`Apikey ${API_KEY}`
 		})
 		fetch(`${BASE_URL}/users/${currentUserId}/friendships/${profileUserId}/status`
-			, {headers}) 
+			, {headers})
 			.then(res => res.json())
 			.then(res => {
 				dispatch(getFriendshipStatusSuccess(res.friendship_status));
@@ -99,7 +99,7 @@ export function getUpcomingGames(profileUserId) {
 			'Authorization':`Apikey ${API_KEY}`
 		})
 		fetch(`${BASE_URL}/users/${profileUserId}/upcomingindex`
-			, {headers}) 
+			, {headers})
 			.then(res => res.json())
 			.then(res => {
 				console.log('res in getUpcomingGames: ', res)
@@ -114,7 +114,7 @@ export function getHistoryGames(profileUserId) {
 			'Authorization':`Apikey ${API_KEY}`
 		})
 		fetch(`${BASE_URL}/users/${profileUserId}/historyindex`
-			, {headers}) 
+			, {headers})
 			.then(res => res.json())
 			.then(res => {
 				console.log('res in getHistoryGames: ', res)
