@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api/v1";
+const BASE_URL = "https://ballercaller-api.herokuapp.com/api/v1/api/v1";
 
 class SessionApi {
   static login(credentials) {
