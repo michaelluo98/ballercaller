@@ -44,8 +44,8 @@ class ChatClient extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.currentUserId &&
       this.props.currentUserId.toString() !== nextProps.currentUserId) {
-			console.log(this.props.currentUserId); 
-			console.log(nextProps.currentUserId);
+      //console.log(this.props.currentUserId); 
+      //console.log(nextProps.currentUserId);
 			this.props.sessionActions.getUserFriends(nextProps.currentUserId);
 			this.props.sessionActions.loadAllMessages(nextProps.currentUserId);
 		}
@@ -87,7 +87,6 @@ class ChatClient extends Component {
 		})
 
 	}
-
 
   handleMessengerToggle = (event) => {
     this.setState({ open: !this.state.open });

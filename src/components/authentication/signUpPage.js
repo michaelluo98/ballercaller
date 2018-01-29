@@ -9,7 +9,6 @@ import SignUpInfo from './signUpInfo';
 import SignUpContact from './signUpContact';
 import styles from '../styles/signUpStyles';
 
-
 // need to have form in the first child component of route so router 
 //     can push new history 
 class SignUpPage extends Component {

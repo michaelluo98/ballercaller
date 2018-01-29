@@ -4,7 +4,8 @@ import sessionApi from '../api/sessionApi';
 //import {PropTypes} from 'prop-types';
 //import { push } from 'react-router-redux';
 
-const BASE_URL = "https://ballercaller-api.herokuapp.com/api/v1/api/v1";
+const BASE_URL = "https://ballercaller-api.herokuapp.com/api/v1";
+// const BASE_URL = "https://ballercaller-api.herokuapp.com/api/v1";
 const API_KEY = "ec8c6cb96a1e1457440eda7ffc21a046c6b4c1558adfebef1d1a213b9f0b46da";
 
 export function loginSuccess(currentUser) {
@@ -40,7 +41,7 @@ export function openChatSuccess(openChats, friends) {
 }
 
 export function closeChatSuccess(openChats) {
-	return {type: types.CLOSE_CHAT_SUCCESS, openChats} 
+	return {type: types.CLOSE_CHAT_SUCCESS, openChats}
 }
 
 export function toggleChatSuccess(friends) {
@@ -49,16 +50,16 @@ export function toggleChatSuccess(friends) {
 
 export function addMessageSuccess(newMessageHistory, newUsers, newOpenChats) {
 	return {
-		type: types.ADD_MESSAGE_SUCCESS, 
-		newMessageHistory, 
-		newUsers, 
+		type: types.ADD_MESSAGE_SUCCESS,
+		newMessageHistory,
+		newUsers,
 		newOpenChats
 	}
 }
 
 export function addUserSuccess(newUsers) {
 	return {
-		type: types.ADD_USER_SUCCESS, 
+		type: types.ADD_USER_SUCCESS,
 		newUsers
 	}
 }
@@ -99,7 +100,7 @@ export function getFavorites(id) {
 export function signUpUser(user) {
 	return async (dispatch) => {
 		const headers = new Headers({
-			'Authorization':`Apikey ${API_KEY}`, 
+			'Authorization':`Apikey ${API_KEY}`,
 			'Accept':'application/json',
 			'Content-Type':'application/json'
 		})
@@ -129,7 +130,7 @@ export function getCurrentUser(id) {
   }
 }
 
-// ??? findUser is duplicate of getCurrentUser 
+// ??? findUser is duplicate of getCurrentUser
 export function logInUser(credentials) {
   return function(dispatch) {
     return sessionApi.login(credentials).then(response => {
@@ -153,14 +154,14 @@ export function logInUser(credentials) {
 
 export function logOutUser() {
 	const headers = new Headers({
-		'Authorization':`Apikey ${API_KEY}`, 
+		'Authorization':`Apikey ${API_KEY}`,
 		'Accept':'application/json',
 		'Content-Type':'application/json'
 	})
 	fetch(`${BASE_URL}/logout/${sessionStorage.currentUserId}`, {
-		headers, 
+		headers,
 		method: 'PATCH'
-	}) 
+	})
 
   sessionStorage.removeItem('jwt');
   sessionStorage.removeItem('currentUserId')
@@ -190,7 +191,7 @@ export function loadAllMessages(currentUserId) {
 		fetch(`${BASE_URL}/friendships/${currentUserId}/directmessages`, {headers})
 			.then(res => res.json())
 			.then(res => {
-				console.log('messages in loadAllMessages: ', res.messages); 
+				console.log('messages in loadAllMessages: ', res.messages);
 				dispatch(loadAllMessagesSuccess(res.messages));
 			})
 	}
@@ -268,11 +269,11 @@ export function addMessage(id, sender_id, recipient_id, message, created_at,
 		delete newMessageHistory[recipient_id]
 		// either creating a new chat or appending to old chat
 		const chat = messageHistory[chatID] ? messageHistory[recipient_id].slice() : [];
-		chat.push({id, sender_id, recipient_id, message, created_at}); 
-		newMessageHistory[chatID] = chat; 
-		
-		const newUsers = users.slice(); 
-		const newOpenChats = openChats.slice(); 
+		chat.push({id, sender_id, recipient_id, message, created_at});
+		newMessageHistory[chatID] = chat;
+
+		const newUsers = users.slice();
+		const newOpenChats = openChats.slice();
 		// unless receiving data from API, sender will not be equal to currentUser
 		if (sender_id.toString() !== currentUserId) {
 			if (!getUser(sender_id, users)) { // receiving message from non-friend
@@ -288,7 +289,7 @@ export function addMessage(id, sender_id, recipient_id, message, created_at,
 		dispatch(addMessageSuccess(newMessageHistory, newUsers, newOpenChats));
 }
 
-export function sendMessage(currentUserId, recipientId, message, 
+export function sendMessage(currentUserId, recipientId, message,
 														messageHistory, users, openChats) {
 	return function (dispatch) {
 		const headers = new Headers({
@@ -304,7 +305,7 @@ export function sendMessage(currentUserId, recipientId, message,
 		.then(res => res.json()).then(res => {
 			console.log('res in sendMessage action: ', res.message)
 			addMessage(
-					res.id, res.message.sender_id, res.message.recipient_id, 
+					res.id, res.message.sender_id, res.message.recipient_id,
 					res.message.message, res.created_at, currentUserId,
 					messageHistory, users, openChats, dispatch
 				);
@@ -328,14 +329,14 @@ export function addUser(user, friends) {
 		});
 		if (checkIfFriend.length) {
 			const updatedFriend = Object.assign({}, checkIfFriend[0]);
-			updatedFriend.status = true; 
+			updatedFriend.status = true;
 			const updatedFriends = friends.slice().filter((u) => u.id !== user.id);
 			updatedFriends.push(updatedFriend);
 			dispatch(addUserSuccess(updatedFriends));
 		}
 		else {
-			const newUsers = friends.slice(); 
-			user.status = true; 
+			const newUsers = friends.slice();
+			user.status = true;
 			newUsers.push(user);
 			dispatch(addUserSuccess(newUsers));
 		}
@@ -352,4 +353,3 @@ export function setUserOffline(user, friends) {
 	}
 
 }
-

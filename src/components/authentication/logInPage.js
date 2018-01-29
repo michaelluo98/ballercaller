@@ -89,4 +89,6 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(sessionActions, dispatch)
   };
 }
+
+// TODO: export connect(mapDispatchToProps)
 export default connect(null, mapDispatchToProps)(LogInPage);
