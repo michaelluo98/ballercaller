@@ -1,4 +1,4 @@
-const BASE_URL = "https://ballercaller-api.herokuapp.com/api/v1";
+const BASE_URL = "http://localhost:3000/api/v1";
 // const BASE_URL = "https://ballercaller-api.herokuapp.com/api/v1";
 const API_KEY = "ec8c6cb96a1e1457440eda7ffc21a046c6b4c1558adfebef1d1a213b9f0b46da";
 
