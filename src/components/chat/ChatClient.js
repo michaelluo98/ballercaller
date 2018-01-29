@@ -10,7 +10,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const ActionCable = require('actioncable');
 const ACApp = {};
-ACApp.cable = ActionCable.createConsumer('wss://ballercaller-api.herokuapp.com/cable')
+// ACApp.cable = ActionCable.createConsumer('wss://ballercaller-api.herokuapp.com/cable')
+ACApp.cable = ActionCable.createConsumer('wss://localhost:3000/cable')
 
 // Implementation is hidden in sessionActions
 class ChatClient extends Component {
@@ -44,7 +45,7 @@ class ChatClient extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.currentUserId &&
       this.props.currentUserId.toString() !== nextProps.currentUserId) {
-      //console.log(this.props.currentUserId); 
+      //console.log(this.props.currentUserId);
       //console.log(nextProps.currentUserId);
 			this.props.sessionActions.getUserFriends(nextProps.currentUserId);
 			this.props.sessionActions.loadAllMessages(nextProps.currentUserId);
